@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.12",
+    "chart.js": "^4.4.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-router-dom": "^6.16.0",
+    "sass": "^1.69.0",
+    "scss": "^0.2.4"
+  }
+}
