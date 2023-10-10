@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/ANI2/static/css/main.a829cf31.css",
-    "main.js": "/ANI2/static/js/main.9f13542f.js",
+    "main.js": "/ANI2/static/js/main.228523a1.js",
     "static/media/logo.svg": "/ANI2/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/ANI2/index.html",
     "main.a829cf31.css.map": "/ANI2/static/css/main.a829cf31.css.map",
-    "main.9f13542f.js.map": "/ANI2/static/js/main.9f13542f.js.map"
+    "main.228523a1.js.map": "/ANI2/static/js/main.228523a1.js.map"
   },
   "entrypoints": [
     "static/css/main.a829cf31.css",
-    "static/js/main.9f13542f.js"
+    "static/js/main.228523a1.js"
   ]
 }
