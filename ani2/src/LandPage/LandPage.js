@@ -4,9 +4,6 @@ import Stack from '@mui/material/Stack';
 import './LandPage.scss';
 
 export default function LandPage({ input }) {
-function goTec() {
-  window.location = 'https://el-banderas.github.io/ANI2/TECNaoseiQual'
-}
 
     return (
         <div>
@@ -27,7 +24,6 @@ className="btnsColumn"
                     </Button>
 
                     <Button variant="outlined">Retirar projeto</Button>
-                 <button type="button" onClick={() => goTec()}>Go to Tec page</button>
                 </Stack>
             </div>
         </div>
