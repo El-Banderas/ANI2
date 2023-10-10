@@ -45,17 +45,21 @@ function App() {
 
   const currentTech = "Tec1"
 
+  console.log("Current url")
+  console.log(window.location.href)
+
+  const page = () => {
+    const thisURL = window.location.href
+    if (thisURL.length > 40) return <TechMain name={currentTech} listTasks={getTasksTech(currentTech)} />
+    else return <LandPage input={getInput()}/>
+    return <NoPage />
+  }
+
+
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/ANI2" element={<LandPage input={getInput()}/>}></Route>
-            <Route path="/ANI2/b" element={<TechMain name={currentTech} listTasks={getTasksTech(currentTech)} />} />
-                      <Route path="*" element={<NoPage />} />
-        </Routes>
-      </BrowserRouter>
-
-    </div>
+          {page()}
+          </div>
   );
 }
 

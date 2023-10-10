@@ -4,6 +4,10 @@ import ProjectScroll from './ProjectsScroll'
 
 export default function TechMain({ name, listTasks }) {
 
+function goMainPage() {
+  //window.location = 'http://localhost:3000'
+  window.location = 'https://el-banderas.github.io/ANI2/'
+}
 
     return (
         <div className='verticalFlex'>
@@ -29,6 +33,7 @@ export default function TechMain({ name, listTasks }) {
                 <ProjectScroll name={"Projetos Concluidos"} listTasks={listTasks} />
 
             </div>
+                 <button type="button" onClick={() => goMainPage()}>Go to Tec page</button>
         </div>
     )
 }
