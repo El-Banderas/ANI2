@@ -1,12 +1,13 @@
-import { Bar } from 'react-chartjs-2';
+import { Bar, getElementAtEvent   } from 'react-chartjs-2';
+import { useRef } from 'react';
 import Chart from 'chart.js/auto';
 
 import './LandPage.scss';
 export default function ManyTechsGraph({ input }) {
-
+  const chartRef = useRef();
 const { abs, min, max, round } = Math;
 const moreCostlyTask = max(...Object.values(input["tasks"]))
-    function generateRandomColor(){
+function generateRandomColor(){
     let maxVal = 0xFFFFFF; // 16777215
     let randomNumber = Math.random() * maxVal; 
     randomNumber = Math.floor(randomNumber);
@@ -78,6 +79,12 @@ function hueToRgb(p, q, t) {
         },
     };
 
+    const clicasteAlgo = (event) => {
+        console.log(" O QUE ACONTECEU tecnico / posição ")
+    console.log(getElementAtEvent(chartRef.current, event)[0]['index']);
+    console.log(getElementAtEvent(chartRef.current, event)[0]['datasetIndex']);
+    }
+
     const labels = Object.keys(input["technicians"])  //['January', 'February', 'March', 'April', 'May', 'June', 'July'];
     const datasetsFromInput = () => {
         const res = []
@@ -108,7 +115,10 @@ function hueToRgb(p, q, t) {
 
     return (
             <div className='tabelTecs'>
-            <Bar options={options} data={data} />
+            <Bar ref={chartRef} options={options} data={data}
+            onClick={clicasteAlgo}
+          
+             />
     </div>
     )
 
