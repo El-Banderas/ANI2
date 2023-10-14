@@ -1,4 +1,5 @@
 import ManyTechsGraph from "./ManyTechsGraph";
+import TechMain from "./../TechnicianPage/TechnicianMain"
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import './LandPage.scss';
@@ -6,22 +7,23 @@ import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import React, { useState, useRef } from "react";
 
-export default function LandPage({ input }) {
- const [fileContent, setFileContent] = useState("");
-  let fileRef = useRef();
+export default function LandPage({ defaultInput }) {
 
-  const readFile = event => {
-    const fileReader = new FileReader();
-    const { files } = event.target;
+    const [input, setInput] = useState(defaultInput);
+    const [currentTech, setCurrentTech] = useState("");
+    const [currentSidePage, setCurrentSidePage] = useState("none");
+    let fileRef = useRef();
 
-    fileReader.readAsText(files[0], "UTF-8");
-    fileReader.onload = e => {
-      const content = e.target.result;
-      console.log("INPUT?")
-      console.log(content);
-      setFileContent(JSON.parse(content));
+    const readFile = event => {
+        const fileReader = new FileReader();
+        const { files } = event.target;
+
+        fileReader.readAsText(files[0], "UTF-8");
+        fileReader.onload = e => {
+            const content = e.target.result;
+            setInput(JSON.parse(content)["input"]);
+        };
     };
-  };
 
 
     const VisuallyHiddenInput = styled('input')({
@@ -36,12 +38,39 @@ export default function LandPage({ input }) {
         width: 1,
     });
 
+    const runAllocation = () => {
+        setCurrentSidePage("allocation")
+    }
+const getTasksTech = (name) => {
+    const tasksTech = input["technicians"][name]
+    const res = []
+    for (let task of tasksTech) {
+      const lengthTask = input["tasks"][task]
+      res.push([task, lengthTask])
+    }
+    return res
+  }
+    const decideSidePannel = (currentState) => {
+        switch(currentState){
+            case "none":
+                return <div>Nothing selected</div>
+            
+            case "allocation":
+                return <div>Correr alocação</div>
+            case "tech":
+                return <TechMain name={currentTech} listTasks={getTasksTech(currentTech)} />
+            default:
+                return <div>Default</div>
+        
+        }
+    }
+
     return (
         <div>
             <h1>Land page 2</h1>
             <div className="line">
 
-                <ManyTechsGraph className="tabelTecs" input={input} />
+                <ManyTechsGraph className="tabelTecs" input={input} setCurrentSidePage={setCurrentSidePage} setCurrentTech={setCurrentTech}/>
                 <Stack
                     direction="column"
                     justifyContent="space-evenly"
@@ -49,19 +78,20 @@ export default function LandPage({ input }) {
                     spacing={2}
                     className="btnsColumn"
                 >
-                    <Button variant="outlined">Correr alocação</Button>
-                    <Button variant="outlined" href="#outlined-buttons">
-                        Adicionar Projeto
+                    <Button variant="outlined" onClick={() => runAllocation()}>Correr alocação</Button>
+                    <Button variant="outlined" onClick={() => runAllocation()}>
+                    Outra coisa
                     </Button>
                     <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} >
                         Adicionar ficheiro com input
-                        <VisuallyHiddenInput type="file" ref={fileRef} onChange={readFile} onClick={()=>fileRef.current.click()}/>
+                        <VisuallyHiddenInput type="file" ref={fileRef} onChange={readFile} onClick={() => fileRef.current.click()} />
                     </Button>
 
                 </Stack>
             </div>
-            <h1>Input possível</h1>
-            <div>{JSON.stringify(fileContent)}</div>
+            {
+                decideSidePannel(currentSidePage)
+            }
         </div>
     )
 

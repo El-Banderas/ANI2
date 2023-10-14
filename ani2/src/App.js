@@ -4,7 +4,7 @@ import TechMain from './TechnicianPage/TechnicianMain'
 import NoPage from './NoPage'
 import LandPage from './LandPage/LandPage'
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
 
@@ -32,29 +32,18 @@ function App() {
     return { "tasks": tasks, "technicians": technicians }
   }
 
-  const getTasksTech = (name) => {
-    const input = getInput()
-    const tasksTech = input["technicians"][name]
-    const res = []
-    for (let task of tasksTech) {
-      const lengthTask = input["tasks"][task]
-      res.push([task, lengthTask])
-    }
-    return res
-  }
+  
 
   const currentTech = "Tec1"
 
   console.log("Current url")
   console.log(window.location.href)
 
-
-
+  // Other routes not working
   return (
     <div className="App">
         <Routes>
-          <Route path="*" element={<LandPage input={getInput()}/>} />
-            <Route path="/ANI2/b" element={<TechMain name={currentTech} listTasks={getTasksTech(currentTech)} />} />
+          <Route path="*" element={<LandPage defaultInput={getInput()}/>} />
                       <Route path="/ANI3" element={<NoPage />} />
         </Routes>
 

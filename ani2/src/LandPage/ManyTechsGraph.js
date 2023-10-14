@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import Chart from 'chart.js/auto';
 
 import './LandPage.scss';
-export default function ManyTechsGraph({ input }) {
+export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentTech }) {
   const chartRef = useRef();
 const { abs, min, max, round } = Math;
 const moreCostlyTask = max(...Object.values(input["tasks"]))
@@ -81,8 +81,13 @@ function hueToRgb(p, q, t) {
 
     const clicasteAlgo = (event) => {
         console.log(" O QUE ACONTECEU tecnico / posição ")
-    console.log(getElementAtEvent(chartRef.current, event)[0]['index']);
-    console.log(getElementAtEvent(chartRef.current, event)[0]['datasetIndex']);
+    const tecIndex = getElementAtEvent(chartRef.current, event)[0]['index']
+    const position = getElementAtEvent(chartRef.current, event)[0]['datasetIndex']
+    console.log(tecIndex);
+    console.log(position);
+    console.log(Object.keys(input["technicians"])[tecIndex])
+    setCurrentTech(Object.keys(input["technicians"])[tecIndex])
+    setCurrentSidePage("tech")
     }
 
     const labels = Object.keys(input["technicians"])  //['January', 'February', 'March', 'April', 'May', 'June', 'July'];

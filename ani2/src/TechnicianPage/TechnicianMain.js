@@ -9,6 +9,8 @@ function goMainPage() {
   window.location = 'https://el-banderas.github.io/ANI2/'
 }
 
+console.log("HERE")
+console.log(listTasks)
     return (
         <div className='verticalFlex'>
             <div className="nameLine ">
@@ -33,7 +35,6 @@ function goMainPage() {
                 <ProjectScroll name={"Projetos Concluidos"} listTasks={listTasks} />
 
             </div>
-                 <button type="button" onClick={() => goMainPage()}>Go to Tec page</button>
         </div>
     )
 }
