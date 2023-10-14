@@ -52,13 +52,11 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
         <Routes>
-          <Route path="*" element={<LandPage input={getInput()}/>}></Route>
+          <Route path="*" element={<LandPage input={getInput()}/>} />
             <Route path="/ANI2/b" element={<TechMain name={currentTech} listTasks={getTasksTech(currentTech)} />} />
                       <Route path="/ANI3" element={<NoPage />} />
         </Routes>
-      </BrowserRouter>
 
     </div>
   );
