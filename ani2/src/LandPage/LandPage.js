@@ -38,7 +38,7 @@ export default function LandPage({ input }) {
 
     return (
         <div>
-            <h1>Land page</h1>
+            <h1>Land page 2</h1>
             <div className="line">
 
                 <ManyTechsGraph className="tabelTecs" input={input} />
