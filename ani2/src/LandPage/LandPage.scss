@@ -1,11 +1,18 @@
 .line{
-
      display: flex;
      flex-direction: row ;
      justify-content: flex-start;
 }
+
+.subBox{
+height: 30em;
+
+}
 .tabelTecs{
 width: 70%;
+height: 30em;
+max-height: 20em;
+overflow-y: scroll;
 }
 .btnsColumn{
     width: 30%;

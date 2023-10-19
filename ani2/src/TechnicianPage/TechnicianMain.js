@@ -9,20 +9,18 @@ function goMainPage() {
   window.location = 'https://el-banderas.github.io/ANI2/'
 }
 
-console.log("HERE")
-console.log(listTasks)
     return (
         <div className='verticalFlex'>
             <div className="nameLine ">
 
-                <div className='nameTec'> Hello {name}</div>
+                <div className='nameTec'> Olá {name}</div>
                 <div className='caixaAvisos'>
 
                     <TextField
                         fullWidth
                         id="outlined-read-only-input"
                         label="Avisos"
-                        defaultValue="- Aqui aparecerão os avisos ou outra coisa qualquer"
+                        defaultValue="- Acho que a nossa aplicação não devia ter avisos..."
                         InputProps={{
                             readOnly: true,
                         }}

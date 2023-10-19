@@ -1,11 +1,10 @@
 .verticalFlex{
-
+    padding-top: 3%;
      display: flex;
      flex-direction: column ;
      justify-content: flex-start;
 }
 .nameLine {
-    background-color: red;
      display: flex;
      flex-direction: row;
      justify-content: space-between;
@@ -21,7 +20,6 @@
     flex-grow: 4; 
 }
 .projectLine {
-    background-color: blue;
      display: flex;
      flex-direction: row;
      justify-content:  space-evenly;

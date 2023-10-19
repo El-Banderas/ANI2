@@ -27,8 +27,33 @@
                 "Task8"
             ],
             "Tec3": [
+                "Task1",
+                "Task2",
+                "Task3"
+            ],
+            "Tec4": [
+                "Task4",
+                "Task5",
+                "Task1"
+            ],
+            "Tec5": [
                 "Task9",
-                "Task10",
+                "Task8",
+                "Task11"
+            ],
+"Tec6": [
+                "Task3",
+                "Task2",
+                "Task11"
+            ],
+"Tec7": [
+                "Task9",
+                "Task5",
+                "Task4"
+            ],
+"Tec8": [
+                "Task9",
+                "Task8",
                 "Task11"
             ]
         }
