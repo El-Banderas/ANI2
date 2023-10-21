@@ -1,10 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import TechMain from './TechnicianPage/TechnicianMain'
-import NoPage from './NoPage'
 import LandPage from './LandPage/LandPage'
 import React from "react";
-import { Routes, Route } from "react-router-dom";
 
 function App() {
 
@@ -42,10 +39,7 @@ function App() {
   // Other routes not working
   return (
     <div className="App">
-        <Routes>
-          <Route path="*" element={<LandPage defaultInput={getInput()}/>} />
-                      <Route path="/ANI3" element={<NoPage />} />
-        </Routes>
+          <LandPage defaultInput={getInput()}/> 
 
     </div>
   );

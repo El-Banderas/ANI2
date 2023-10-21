@@ -41,27 +41,27 @@ export default function LandPage({ defaultInput }) {
     const runAllocation = () => {
         setCurrentSidePage("allocation")
     }
-const getTasksTech = (name) => {
-    const tasksTech = input["technicians"][name]
-    const res = []
-    for (let task of tasksTech) {
-      const lengthTask = input["tasks"][task]
-      res.push([task, lengthTask])
+    const getTasksTech = (name) => {
+        const tasksTech = input["technicians"][name]
+        const res = []
+        for (let task of tasksTech) {
+            const lengthTask = input["tasks"][task]
+            res.push([task, lengthTask])
+        }
+        return res
     }
-    return res
-  }
     const decideSidePannel = (currentState) => {
-        switch(currentState){
+        switch (currentState) {
             case "none":
                 return <div>Nothing selected</div>
-            
+
             case "allocation":
                 return <div>Correr alocação</div>
             case "tech":
                 return <TechMain name={currentTech} listTasks={getTasksTech(currentTech)} />
             default:
                 return <div>Default</div>
-        
+
         }
     }
 
@@ -80,7 +80,7 @@ const getTasksTech = (name) => {
                 >
                     <Button variant="outlined" onClick={() => runAllocation()}>Correr alocação</Button>
                     <Button variant="outlined" onClick={() => runAllocation()}>
-                    Outra coisa
+                        Outra coisa
                     </Button>
                     <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} >
                         Adicionar ficheiro com input

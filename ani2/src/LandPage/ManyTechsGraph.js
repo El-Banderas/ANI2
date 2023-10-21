@@ -4,7 +4,7 @@ import Chart from 'chart.js/auto';
 
 import './LandPage.scss';
 export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentTech }) {
-    const chartRef = useRef();
+    let chartRef = useRef();
     const { abs, min, max, round } = Math;
     const moreCostlyTask = max(...Object.values(input["tasks"]))
     function generateRandomColor() {
