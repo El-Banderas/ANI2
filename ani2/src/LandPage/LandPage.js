@@ -3,6 +3,7 @@ import TechMain from "./../TechnicianPage/TechnicianMain"
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import './LandPage.scss';
+import axios from 'axios';
 import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import React, { useState, useRef } from "react";
@@ -65,6 +66,11 @@ export default function LandPage({ defaultInput }) {
         }
     }
 
+    const localhostGET = () => {
+        console.log("GET localhost")
+        axios.get('http://localhost:7999/')
+    }
+
     return (
         <div>
             <h1>Land page 2</h1>
@@ -79,6 +85,7 @@ export default function LandPage({ defaultInput }) {
                     className="btnsColumn"
                 >
                     <Button variant="outlined" onClick={() => runAllocation()}>Correr alocação</Button>
+                    <Button variant="outlined" onClick={() => localhostGET()}>Get Localhost</Button>
                     <Button variant="outlined" onClick={() => runAllocation()}>
                         Outra coisa
                     </Button>
