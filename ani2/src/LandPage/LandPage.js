@@ -66,9 +66,11 @@ export default function LandPage({ defaultInput }) {
         }
     }
 
-    const localhostGET = () => {
+    const localhostGET = async () => {
         console.log("GET localhost")
-        axios.get('http://localhost:7999/')
+        //axios.get('http://localhost:7999/')
+        const res = await axios.get('http://localhost:7999/');
+        console.log(res['data'])
     }
 
     return (
@@ -76,7 +78,7 @@ export default function LandPage({ defaultInput }) {
             <h1>Land page 2</h1>
             <div className="line">
 
-                <ManyTechsGraph className="tabelTecs" input={input} setCurrentSidePage={setCurrentSidePage} setCurrentTech={setCurrentTech}/>
+                <ManyTechsGraph className="tabelTecs" input={input} setCurrentSidePage={setCurrentSidePage} setCurrentTech={setCurrentTech} />
                 <Stack
                     direction="column"
                     justifyContent="space-evenly"
