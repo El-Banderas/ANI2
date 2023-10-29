@@ -1,9 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
 import LandPage from './LandPage/LandPage'
-import React from "react";
+import axios from 'axios';
+
+import CircularProgress from '@mui/material/CircularProgress';
+import React, {useEffect, useState} from "react";
 
 function App() {
+
+  useEffect( () => {
+    getAttributions();
+  }, [] );
 
   const tasks = {
     "Task1": 5,
@@ -25,12 +32,24 @@ function App() {
     "Tec3": ["Task9", "Task10", "Task11"]
   }
 
-  const getInput = () => {
-    return { "tasks": tasks, "technicians": technicians }
-  }
+  //const [input, setInput] = useState({ })
+  const [input, setInput] = useState({"tasks": tasks, "technicians": technicians })
 
   
+const getAttributions =  () => {
+        console.log("GET initial attris")
+        axios.get(`http://localhost:7999/?attri=normal`).then(
+          (response) => {
+            console.log("Receubeu resposta")
+            const cleanAnswer = response['data']['input']
+            console.log(cleanAnswer)
+            setInput(cleanAnswer)
+          }
+        ).catch(error => console.error(`Error: ${error}`))
+        //axios.get('http://localhost:7999/')
+    }
 
+ 
   const currentTech = "Tec1"
 
   console.log("Current url")
@@ -39,8 +58,13 @@ function App() {
   // Other routes not working
   return (
     <div className="App">
-          <LandPage defaultInput={getInput()}/> 
-
+          { Object.keys(input).length > 0 ?
+            <LandPage defaultInput={input}/> :
+            <div>
+            <h1>Loading</h1> 
+            <CircularProgress />
+            </div>
+          }
     </div>
   );
 }
