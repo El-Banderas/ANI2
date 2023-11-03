@@ -4,6 +4,7 @@ import Chart from 'chart.js/auto';
 
 import './LandPage.scss';
 export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentArg }) {
+
     let chartRef = useRef();
     const { abs, min, max, round } = Math;
     const moreCostlyTask = max(...Object.values(input["tasks"]))
@@ -80,35 +81,33 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
 
     };
 
+    /**
+     * We start from the first technician, in the first row, and check if the task is there. 
+     * If the index is greater than the first row, we go to the next line.
+     * We do this until the index is in the row of the current tech.
+     * @param {*} globalPosition Adds all the indexes from the top of graph to the selected task
+     * @returns Task name
+     */
     const getTaskName = (tecIndex, globalPosition) => {
-        console.log("GET TASK NAME")
-        for (let i = 1; i <= Object.keys(input["technicians"]).length; i++){
-            console.log("?")
-            if (globalPosition > input["technicians"][`Tec${i}`].length) {
-                globalPosition = globalPosition - input["technicians"][`Tec${i}`].length
+        const techsList = Object.keys(input["technicians"])
+        for (let i = 0; i <= Object.keys(input["technicians"]).length; i++){
+            const thisTech = techsList[i]
+            if (globalPosition >= input["technicians"][thisTech].length) {
+                globalPosition = globalPosition - input["technicians"][thisTech].length
             }
             else {
-                console.log(input["technicians"][`Tec${i}`])
-                console.log(globalPosition)
-                console.log(input["technicians"][`Tec${i}`][globalPosition])
-                return input["technicians"][`Tec${i}`][globalPosition]
+                return input["technicians"][thisTech][globalPosition]
             }
         }
         return "undefined"
     }
 
     const clicasteAlgo = (event) => {
-        console.log(" O QUE ACONTECEU tecnico / posição ")
-        console.log(getElementAtEvent(chartRef.current, event))
         try {
             const tecIndex = getElementAtEvent(chartRef.current, event)[0]['index']
             // The position accumulates from the beginning of the graph
             const position = getElementAtEvent(chartRef.current, event)[0]['datasetIndex']
-            console.log(tecIndex);
-            console.log(position);
             const taskName = getTaskName(tecIndex, position)
-            //console.log(input["technicians"]);
-            //console.log(input["technicians"][`Tecn${tecIndex}`]);
             //const taskName = input["technicians"][`Tecn${tecIndex}`][position]
 
             setCurrentArg(taskName)
@@ -145,13 +144,6 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
     };
 
 
-    const clicks = (evt, element) => {
-        if (element.length > 0) {
-            console.log(element, element[0]._datasetInde)
-            // you can also get dataset of your selected element
-            console.log(data.datasets[element[0]._datasetIndex])
-        }
-    }
     return (
         <div className='tabelTecs'>
             <div className='subBox'>

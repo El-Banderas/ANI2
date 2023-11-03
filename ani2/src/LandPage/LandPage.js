@@ -1,5 +1,5 @@
 import ManyTechsGraph from "./ManyTechsGraph";
-import TaskMain from "../TaskPage/TaskMain"
+import TechMain from "../TechPage/TechMain"
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import './LandPage.scss';
@@ -7,6 +7,10 @@ import axios from 'axios';
 import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import React, { useState, useRef } from "react";
+import TaskPage from "../TaskPage/TaskMain";
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+
 
 export default function LandPage({ defaultInput }) {
 
@@ -22,6 +26,8 @@ export default function LandPage({ defaultInput }) {
         fileReader.readAsText(files[0], "UTF-8");
         fileReader.onload = e => {
             const content = e.target.result;
+            console.log("SET INPUT Land page")
+            console.log(JSON.parse(content)["input"])
             setInput(JSON.parse(content)["input"]);
         };
     };
@@ -42,19 +48,7 @@ export default function LandPage({ defaultInput }) {
     const runAllocation = () => {
         setCurrentSidePage("allocation")
     }
-    const getTasksTech = (name) => {
-        const tasksTech = input["technicians"][`Tec${name}`]
-        const res = []
-        console.log("BEFOR ERR")
-        console.log(input["technicians"])
-        console.log(name)
-        console.log(tasksTech)
-        for (let task of tasksTech) {
-            const lengthTask = input["tasks"][task]
-            res.push([task, lengthTask])
-        }
-        return res
-    }
+
     const decideSidePannel = (currentState) => {
         switch (currentState) {
             case "none":
@@ -63,7 +57,10 @@ export default function LandPage({ defaultInput }) {
             case "allocation":
                 return <div>Correr alocação</div>
             case "task":
-                return <TaskMain name={currentArg}  />
+                return <TaskPage request_word={"proj"} name={currentArg} />
+
+            case "tecn":
+                return <TaskPage request_word={"tecn"} name={currentArg} />
             default:
                 return <div>Default</div>
 
@@ -72,11 +69,18 @@ export default function LandPage({ defaultInput }) {
 
 
     const getTecn = async () => {
-        console.log("GET localhost")
+        console.log("GET tecn")
+        const element = document.getElementById("selectTecn");
+        console.log(element)
+        console.log(element.value)
         //axios.get('http://localhost:7999/')
         //const res = await axios.get('http://localhost:7999/?tecn=aaa&tecn=bbb');
-        const res = await axios.get('http://localhost:7999/?tecn=1');
+        const res = await axios.get(`http://localhost:7999/?tecn=${element.value}`);
         console.log(res['data'])
+        setCurrentArg(res['data'])
+
+            setCurrentSidePage("tecn")
+
     }
     const getProj = async () => {
         console.log("GET localhost")
@@ -85,10 +89,12 @@ export default function LandPage({ defaultInput }) {
         console.log(res['data'])
     }
     const getHello = async () => {
-        console.log("GET localhost")
         //axios.get('http://localhost:7999/')
         const res = await axios.get('http://localhost:7999/?attri=aa');
-        console.log(res['data'])
+    }
+
+    const tecNames = () => {
+        return Object.keys(defaultInput["technicians"])
     }
 
     return (
@@ -96,7 +102,7 @@ export default function LandPage({ defaultInput }) {
             <h1>Land page 2</h1>
             <div className="line">
 
-                <ManyTechsGraph className="tabelTecs" input={input} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} />
+                <ManyTechsGraph className="tabelTecs" input={defaultInput} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} />
                 <Stack
                     direction="column"
                     justifyContent="space-evenly"
@@ -105,7 +111,16 @@ export default function LandPage({ defaultInput }) {
                     className="btnsColumn"
                 >
                     <Button variant="outlined" onClick={() => runAllocation()}>Correr alocação</Button>
-                    <Button variant="outlined" onClick={() => getTecn()}>Get Tecn</Button>
+                    <div>
+                        <Button variant="outlined" onClick={() => getTecn()}>Get Tecn</Button>
+                        <Autocomplete
+                            disablePortal
+                            id="selectTecn"
+                            options={tecNames()}
+                            sx={{ width: 300 }}
+                            renderInput={(params) => <TextField {...params} label="Técnico" />}
+                        />
+                    </div>
                     <Button variant="outlined" onClick={() => getProj()}>Get Proj</Button>
                     <Button variant="outlined" onClick={() => getHello()}>Get Hello</Button>
                     <Button variant="outlined" onClick={() => runAllocation()}>

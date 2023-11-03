@@ -1,60 +1,83 @@
-import './TechnicianMain.scss'
-import TextField from '@mui/material/TextField';
-import ProjectScroll from './ProjectsScroll'
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
-export default function TaskMain({ name}) {
+import CircularProgress from '@mui/material/CircularProgress';
 
-  const [info, setInfo] = useState({ })
-  useEffect( () => {
+export default function TaskPage({ request_word, name }) {
+
+  const [info, setInfo] = useState({})
+  useEffect(() => {
     getTaskInfo();
-  }, [] );
+  }, [name]);
 
-const getTaskInfo =  () => {
-        console.log("GET proj initial attris")
-        console.log(name)
-        const regexpSize = /([0-9]+)/;
-        const match = name.match(regexpSize);
-        console.log(match[0])
-        axios.get(`http://localhost:7999/?proj=${match[0]}`).then(
-          (response) => {
-            console.log("Receubeu resposta")
-            const cleanAnswer = response['data']
-            console.log(cleanAnswer)
-            setInfo(cleanAnswer)
-          }
-        ).catch(error => console.error(`Error: ${error}`))
-        //axios.get('http://localhost:7999/')
-    }
+  const getTaskInfo = () => {
+    console.log("GET task info")
+    console.log(name)
+    const regexpSize = /([0-9]+)/;
+    const match = name.match(regexpSize);
+    console.log(name)
+    axios.get(`http://localhost:7999/?${request_word}=${name}`).then(
+      (response) => {
+        console.log("Receubeu resposta")
+        const cleanAnswer = response['data']
+        console.log(cleanAnswer)
+        setInfo(cleanAnswer)
+      }
+    ).catch(error => console.error(`Error: ${error}`))
+    //axios.get('http://localhost:7999/')
+  }
 
-    console.log("Info loaded")
+
+  const convertInput = () => {
+    console.log("CONVERT input")
     console.log(info)
-
+    const header = []
+    const content = []
+    for (const [key, value] of Object.entries(info)) {
+      header.push(<TableCell align="right">{key}</TableCell>)
+      content.push(<TableCell align="right">{value}</TableCell>)
+    }
     return (
-        <div className='verticalFlex'>
-            <div className="nameLine ">
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
 
-                <div className='nameTec'> Olá {name}</div>
-                <div className='caixaAvisos'>
+          <TableHead>
+            <TableRow>
+              {header}
+            </TableRow>
+          </TableHead>
+          <TableBody>
 
-                    <TextField
-                        fullWidth
-                        id="outlined-read-only-input"
-                        label="Avisos"
-                        defaultValue="- Acho que a nossa aplicação não devia ter avisos..."
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                    />
-                </div>
-            </div>
-            <div className='projectLine '>
-                {/*<ProjectScroll name={"Projetos alocados"} listTasks={[...listTasks, ...listTasks, ...listTasks]} />*/}
-                <ProjectScroll name={"Projetos alocados"} listTasks={["A", "B", "C"]} />
-                <ProjectScroll name={"Projetos Concluidos"} listTasks={["D", "D"]} />
+            <TableRow
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              {content}
+            </TableRow>
+          </TableBody>
 
-            </div>
-        </div>
+        </Table>
+      </TableContainer>
     )
+  }
+
+  return (
+    <div className='verticalFlex'>
+      <div className="nameLine ">
+
+        {Object.keys(info).length >= 0 ?
+          convertInput() :
+          <CircularProgress color="inherit" />
+        }
+
+      </div>
+    </div>
+
+  )
 }
