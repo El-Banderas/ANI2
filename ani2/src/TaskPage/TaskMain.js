@@ -41,8 +41,8 @@ export default function TaskPage({ request_word, name }) {
     const header = []
     const content = []
     for (const [key, value] of Object.entries(info)) {
-      header.push(<TableCell align="right">{key}</TableCell>)
-      content.push(<TableCell align="right">{value}</TableCell>)
+      header.push(<TableCell align="left">{key}</TableCell>)
+      content.push(<TableCell align="left">{value}</TableCell>)
     }
     return (
       <TableContainer component={Paper}>

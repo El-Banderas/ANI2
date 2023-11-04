@@ -10,6 +10,7 @@ import React, { useState, useRef } from "react";
 import TaskPage from "../TaskPage/TaskMain";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import TechHoliday from "../TechHoliday/TechHoliday";
 
 
 export default function LandPage({ defaultInput }) {
@@ -18,32 +19,6 @@ export default function LandPage({ defaultInput }) {
     const [currentArg, setCurrentArg] = useState("");
     const [currentSidePage, setCurrentSidePage] = useState("none");
     let fileRef = useRef();
-
-    const readFile = event => {
-        const fileReader = new FileReader();
-        const { files } = event.target;
-
-        fileReader.readAsText(files[0], "UTF-8");
-        fileReader.onload = e => {
-            const content = e.target.result;
-            console.log("SET INPUT Land page")
-            console.log(JSON.parse(content)["input"])
-            setInput(JSON.parse(content)["input"]);
-        };
-    };
-
-
-    const VisuallyHiddenInput = styled('input')({
-        clip: 'rect(0 0 0 0)',
-        clipPath: 'inset(50%)',
-        height: 1,
-        overflow: 'hidden',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        whiteSpace: 'nowrap',
-        width: 1,
-    });
 
     const runAllocation = () => {
         setCurrentSidePage("allocation")
@@ -61,6 +36,8 @@ export default function LandPage({ defaultInput }) {
 
             case "tecn":
                 return <TaskPage request_word={"tecn"} name={currentArg} />
+            case "tecnHoliday":
+                return <TechHoliday techName={getCurrentSelectedTech()} />
             default:
                 return <div>Default</div>
 
@@ -68,29 +45,30 @@ export default function LandPage({ defaultInput }) {
     }
 
 
+    const getCurrentSelectedTech = () => {
+
+        const element = document.getElementById("selectTecn");
+        return element.value
+    }
+
     const getTecn = async () => {
         console.log("GET tecn")
-        const element = document.getElementById("selectTecn");
-        console.log(element)
-        console.log(element.value)
-        //axios.get('http://localhost:7999/')
-        //const res = await axios.get('http://localhost:7999/?tecn=aaa&tecn=bbb');
-        const res = await axios.get(`http://localhost:7999/?tecn=${element.value}`);
-        console.log(res['data'])
-        setCurrentArg(res['data'])
+        setCurrentArg(getCurrentSelectedTech())
 
-            setCurrentSidePage("tecn")
+        setCurrentSidePage("tecn")
 
     }
-    const getProj = async () => {
+    const removeTech = async () => {
         console.log("GET localhost")
         //axios.get('http://localhost:7999/')
-        const res = await axios.get('http://localhost:7999/?proj=1');
+        const res = await axios.get(`http://localhost:7999/?removeTecn=${getCurrentSelectedTech()}`);
         console.log(res['data'])
     }
-    const getHello = async () => {
+    const techHoliday = async () => {
         //axios.get('http://localhost:7999/')
-        const res = await axios.get('http://localhost:7999/?attri=aa');
+        
+        setCurrentArg(getCurrentSelectedTech())
+        setCurrentSidePage("tecnHoliday")
     }
 
     const tecNames = () => {
@@ -111,24 +89,26 @@ export default function LandPage({ defaultInput }) {
                     className="btnsColumn"
                 >
                     <Button variant="outlined" onClick={() => runAllocation()}>Correr alocação</Button>
-                    <div>
-                        <Button variant="outlined" onClick={() => getTecn()}>Get Tecn</Button>
-                        <Autocomplete
-                            disablePortal
-                            id="selectTecn"
-                            options={tecNames()}
-                            sx={{ width: 300 }}
-                            renderInput={(params) => <TextField {...params} label="Técnico" />}
-                        />
-                    </div>
-                    <Button variant="outlined" onClick={() => getProj()}>Get Proj</Button>
-                    <Button variant="outlined" onClick={() => getHello()}>Get Hello</Button>
+                        <Stack
+                            direction="row"
+                            justifyContent="center"
+                            alignItems="center"
+                            spacing={2}
+                            className="getTecn"
+                        >
+                            <Button variant="outlined" onClick={() => getTecn()}>Get Tecn</Button>
+                            <Autocomplete
+                                disablePortal
+                                id="selectTecn"
+                                options={tecNames()}
+                                sx={{ width: 300 }}
+                                renderInput={(params) => <TextField {...params} label="Técnico" />}
+                            />
+                        </Stack>
+                    <Button variant="outlined" onClick={() => removeTech()}>Remover técnico</Button>
+                    <Button variant="outlined" onClick={() => techHoliday()}>Técnico férias</Button>
                     <Button variant="outlined" onClick={() => runAllocation()}>
-                        Outra coisa
-                    </Button>
-                    <Button component="label" variant="contained" startIcon={<CloudUploadIcon />} >
-                        Adicionar ficheiro com input
-                        <VisuallyHiddenInput type="file" ref={fileRef} onChange={readFile} onClick={() => fileRef.current.click()} />
+                    TODO: Trocar projetos 
                     </Button>
 
                 </Stack>
