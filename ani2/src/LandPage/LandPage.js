@@ -1,11 +1,8 @@
 import ManyTechsGraph from "./ManyTechsGraph";
-import TechMain from "../TechPage/TechMain"
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import './LandPage.scss';
 import axios from 'axios';
-import { styled } from '@mui/material/styles';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import React, { useState, useRef } from "react";
 import TaskPage from "../TaskPage/TaskMain";
 import TextField from '@mui/material/TextField';
@@ -15,22 +12,15 @@ import TechHoliday from "../TechHoliday/TechHoliday";
 
 export default function LandPage({ defaultInput }) {
 
-    const [input, setInput] = useState(defaultInput);
     const [currentArg, setCurrentArg] = useState("");
     const [currentSidePage, setCurrentSidePage] = useState("none");
-    let fileRef = useRef();
 
-    const runAllocation = () => {
-        setCurrentSidePage("allocation")
-    }
 
     const decideSidePannel = (currentState) => {
         switch (currentState) {
             case "none":
-                return <div>Nothing selected</div>
+                return <h2>Nada selecionado</h2>
 
-            case "allocation":
-                return <div>Correr alocação</div>
             case "task":
                 return <TaskPage request_word={"proj"} name={currentArg} />
 
@@ -77,26 +67,26 @@ export default function LandPage({ defaultInput }) {
 
     return (
         <div>
-            <h1>Land page 2</h1>
+            <h1>Painel principal</h1>
             <div className="line">
 
                 <ManyTechsGraph className="tabelTecs" input={defaultInput} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} />
+                <div className="btnsColumn">
                 <Stack
-                    direction="column"
                     justifyContent="space-evenly"
                     alignItems="center"
-                    spacing={2}
-                    className="btnsColumn"
+                      direction={{ xs: 'column' }}
+  spacing={{ xs: 5 }}
                 >
-                    <Button variant="outlined" onClick={() => runAllocation()}>Correr alocação</Button>
                         <Stack
                             direction="row"
                             justifyContent="center"
                             alignItems="center"
                             spacing={2}
                             className="getTecn"
+                
                         >
-                            <Button variant="outlined" onClick={() => getTecn()}>Get Tecn</Button>
+                            <h3>Escolher técnico</h3>
                             <Autocomplete
                                 disablePortal
                                 id="selectTecn"
@@ -105,13 +95,12 @@ export default function LandPage({ defaultInput }) {
                                 renderInput={(params) => <TextField {...params} label="Técnico" />}
                             />
                         </Stack>
-                    <Button variant="outlined" onClick={() => removeTech()}>Remover técnico</Button>
-                    <Button variant="outlined" onClick={() => techHoliday()}>Técnico férias</Button>
-                    <Button variant="outlined" onClick={() => runAllocation()}>
-                    TODO: Trocar projetos 
-                    </Button>
+                    <Button  variant="outlined" onClick={() => getTecn()} fullWidth>Ver técnico</Button>
+                    <Button variant="outlined" onClick={() => removeTech()} fullWidth>Remover técnico</Button>
+                    <Button  variant="outlined" onClick={() => techHoliday()} fullWidth>Técnico férias</Button>
 
                 </Stack>
+</div>
             </div>
             {
                 decideSidePannel(currentSidePage)

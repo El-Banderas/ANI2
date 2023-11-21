@@ -38,7 +38,7 @@ function App() {
   
 const getAttributions =  () => {
         console.log("GET initial attris")
-        axios.get(`http://localhost:7999/?attri=normal`).then(
+        axios.get(`http://127.0.0.1:7999/?attri=normal`).then(
           (response) => {
             console.log("Receubeu resposta")
             const cleanAnswer = response['data']['input']

@@ -8,6 +8,12 @@
 height: 30em;
 
 }
+
+.btnRight{
+    padding: 10px 10px 10px 10px;
+    margin: 10px 10px 10px 10px;
+    background-color: red;
+}
 .tabelTecs{
 width: 70%;
 height: 30em;
@@ -16,4 +22,6 @@ overflow-y: scroll;
 }
 .btnsColumn{
     width: 30%;
+    margin-left: 5%;
+    margin-right: 5%;
 }

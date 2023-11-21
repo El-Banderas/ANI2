@@ -7,6 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import './TaskMain.scss';
+import TasksCards from './TasksCards'
 
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -44,9 +47,18 @@ export default function TaskPage({ request_word, name }) {
       header.push(<TableCell align="left">{key}</TableCell>)
       content.push(<TableCell align="left">{value}</TableCell>)
     }
+    const title = request_word === "proj" ? `Informação projeto` : `Informação técnico`
+
     return (
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <div className="center">
+<Stack
+                    direction="column"
+                    justifyContent="space-evenly"
+                    alignItems="center"
+                >
+      <h1>{title}</h1>
+      <TableContainer component={Paper} >
+        <Table sx={{ minWidth: 650, border: 1 }} aria-label="simple table" >
 
           <TableHead>
             <TableRow>
@@ -64,6 +76,9 @@ export default function TaskPage({ request_word, name }) {
 
         </Table>
       </TableContainer>
+{request_word !== "proj" && <TasksCards nameTech={name} /> }
+</Stack>
+</div>
     )
   }
 
