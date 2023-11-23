@@ -80,9 +80,11 @@ switch(phaseInt){
       return "#40E0D0";
   }
 }
-
+const commonStyles = {
+  borderColor: 'text.primary',
+};
   const renderProjectInfo = (info) => {
-    return <Card sx={{ minWidth: 275 }} style={{backgroundColor: getColourByPhase(info["Fase"])}}>
+    return <Card sx={{ ...commonStyles, minWidth: 275, border:1}} style={{backgroundColor: getColourByPhase(info["Fase"])}}>
        <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
         {info["Tipo projeto"]}

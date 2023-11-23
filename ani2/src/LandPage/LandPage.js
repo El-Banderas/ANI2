@@ -67,7 +67,7 @@ export default function LandPage({ defaultInput }) {
 
     return (
         <div>
-            <h1>Painel principal</h1>
+            <h1 className="title">Painel principal</h1>
             <div className="line">
 
                 <ManyTechsGraph className="tabelTecs" input={defaultInput} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} />
