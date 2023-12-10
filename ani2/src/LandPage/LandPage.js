@@ -8,6 +8,7 @@ import TaskPage from "../TaskPage/TaskMain";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import TechHoliday from "../TechHoliday/TechHoliday";
+import NavBar from "../NavBar/Navbar";
 
 
 export default function LandPage({ defaultInput }) {
@@ -67,7 +68,11 @@ export default function LandPage({ defaultInput }) {
 
     return (
         <div>
-            <h1 className="title">Painel principal</h1>
+
+      <NavBar />
+            <h1 className="title">
+                Painel principal
+                </h1>
             <div className="line">
 
                 <ManyTechsGraph className="tabelTecs" input={defaultInput} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} />
