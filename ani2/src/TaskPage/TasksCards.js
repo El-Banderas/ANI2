@@ -16,9 +16,7 @@ import './TaskMain.scss';
  * @param {str} nameTech Tech name to get his projects
  * @returns 
  */
-export default function TasksCards({ nameTech }) {
-
-  const [info, setInfo] = useState([])
+export default function TasksCards({ tasksInfo, techName }) {
 
   // Functions to create mocked info
   function getRandomInt(max) {
@@ -38,18 +36,16 @@ export default function TasksCards({ nameTech }) {
     }
   }
 
+
   const defaultCardsInput = () => {
     const projectsInfo = []
-    for (let i = 0; i < nameTech.length; i++) {
+    for (let i = 0; i < tasksInfo.length; i++) {
       projectsInfo.push(createProjectInfo(i))
 }
 return projectsInfo
 
   }
 
-  useEffect(() => {
-    setInfo(defaultCardsInput)
-  }, [nameTech]);
 
   // Render part
  
@@ -84,23 +80,24 @@ const commonStyles = {
   borderColor: 'text.primary',
 };
   const renderProjectInfo = (info) => {
-    return <Card sx={{ ...commonStyles, minWidth: 275, border:1}} style={{backgroundColor: getColourByPhase(info["Fase"])}}>
+    return <Card sx={{ ...commonStyles, minWidth: 275, border:1}} style={{backgroundColor: getColourByPhase(info["currentPhase"])}} key={info["id"]}>
        <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-        {info["Tipo projeto"]}
+        {info["nProm"]}
         </Typography>
         <Typography variant="h5" component="div">
-        {info["Name"]}
+        ID {info["id"]}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        {convertPhaseToString(info["Fase"])}
+        Fase: {convertPhaseToString(info["currentPhase"])}
         </Typography>
         <Typography variant="body2">
         Texto?
         </Typography>
-      </CardContent>
+        </CardContent>
+
       <CardActions>
-        <Typography variant="body2" >Tec. Análise: {info["TecAnalise"]} <br/>   Tec. Acomp.: {info["TecAcomp"]} </Typography>
+        <Typography variant="body2" >Tec. Análise: {info["analysis_tech"]} <br/>   Tec. Acomp.: {info["other_tech"]} </Typography>
       </CardActions>
     </Card>
   }
@@ -108,9 +105,9 @@ const commonStyles = {
   const convertInput= () => {
     return (
       <div className="max">
-      <h1>Projetos {nameTech}</h1>
+      <h1>Projetos {techName}</h1>
       <div className="scrollable">
-      {info.map(project => renderProjectInfo(project))}
+      {tasksInfo.map(project => renderProjectInfo(project))}
       </div>
 </div>
     )
@@ -118,7 +115,7 @@ const commonStyles = {
   return (
       <div >
 
-        {Object.keys(info).length >= 0 ?
+        {tasksInfo.length >= 0 ?
           convertInput() :
           <CircularProgress color="inherit" />
         }

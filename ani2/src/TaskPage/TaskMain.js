@@ -16,13 +16,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 export default function TaskPage({ request_word, name }) {
 
   const [info, setInfo] = useState({})
+
   useEffect(() => {
     getTaskInfo();
   }, [name]);
 
   const getTaskInfo = () => {
-    console.log("GET task info")
-    console.log(name)
     const regexpSize = /([0-9]+)/;
     const match = name.match(regexpSize);
     console.log(name)
@@ -40,10 +39,12 @@ export default function TaskPage({ request_word, name }) {
 
   const convertInput = () => {
     console.log("CONVERT input")
-    console.log(info)
+    if (Object.keys(info).length == 0) {
+      return <CircularProgress color="inherit" />
+    }
     const header = []
     const content = []
-    for (const [key, value] of Object.entries(info)) {
+    for (const [key, value] of Object.entries(info["info"])) {
       header.push(<TableCell align="left">{key}</TableCell>)
       content.push(<TableCell align="left">{value}</TableCell>)
     }
@@ -51,34 +52,34 @@ export default function TaskPage({ request_word, name }) {
 
     return (
       <div className="center">
-<Stack
-                    direction="column"
-                    justifyContent="space-evenly"
-                    alignItems="center"
+        <Stack
+          direction="column"
+          justifyContent="space-evenly"
+          alignItems="center"
+        >
+          <h1>{title}</h1>
+          <TableContainer component={Paper} >
+            <Table sx={{ minWidth: 650, border: 1 }} aria-label="simple table" >
+
+              <TableHead>
+                <TableRow>
+                  {header}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+
+                <TableRow
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-      <h1>{title}</h1>
-      <TableContainer component={Paper} >
-        <Table sx={{ minWidth: 650, border: 1 }} aria-label="simple table" >
+                  {content}
+                </TableRow>
+              </TableBody>
 
-          <TableHead>
-            <TableRow>
-              {header}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-
-            <TableRow
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              {content}
-            </TableRow>
-          </TableBody>
-
-        </Table>
-      </TableContainer>
-{request_word !== "proj" && <TasksCards nameTech={name} /> }
-</Stack>
-</div>
+            </Table>
+          </TableContainer>
+          {request_word !== "proj" && <TasksCards tasksInfo={info["projects"]} techName={name} />}
+        </Stack>
+      </div>
     )
   }
 

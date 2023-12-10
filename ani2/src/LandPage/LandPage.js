@@ -101,7 +101,7 @@ export default function LandPage({ defaultInput }) {
                             />
                         </Stack>
                     <Button  variant="outlined" onClick={() => getTecn()} fullWidth>Ver técnico</Button>
-                    <Button variant="outlined" onClick={() => removeTech()} fullWidth>Remover técnico</Button>
+                    <Button variant="outlined" onClick={() => removeTech()} fullWidth>Reload excel</Button>
                     <Button  variant="outlined" onClick={() => techHoliday()} fullWidth>Técnico férias</Button>
 
                 </Stack>
