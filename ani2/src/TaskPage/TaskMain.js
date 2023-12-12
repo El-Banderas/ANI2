@@ -16,6 +16,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 export default function TaskPage({ request_word, name }) {
 
   const [info, setInfo] = useState({})
+  const [infoProjects, setInfoProjects] = useState({})
 
   useEffect(() => {
     getTaskInfo();
@@ -31,6 +32,7 @@ export default function TaskPage({ request_word, name }) {
         const cleanAnswer = response['data']
         console.log(cleanAnswer)
         setInfo(cleanAnswer)
+        setInfoProjects(cleanAnswer["projects"])
       }
     ).catch(error => console.error(`Error: ${error}`))
     //axios.get('http://localhost:7999/')
@@ -77,7 +79,7 @@ export default function TaskPage({ request_word, name }) {
 
             </Table>
           </TableContainer>
-          {request_word !== "proj" && <TasksCards tasksInfo={info["projects"]} techName={name} />}
+          {request_word !== "proj" && <TasksCards tasksInfo={infoProjects} techName={name} />}
         </Stack>
       </div>
     )

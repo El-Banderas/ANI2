@@ -1,0 +1,33 @@
+
+.flexNavBar{
+    position: static;
+    display: flex; 
+     flex-direction: row;
+     background-color: #FC848C;
+     top: 50%;
+}
+.logo{
+    width:4%;
+    height: 4%;
+}
+
+.ani_logo{
+    @extend .logo;
+    padding-left: 5%;
+    padding-right: 3%;
+}
+.uminho_logo{
+    @extend .logo;
+    margin-right: 5%;
+     top: 50%;
+     transform: translateY(50%);
+}
+
+.isep_logo{
+    @extend .logo;
+     transform: translateY(20%);
+}
+.titleNavBar{
+    margin-right: 50%;
+    color:white
+}

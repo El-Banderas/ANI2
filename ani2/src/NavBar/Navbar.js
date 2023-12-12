@@ -12,81 +12,39 @@ import Container from '@mui/material/Container';
 import AdbIcon from '@mui/icons-material/Adb';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
-
+import './Navbar.scss'
+import Icon from '@material-ui/core/Icon';
+import { makeStyles } from '@material-ui/styles';
+import SvgIcon from '@mui/material/SvgIcon';
+import Button from '@mui/material/Button';
+import AniSvg from "./aniLogo.svg";
+import UminhoPNG from "./uminho.png";
+import IsepPNG from "./isep.png";
 
 export default function NavBar() {
-    return (
- <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
+const useStyles = makeStyles({
+  imageIcon: {
+    height: '100%'
+  },
+  iconRoot: {
+    textAlign: 'center'
+  }
+});
+
+    return (
+ <div className='flexNavBar'>
+         <img src={AniSvg} className='ani_logo' alt="Your SVG" />
+         <div className='titleNavBar'>
             
-          </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
+          <h2
           >
-            LOGO
-          </Typography>
-<Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/public/ani.jpeg" />
-              </IconButton>
-            </Tooltip>
-            
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/public/ani.jpeg" />
-              </IconButton>
-            </Tooltip>
-            
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+          Projeto ANI
+          </h2>
+</div>
+         <img src={UminhoPNG}  alt="UMINHO" className='uminho_logo'/>
+         <img src={IsepPNG}  alt="ISEP" className='isep_logo'/>
+          
+    </div>
     )
 }

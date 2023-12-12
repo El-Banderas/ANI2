@@ -57,7 +57,7 @@ export default function LandPage({ defaultInput }) {
     }
     const techHoliday = async () => {
         //axios.get('http://localhost:7999/')
-        
+
         setCurrentArg(getCurrentSelectedTech())
         setCurrentSidePage("tecnHoliday")
     }
@@ -67,49 +67,60 @@ export default function LandPage({ defaultInput }) {
     }
 
     return (
-        <div>
+        <div >
 
-      <NavBar />
-            <h1 className="title">
-                Painel principal
-                </h1>
-            <div className="line">
-
-                <ManyTechsGraph className="tabelTecs" input={defaultInput} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} />
-                <div className="btnsColumn">
+            <NavBar />
+            {/**Caso dê problemas, remover o everything */}
+            <div className="everything">
                 <Stack
-                    justifyContent="space-evenly"
-                    alignItems="center"
-                      direction={{ xs: 'column' }}
-  spacing={{ xs: 5 }}
-                >
-                        <Stack
-                            direction="row"
-                            justifyContent="center"
-                            alignItems="center"
-                            spacing={2}
-                            className="getTecn"
-                
-                        >
-                            <h3>Escolher técnico</h3>
-                            <Autocomplete
-                                disablePortal
-                                id="selectTecn"
-                                options={tecNames()}
-                                sx={{ width: 300 }}
-                                renderInput={(params) => <TextField {...params} label="Técnico" />}
-                            />
-                        </Stack>
-                    <Button  variant="outlined" onClick={() => getTecn()} fullWidth>Ver técnico</Button>
-                    <Button variant="outlined" onClick={() => removeTech()} fullWidth>Reload excel</Button>
-                    <Button  variant="outlined" onClick={() => techHoliday()} fullWidth>Técnico férias</Button>
+                    direction="column"
+                    alignItems="flex-start"
+                    spacing={2}
+                    className="getTecn"
 
+                >
+                    <h3 className="selectTecn">Selecione o técnico</h3>
+                    <div className="rowButtons">
+                        <Autocomplete
+                            disablePortal
+                            id="selectTecn"
+                            options={tecNames()}
+                            sx={{ width: 600 }}
+                            renderInput={(params) => <TextField {...params} />}
+                        />
+                        <Button variant="outlined" onClick={() => getTecn()} style={{
+                            borderRadius: 10,
+                            backgroundColor: "#32DBC4",
+                            margin: "1% 0% 1% 0%",
+                            fontSize: "14px",
+                            color: "black",
+                            fontWeight: "lighter",
+                        }} >Buscar</Button>
+                    </div>
                 </Stack>
-</div>
+
+
+                <div className="line">
+
+                    <ManyTechsGraph input={defaultInput} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} />
+                    <div className="btnsColumn">
+                        <Stack
+                            justifyContent="space-evenly"
+                            alignItems="center"
+                            direction={{ xs: 'column' }}
+                            spacing={{ xs: 5 }}
+                        >
+
+                            <Button variant="outlined" onClick={() => removeTech()} fullWidth>Reload excel</Button>
+                            <Button variant="outlined" onClick={() => techHoliday()} fullWidth>Técnico férias</Button>
+
+                        </Stack>
+                    </div>
+                </div>
+                {
+                    decideSidePannel(currentSidePage)
+                }
             </div>
-            {
-                decideSidePannel(currentSidePage)
-            }
         </div>
     )
 

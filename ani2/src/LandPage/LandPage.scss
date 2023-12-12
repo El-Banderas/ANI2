@@ -1,38 +1,58 @@
-.title{
-    padding-top: 5px;
-      font-size: 50px;
-  font-weight: 600;
-  background-image: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%); 
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
+$myBorderRadius: 25px;
+$myPaddingLeft: 2%;
+
+.line {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.subBox {
+    height: 30em;
 
 }
 
-.line{
-     display: flex;
-     flex-direction: row ;
-     justify-content: flex-start;
+.tabelTecs {
+    width: 80%;
+    height: 30em;
+    max-height: 20em;
+    overflow-y: scroll;
+    background-color: white;
+    border-radius: $myBorderRadius ;
+    margin-left: $myPaddingLeft;
+    padding-right: 4%;
+    border-radius: 3px; 
+    border-color: black;
 }
 
-.subBox{
-height: 30em;
 
-}
-
-.btnRight{
-    padding: 10px 10px 10px 10px;
-    margin: 10px 10px 10px 10px;
-    background-color: red;
-}
-.tabelTecs{
-width: 70%;
-height: 30em;
-max-height: 20em;
-overflow-y: scroll;
-}
-.btnsColumn{
-    width: 30%;
+.btnsColumn {
+    width: 20%;
     margin-left: 5%;
     margin-right: 5%;
+}
+
+.everything {
+    background-color: #E7F7F4;
+    margin: 2em 4em 5em 4em;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: $myBorderRadius;
+    gap: 30px;
+}
+
+.selectTecn {
+    font-weight: lighter;
+}
+
+.rowButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+}
+
+.getTecn {
+    padding-top: 1%;
+    padding-left: $myPaddingLeft;
 }

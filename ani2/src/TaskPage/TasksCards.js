@@ -66,13 +66,13 @@ const convertPhaseToString = (phaseInt) => {
 }
 const getColourByPhase = (phaseInt) => {
 switch(phaseInt){
-    case "0":
+    case 0:
       return "#FFFFF0";
-    case "1":
+    case 1:
       return "#ADFF2F";
-    case "2":
+    case 2:
       return "#FF6347";
-    case "3":
+    case 3:
       return "#40E0D0";
   }
 }
