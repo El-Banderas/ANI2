@@ -32,7 +32,9 @@ export default function TaskPage({ request_word, name }) {
         const cleanAnswer = response['data']
         console.log(cleanAnswer)
         setInfo(cleanAnswer)
+        if ("projects" in cleanAnswer) {
         setInfoProjects(cleanAnswer["projects"])
+        }
       }
     ).catch(error => console.error(`Error: ${error}`))
     //axios.get('http://localhost:7999/')

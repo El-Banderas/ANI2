@@ -108,11 +108,26 @@ export default function LandPage({ defaultInput }) {
                             justifyContent="space-evenly"
                             alignItems="center"
                             direction={{ xs: 'column' }}
-                            spacing={{ xs: 5 }}
+                            spacing={{ xs: 10 }}
+                            gap={{xs: 3}}
                         >
 
-                            <Button variant="outlined" onClick={() => removeTech()} fullWidth>Reload excel</Button>
-                            <Button variant="outlined" onClick={() => techHoliday()} fullWidth>Técnico férias</Button>
+                            <Button variant="outlined" onClick={() => removeTech()} style={{
+                            borderRadius: 10,
+                            backgroundColor: "#32DBC4",
+                            margin: "1% 0% 1% 0%",
+                            fontSize: "14px",
+                            color: "black",
+                            fontWeight: "lighter",
+                        }}fullWidth>Reload excel</Button>
+                            <Button variant="outlined" onClick={() => techHoliday()} style={{
+                            borderRadius: 10,
+                            backgroundColor: "#32DBC4",
+                            margin: "1% 0% 1% 0%",
+                            fontSize: "14px",
+                            color: "black",
+                            fontWeight: "lighter",
+                        }} fullWidth>Técnico férias</Button>
 
                         </Stack>
                     </div>
