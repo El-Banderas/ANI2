@@ -17,7 +17,6 @@ import './TaskMain.scss';
  * @returns 
  */
 export default function TasksCards({ tasksInfo, techName }) {
-
   // Functions to create mocked info
   function getRandomInt(max) {
   return Math.floor(Math.random() * max).toString();
@@ -80,7 +79,7 @@ const commonStyles = {
   borderColor: 'text.primary',
 };
   const renderProjectInfo = (info) => {
-    return <Card sx={{ ...commonStyles, minWidth: 275, border:1}} style={{backgroundColor: getColourByPhase(info["currentPhase"])}} key={info["id"]}>
+    return <Card sx={{ ...commonStyles, minWidth: 275, border:1}} style={{backgroundColor: getColourByPhase(info["currentPhase"])}} key={Math.random()}>
        <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
         {info["nProm"]}
