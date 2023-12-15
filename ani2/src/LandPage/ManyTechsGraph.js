@@ -18,6 +18,18 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
     }
 
     function numberToColorHsl(i) {
+        const colour_less = "rgb(54, 134, 106)"
+        const colour_medium = "rgb(60, 157, 146)"
+        const colour_high = "rgb(98, 205, 192)"
+
+        const firstThird = moreCostlyTask * (1/3)
+        const secondThird = moreCostlyTask * (2/3)
+        if (i < firstThird){
+            return colour_less
+        }
+        if (i > secondThird) return colour_high
+        return colour_medium
+        
         // as the function expects a value between 0 and 1, and red = 0° and green = 120°
         // we convert the input to the appropriate hue value
         var hue = i * 1.2 / 360;

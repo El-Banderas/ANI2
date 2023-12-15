@@ -17,9 +17,9 @@ import Icon from '@material-ui/core/Icon';
 import { makeStyles } from '@material-ui/styles';
 import SvgIcon from '@mui/material/SvgIcon';
 import Button from '@mui/material/Button';
-import AniSvg from "./aniLogo.svg";
-import UminhoPNG from "./uminho.png";
-import IsepPNG from "./isep.png";
+import Ani from "./ani_white.png";
+import UminhoPNG from "./uminho_white.png";
+import IsepPNG from "./isep_white.png";
 
 export default function NavBar() {
 
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 
     return (
  <div className='flexNavBar'>
-         <img src={AniSvg} className='ani_logo' alt="Your SVG" />
+         <img src={Ani} className='ani_logo' alt="Your SVG" />
          <div className='titleNavBar'>
             
           <h2
@@ -44,7 +44,6 @@ const useStyles = makeStyles({
 </div>
          <img src={UminhoPNG}  alt="UMINHO" className='uminho_logo'/>
          <img src={IsepPNG}  alt="ISEP" className='isep_logo'/>
-          
     </div>
     )
 }

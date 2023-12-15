@@ -4,28 +4,34 @@
     display: flex; 
      flex-direction: row;
      background-color: #FC848C;
-     top: 50%;
 }
+
+
 .logo{
-    width:4%;
-    height: 4%;
+
+  transform: translateY(10%);
 }
 
 .ani_logo{
     @extend .logo;
+    width:3%;
+    height: 3%;
     padding-left: 5%;
     padding-right: 3%;
 }
 .uminho_logo{
+
     @extend .logo;
+    width:4%;
+    height: 4%;
     margin-right: 5%;
-     top: 50%;
-     transform: translateY(50%);
 }
 
 .isep_logo{
     @extend .logo;
-     transform: translateY(20%);
+    width:5%;
+    height: 5%;
+  transform: translateY(30%);
 }
 .titleNavBar{
     margin-right: 50%;
