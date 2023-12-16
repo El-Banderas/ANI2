@@ -9,7 +9,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import './TaskMain.scss';
-import TasksCards from './TasksCards'
 
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -40,6 +39,9 @@ export default function TaskPage({ request_word, name }) {
     //axios.get('http://localhost:7999/')
   }
 
+  const convertBooleanStr = boolValue => {
+    return boolValue ? "Sim" : "Não"
+  }
 
   const convertInput = () => {
     console.log("CONVERT input")
@@ -49,7 +51,10 @@ export default function TaskPage({ request_word, name }) {
     const header = []
     const content = []
     for (const [key, value] of Object.entries(info["info"])) {
+      console.log(`Entry ${key} - ${value}`)
       header.push(<TableCell align="left">{key}</TableCell>)
+      typeof(value) === "boolean" ? 
+      content.push(<TableCell align="left">{convertBooleanStr(value)}</TableCell>) : 
       content.push(<TableCell align="left">{value}</TableCell>)
     }
     const title = request_word === "proj" ? `Informação projeto` : `Informação técnico`
@@ -63,7 +68,7 @@ export default function TaskPage({ request_word, name }) {
         >
           <h1>{title}</h1>
           <TableContainer component={Paper} >
-            <Table sx={{ minWidth: 650, border: 1 }} aria-label="simple table" >
+            <Table sx={{ minWidth: 650, border: 2 }} aria-label="simple table" >
 
               <TableHead>
                 <TableRow>
@@ -81,7 +86,6 @@ export default function TaskPage({ request_word, name }) {
 
             </Table>
           </TableContainer>
-          {request_word !== "proj" && <TasksCards tasksInfo={infoProjects} techName={name} />}
         </Stack>
       </div>
     )

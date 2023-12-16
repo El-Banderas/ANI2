@@ -21,3 +21,44 @@
 
   gap: 3%;
 }
+
+.containerCards{
+  margin-top: 3%;
+
+}
+
+.max{
+  padding-left: 10px;
+  padding-bottom: 20px;
+}
+
+.horizontalFlex{
+   display: flex;
+   flex-direction: row;
+}
+
+.horizontalFlexSpaceBetween{
+  @extend .horizontalFlex;
+   justify-content:space-between;
+}
+.horizontalFlexStart{
+  @extend .horizontalFlex;
+   justify-content:flex-start;
+   gap: 10px;
+}
+
+.tables{
+  @extend .horizontalFlex;
+  padding-top: 2%;
+  gap: 10px;
+  flex-wrap: wrap ;
+}
+.littleBox{
+
+  flex: 1 1 0px;
+  flex-basis: 0;
+}
+
+.topMargin{
+  padding-top: 5px;
+}

@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import TechHoliday from "../TechHoliday/TechHoliday";
 import NavBar from "../NavBar/Navbar";
+import TasksCards from '../TaskPage/TasksCards'
 
 
 export default function LandPage({ defaultInput }) {
@@ -26,7 +27,11 @@ export default function LandPage({ defaultInput }) {
                 return <TaskPage request_word={"proj"} name={currentArg} />
 
             case "tecn":
-                return <TaskPage request_word={"tecn"} name={currentArg} />
+                return <>
+                <TaskPage request_word={"tecn"} name={currentArg} /> 
+                <TasksCards name={currentArg} />
+                 </>
+
             case "tecnHoliday":
                 return <TechHoliday techName={getCurrentSelectedTech()} />
             default:

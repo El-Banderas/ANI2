@@ -9,6 +9,8 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './TaskMain.scss';
+import axios from 'axios';
+import ProjectCard from './ProjectCard'
 
 /**
  * This class shows the projects the tech is involved, in cards
@@ -16,7 +18,38 @@ import './TaskMain.scss';
  * @param {str} nameTech Tech name to get his projects
  * @returns 
  */
-export default function TasksCards({ tasksInfo, techName }) {
+export default function TasksCards({ name }) {
+
+  // Get info, equal to TaskMain...
+  const [tasksInfo, setTaskInfo] = useState({})
+  const [infoProjects, setInfoProjects] = useState({})
+  const [tecnId, setTecnId] = useState("")
+
+  useEffect(() => {
+    getTaskInfo();
+  }, [name]);
+
+  const getTaskInfo = () => {
+    const regexpSize = /([0-9]+)/;
+    const match = name.match(regexpSize);
+    console.log(name)
+    axios.get(`http://localhost:7999/?tecn=${name}`).then(
+      (response) => {
+        console.log(" [CARD] Receubeu resposta")
+        const cleanAnswer = response['data']
+        console.log(cleanAnswer)
+        setTaskInfo(cleanAnswer)
+        if ("projects" in cleanAnswer) {
+        setInfoProjects(cleanAnswer["projects"])
+        setTecnId(cleanAnswer["projects_tecn_id"])
+        }
+      }
+    ).catch(error => console.error(`Error: ${error}`))
+    //axios.get('http://localhost:7999/')
+  }
+
+
+
   // Functions to create mocked info
   function getRandomInt(max) {
   return Math.floor(Math.random() * max).toString();
@@ -78,43 +111,25 @@ switch(phaseInt){
 const commonStyles = {
   borderColor: 'text.primary',
 };
-  const renderProjectInfo = (info) => {
-    return <Card sx={{ ...commonStyles, minWidth: 275, border:1}} style={{backgroundColor: getColourByPhase(info["currentPhase"])}} key={Math.random()}>
-       <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-        {info["nProm"]}
-        </Typography>
-        <Typography variant="h5" component="div">
-        ID {info["id"]}
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        Fase: {convertPhaseToString(info["currentPhase"])}
-        </Typography>
-        <Typography variant="body2">
-        Texto?
-        </Typography>
-        </CardContent>
 
-      <CardActions>
-        <Typography variant="body2" >Tec. Análise: {info["analysis_tech"]} <br/>   Tec. Acomp.: {info["other_tech"]} </Typography>
-      </CardActions>
-    </Card>
+  const renderProjectInfo = (info) => {
+    return <ProjectCard info={info}  tecnId={tecnId}/>
   }
 
   const convertInput= () => {
     return (
       <div className="max">
-      <h1>Projetos {techName}</h1>
+      <h1>Projetos {name}</h1>
       <div className="scrollable">
-      {tasksInfo.map(project => renderProjectInfo(project))}
+      {infoProjects.map(project => renderProjectInfo(project))}
       </div>
 </div>
     )
     }
   return (
-      <div >
+      <div className='verticalFlex'>
 
-        {tasksInfo.length >= 0 ?
+        {infoProjects.length >= 0 ?
           convertInput() :
           <CircularProgress color="inherit" />
         }
