@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/ANI2/static/css/main.bd8deb78.css",
-    "main.js": "/ANI2/static/js/main.1455d2bd.js",
-    "static/media/aniLogo.svg": "/ANI2/static/media/aniLogo.9cf717afc89f2b56ce88ac9869d4ccc3.svg",
-    "static/media/uminho.png": "/ANI2/static/media/uminho.cc87d6081aa362d7448b.png",
+    "main.css": "/ANI2/static/css/main.e8bf9ccf.css",
+    "main.js": "/ANI2/static/js/main.7927e2dc.js",
+    "static/media/isep_white.png": "/ANI2/static/media/isep_white.f77b5d4a20f7e3439fd5.png",
+    "static/media/ani_white.png": "/ANI2/static/media/ani_white.b79ee241887dc18c5be4.png",
     "static/media/logo.svg": "/ANI2/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/ANI2/index.html",
-    "main.bd8deb78.css.map": "/ANI2/static/css/main.bd8deb78.css.map",
-    "main.1455d2bd.js.map": "/ANI2/static/js/main.1455d2bd.js.map"
+    "main.e8bf9ccf.css.map": "/ANI2/static/css/main.e8bf9ccf.css.map",
+    "main.7927e2dc.js.map": "/ANI2/static/js/main.7927e2dc.js.map"
   },
   "entrypoints": [
-    "static/css/main.bd8deb78.css",
-    "static/js/main.1455d2bd.js"
+    "static/css/main.e8bf9ccf.css",
+    "static/js/main.7927e2dc.js"
   ]
 }
