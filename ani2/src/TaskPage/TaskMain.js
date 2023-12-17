@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import './TaskMain.scss';
+import TextComponentPrimary from "../TextComponents/TextPrimary";
 
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -52,10 +53,10 @@ export default function TaskPage({ request_word, name }) {
     const content = []
     for (const [key, value] of Object.entries(info["info"])) {
       console.log(`Entry ${key} - ${value}`)
-      header.push(<TableCell align="left">{key}</TableCell>)
+      header.push(<TableCell align="center"><TextComponentPrimary text={key} size={16} fontWeightGiven={"bold"}/></TableCell>)
       typeof(value) === "boolean" ? 
-      content.push(<TableCell align="left">{convertBooleanStr(value)}</TableCell>) : 
-      content.push(<TableCell align="left">{value}</TableCell>)
+      content.push(<TableCell align="center"> <TextComponentPrimary text={convertBooleanStr(value)} size={16} fontWeightGiven={"regular"}/></TableCell>) : 
+      content.push(<TableCell  align="center"><TextComponentPrimary text={value} size={16} fontWeightGiven={"regular"}/></TableCell>)
     }
     const title = request_word === "proj" ? `Informação projeto` : `Informação técnico`
 
@@ -66,12 +67,15 @@ export default function TaskPage({ request_word, name }) {
           justifyContent="space-evenly"
           alignItems="center"
         >
-          <h1>{title}</h1>
+
+      <div className="title">
+      <TextComponentPrimary text={title} size={32} fontWeightGiven={"bold"}/>
+</div>
           <TableContainer component={Paper} >
-            <Table sx={{ minWidth: 650, border: 2 }} aria-label="simple table" >
+            <Table sx={{ minWidth: 650, border: 2 }} style={{backgroundColor:'#32DBC4',  borderColor: 'blue'}} aria-label="simple table" >
 
               <TableHead>
-                <TableRow>
+                <TableRow >
                   {header}
                 </TableRow>
               </TableHead>

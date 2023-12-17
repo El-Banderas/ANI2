@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './TaskMain.scss';
 import TextField from '@mui/material/TextField';
+import TextComponentPrimary from "../TextComponents/TextPrimary";
 
 /**
  * This class shows the projects the tech is involved, in cards
@@ -18,103 +19,119 @@ import TextField from '@mui/material/TextField';
  * @returns 
  */
 export default function ProjectCard({ info, tecnId }) {
-const convertPhaseToString = (phaseInt) => {
-  switch(phaseInt){
-    case "0":
-      return "Por avaliar";
-    case "1":
-      return "Aprovado";
-    case "2":
-      return "Rejeitado";
-    case "3":
-      return "Concluido";
+  const convertPhaseToString = (phaseInt) => {
+    switch (phaseInt) {
+      case "0":
+        return "Por avaliar";
+      case "1":
+        return "Aprovado";
+      case "2":
+        return "Rejeitado";
+      case "3":
+        return "Concluido";
       default:
         return phaseInt.toString()
+    }
   }
-}
 
-const getEffort = () => {
-  console.log("What is?")
-  console.log(tecnId)
-  console.log(info)
-  return tecnId === info["Tecn. análise"] ? info["Custo análise"] : info["Custo acompanhamento"]
-} 
-
-const getColourByPhase = (phaseInt) => {
-switch(phaseInt){
-    case 0:
-      return "Por analisar";
-    case "Aprovado":
-      return "#ADFF2F";
-    case "Rejeitado":
-      return "#FF6347";
-    case "Concluído":
-      return "#40E0D0";
+  const getEffort = () => {
+    console.log("What is?")
+    console.log(tecnId)
+    console.log(info)
+    return tecnId === info["Técnico análise"] ? info["Esforço análise"] : info["Esforço acompanhamento"]
   }
-}
-const commonStyles = {
-  borderColor: 'text.primary',
-};
 
-
-  const normalSizeText = text => {
-    return <Typography sx={{ fontSize: 14 }} color="text.secondary" component="div" >
-              {text}
-            </Typography>
+  const getColourByPhase = (phaseInt) => {
+    return "#FC848C"
+    switch (phaseInt) {
+      case 0:
+        return "Por analisar";
+      case "Aprovado":
+        return "#ADFF2F";
+      case "Rejeitado":
+        return "#FF6347";
+      case "Concluído":
+        return "#40E0D0";
+    }
   }
+  const commonStyles = {
+    borderColor: 'text.primary',
+  };
+
 
   const biggerSizeText = text => {
     return <Typography sx={{ fontSize: 16 }} color="text.primary" align="left" component="div" className='topMargin' >
-              {text}
-            </Typography>
+      {text}
+    </Typography>
   }
 
   const boxText = text => {
     return <Typography sx={{ fontSize: 16, border: 1 }} color="text.primary" className='littleBox' component="div" >
-              {text}
-            </Typography>
+      {text}
+    </Typography>
   }
 
- return (
-  <Card sx={{ ...commonStyles, minWidth: 375, border:1}} style={{backgroundColor: getColourByPhase(info["Fase atual"])}} key={Math.random()}>
-       <CardContent >
-          <Typography sx={{ fontSize: 16 }}  gutterBottom align="left">
-          {info["Sigla"]}
-          </Typography>
-          
-          <div className='horizontalFlexSpaceBetween'>
-          {normalSizeText(`Data init ${info["Data início"]}`)}
-          {normalSizeText(`Data fim ${info["Data fim"]}`)}
-          </div>
-
-          <div className='horizontalFlexStart'>
-          {normalSizeText("ID: ")}
-          {normalSizeText(info["id"])}
+  return (
+    <Card sx={{ ...commonStyles, minWidth: 375, border: 1 }} style={{ backgroundColor: getColourByPhase(info["Fase atual"]) }} key={Math.random()}>
+      <CardContent >
+        <div className="horizontalFlex">
+          <TextComponentPrimary text={`Sigla: `} size={14} fontWeightGiven={'Bold'} />
+          <TextComponentPrimary text={`${info["Sigla"]}`} size={14} fontWeightGiven={'regular'} />
         </div>
-          {biggerSizeText("Projetos")}
-           <TextField
-           margin="dense"
-           fullWidth
+
+        <div className='horizontalFlexSpaceBetween'>
+          <div className="horizontalFlex">
+            <TextComponentPrimary text={`Data início: `} size={14} fontWeightGiven={'Bold'} />
+            <TextComponentPrimary text={`${info["Data início"]}`} size={14} fontWeightGiven={'regular'} />
+          </div>
+          <div className="horizontalFlex">
+            <TextComponentPrimary text={`Data fim: `} size={14} fontWeightGiven={'Bold'} />
+            <TextComponentPrimary text={`${info["Data fim"]}`} size={14} fontWeightGiven={'regular'} />
+          </div>
+        </div>
+
+        <div className='horizontalFlexStart'>
+          <TextComponentPrimary text={"ID: "} size={14} fontWeightGiven={'Bold'} />
+          <TextComponentPrimary text={info["id"]} size={14} fontWeightGiven={'regular'} />
+        </div>
+        <TextField
+          margin="dense"
+          fullWidth
           size="small"
           defaultValue="Observações..."
           InputProps={{
             readOnly: true,
           }}
         />
-          <div className='tables'>
-          {boxText(`Fase: ${info["Fase atual"]}`)}
-          {boxText(`Tema: ${info["Tema"]}`)}
+        <div className='tables'>
+
+          <div className="littleBox">
+            <TextComponentPrimary text={"Fase: "} size={14} fontWeightGiven={'Bold'} />
+            <TextComponentPrimary text={info["Fase atual"]} size={14} fontWeightGiven={'regular'} />
           </div>
-          <div className='tables'>
-          {boxText(`Tipo: ${info["N. Promotores"]}`)}
-          {boxText(`Esforço: ${getEffort()}`)}
+
+          <div className="littleBox">
+            <TextComponentPrimary text={"Tema"} size={14} fontWeightGiven={'Bold'} />
+            <TextComponentPrimary text={info["Tema"]} size={14} fontWeightGiven={'regular'} />
           </div>
-        </CardContent>
+        </div>
+        <div className='tables'>
+<div className="littleBox">
+            <TextComponentPrimary text={"Tipo: "} size={14} fontWeightGiven={'Bold'} />
+            <TextComponentPrimary text={info["Tipo de projeto"]} size={14} fontWeightGiven={'regular'} />
+          </div>
+
+          <div className="littleBox">
+            <TextComponentPrimary text={"Esforço: "} size={14} fontWeightGiven={'Bold'} />
+            <TextComponentPrimary text={getEffort()} size={14} fontWeightGiven={'regular'} />
+          </div>
+        </div>
+      </CardContent>
 
       <CardActions>
       </CardActions>
     </Card>
-      
-      
-       )
+
+
+  )
 }

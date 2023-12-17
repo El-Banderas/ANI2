@@ -1,39 +1,39 @@
-
-.flexNavBar{
+.flexNavBar {
     position: static;
-    display: flex; 
-     flex-direction: row;
-     background-color: #FC848C;
+    display: flex;
+    flex-direction: row;
+    background-color: #FC848C;
+    height: 4vw;
 }
 
 
-.logo{
-
-  transform: translateY(10%);
+.logo {
+    width: 80px;
+    height: 3vw;
+    transform: translateY(0.5vw);
 }
 
-.ani_logo{
+.ani_logo {
     @extend .logo;
-    width:3%;
-    height: 3%;
+    width: 60px;
     padding-left: 5%;
     padding-right: 3%;
 }
-.uminho_logo{
+
+.uminho_logo {
 
     @extend .logo;
-    width:4%;
-    height: 4%;
     margin-right: 5%;
 }
 
-.isep_logo{
+.isep_logo {
     @extend .logo;
-    width:5%;
-    height: 5%;
-  transform: translateY(30%);
+    width: 90px;
 }
-.titleNavBar{
+
+.titleNavBar {
+
+    height: 3vw;
+    transform: translateY(1vw);
     margin-right: 50%;
-    color:white
 }

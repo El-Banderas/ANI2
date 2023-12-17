@@ -10,6 +10,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TechHoliday from "../TechHoliday/TechHoliday";
 import NavBar from "../NavBar/Navbar";
 import TasksCards from '../TaskPage/TasksCards'
+import TextComponentPrimary from "../TextComponents/TextPrimary";
 
 
 export default function LandPage({ defaultInput }) {
@@ -21,16 +22,16 @@ export default function LandPage({ defaultInput }) {
     const decideSidePannel = (currentState) => {
         switch (currentState) {
             case "none":
-                return <h2>Nada selecionado</h2>
+                return  <TextComponentPrimary text={"Nada selecionado"} size={32} fontWeightGiven={"medium"} /> 
 
             case "task":
                 return <TaskPage request_word={"proj"} name={currentArg} />
 
             case "tecn":
                 return <>
-                <TaskPage request_word={"tecn"} name={currentArg} /> 
-                <TasksCards name={currentArg} />
-                 </>
+                    <TaskPage request_word={"tecn"} name={currentArg} />
+                    <TasksCards name={currentArg} />
+                </>
 
             case "tecnHoliday":
                 return <TechHoliday techName={getCurrentSelectedTech()} />
@@ -84,7 +85,8 @@ export default function LandPage({ defaultInput }) {
                     className="getTecn"
 
                 >
-                    <h3 className="selectTecn">Selecione o técnico</h3>
+
+                    <TextComponentPrimary text={"Selecione o técnico"} size={20} fontWeightGiven={"bold"} />
                     <div className="rowButtons">
                         <Autocomplete
                             disablePortal
@@ -96,11 +98,20 @@ export default function LandPage({ defaultInput }) {
                         <Button variant="outlined" onClick={() => getTecn()} style={{
                             borderRadius: 10,
                             backgroundColor: "#32DBC4",
-                            margin: "1% 0% 1% 0%",
+                            margin: "0% 0% 1% 0%",
                             fontSize: "14px",
                             color: "black",
                             fontWeight: "lighter",
-                        }} >Buscar</Button>
+                        }} ><TextComponentPrimary text={"Buscar"} size={16} fontWeightGiven={"regular"} /></Button>
+                        <Button variant="outlined" onClick={() => removeTech()} style={{
+                            borderRadius: 10,
+                            backgroundColor: "#32DBC4",
+                            margin: "0% 0% 1% 0%",
+                            fontSize: "14px",
+                            color: "black",
+                            fontWeight: "lighter",
+                        }} ><TextComponentPrimary text={"Reload excel"} size={16} fontWeightGiven={"regular"} /></Button>
+
                     </div>
                 </Stack>
 
@@ -114,25 +125,8 @@ export default function LandPage({ defaultInput }) {
                             alignItems="center"
                             direction={{ xs: 'column' }}
                             spacing={{ xs: 10 }}
-                            gap={{xs: 3}}
+                            gap={{ xs: 3 }}
                         >
-
-                            <Button variant="outlined" onClick={() => removeTech()} style={{
-                            borderRadius: 10,
-                            backgroundColor: "#32DBC4",
-                            margin: "1% 0% 1% 0%",
-                            fontSize: "14px",
-                            color: "black",
-                            fontWeight: "lighter",
-                        }}fullWidth>Reload excel</Button>
-                            <Button variant="outlined" onClick={() => techHoliday()} style={{
-                            borderRadius: 10,
-                            backgroundColor: "#32DBC4",
-                            margin: "1% 0% 1% 0%",
-                            fontSize: "14px",
-                            color: "black",
-                            fontWeight: "lighter",
-                        }} fullWidth>Técnico férias</Button>
 
                         </Stack>
                     </div>

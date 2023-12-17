@@ -82,13 +82,13 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
         },
         responsive: true,
         plugins: {
-            legend: {
-                position: 'right',
-            },
             title: {
                 display: true,
                 text: 'Tarefas por técnico',
             },
+            legend: {
+        display: false
+      },
         },
 
     };

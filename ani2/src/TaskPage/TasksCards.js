@@ -1,16 +1,10 @@
 
 import React, { useEffect, useState } from "react";
-import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import './TaskMain.scss';
 import axios from 'axios';
 import ProjectCard from './ProjectCard'
+import TextComponentPrimary from "../TextComponents/TextPrimary";
 
 /**
  * This class shows the projects the tech is involved, in cards
@@ -119,7 +113,9 @@ const commonStyles = {
   const convertInput= () => {
     return (
       <div className="max">
-      <h1>Projetos {name}</h1>
+      <div className="title">
+      <TextComponentPrimary text={`Projetos ${name}`} size={32} fontWeightGiven={"bold"}/>
+</div>
       <div className="scrollable">
       {infoProjects.map(project => renderProjectInfo(project))}
       </div>
