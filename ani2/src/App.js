@@ -59,7 +59,7 @@ const getAttributions =  () => {
   return (
     <div className="App">
           { Object.keys(input).length > 0 ?
-            <LandPage defaultInput={input}/> :
+            <LandPage defaultInput={input} updateInput={setInput}/> :
             <div>
             <h1>Loading</h1> 
             <CircularProgress />

@@ -35,9 +35,6 @@ export default function ProjectCard({ info, tecnId }) {
   }
 
   const getEffort = () => {
-    console.log("What is?")
-    console.log(tecnId)
-    console.log(info)
     return tecnId === info["Técnico análise"] ? info["Esforço análise"] : info["Esforço acompanhamento"]
   }
 

@@ -13,11 +13,10 @@ import TasksCards from '../TaskPage/TasksCards'
 import TextComponentPrimary from "../TextComponents/TextPrimary";
 
 
-export default function LandPage({ defaultInput }) {
+export default function LandPage({ defaultInput, updateInput }) {
 
     const [currentArg, setCurrentArg] = useState("");
     const [currentSidePage, setCurrentSidePage] = useState("none");
-
 
     const decideSidePannel = (currentState) => {
         switch (currentState) {
@@ -56,10 +55,17 @@ export default function LandPage({ defaultInput }) {
 
     }
     const removeTech = async () => {
-        console.log("GET localhost")
+        console.log("Update from excel")
+axios.get(`http://127.0.0.1:7999/?removeTecn=nothing`).then(
+          (response) => {
+            console.log("Change attribution")
+            const cleanAnswer = response['data']['input']
+            console.log(cleanAnswer)
+            updateInput(cleanAnswer)
+          }
+        ).catch(error => console.error(`Error: ${error}`))
         //axios.get('http://localhost:7999/')
-        const res = await axios.get(`http://localhost:7999/?removeTecn=${getCurrentSelectedTech()}`);
-        console.log(res['data'])
+        
     }
     const techHoliday = async () => {
         //axios.get('http://localhost:7999/')
