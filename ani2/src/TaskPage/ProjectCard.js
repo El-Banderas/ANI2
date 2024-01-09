@@ -19,36 +19,32 @@ import TextComponentPrimary from "../TextComponents/TextPrimary";
  * @returns 
  */
 export default function ProjectCard({ info, tecnId }) {
-  const convertPhaseToString = (phaseInt) => {
-    switch (phaseInt) {
-      case "0":
-        return "Por avaliar";
-      case "1":
-        return "Aprovado";
-      case "2":
-        return "Rejeitado";
-      case "3":
-        return "Concluido";
-      default:
-        return phaseInt.toString()
-    }
-  }
+  
 
   const getEffort = () => {
+    console.log("Effort?")
+    console.log(tecnId)
+    console.log(info)
+    console.log(info["Técnico análise"])
+    console.log(tecnId === info["Técnico análise"])
+
     return tecnId === info["Técnico análise"] ? info["Esforço análise"] : info["Esforço acompanhamento"]
   }
 
   const getColourByPhase = (phaseInt) => {
-    return "#FC848C"
+const backColor = tecnId !== info["Técnico análise"] ?  "#FC848C" : "#3C9D92"
+return backColor
     switch (phaseInt) {
-      case 0:
-        return "Por analisar";
-      case "Aprovado":
-        return "#ADFF2F";
+      // PINK
+      case "Por analisar":
+        return "#FC848C"
       case "Rejeitado":
-        return "#FF6347";
+        return "#FC848C"
+      // Blue
+      case "Aprovado":
+        return "#3C9D92";
       case "Concluído":
-        return "#40E0D0";
+        return "#3C9D92";
     }
   }
   const commonStyles = {
@@ -56,17 +52,6 @@ export default function ProjectCard({ info, tecnId }) {
   };
 
 
-  const biggerSizeText = text => {
-    return <Typography sx={{ fontSize: 16 }} color="text.primary" align="left" component="div" className='topMargin' >
-      {text}
-    </Typography>
-  }
-
-  const boxText = text => {
-    return <Typography sx={{ fontSize: 16, border: 1 }} color="text.primary" className='littleBox' component="div" >
-      {text}
-    </Typography>
-  }
 
   return (
     <Card sx={{ ...commonStyles, minWidth: 375, border: 1 }} style={{ backgroundColor: getColourByPhase(info["Fase atual"]) }} key={Math.random()}>

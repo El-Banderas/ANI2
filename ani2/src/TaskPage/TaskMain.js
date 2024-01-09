@@ -72,7 +72,7 @@ export default function TaskPage({ request_word, name }) {
       <TextComponentPrimary text={title} size={32} fontWeightGiven={"bold"}/>
 </div>
           <TableContainer component={Paper} >
-            <Table sx={{ minWidth: 650, border: 2 }} style={{backgroundColor:'#32DBC4',  borderColor: 'blue'}} aria-label="simple table" >
+            <Table sx={{ minWidth: 650, border: 2 }} style={{backgroundColor:'#32DBC4',  borderColor: 'grey'}} aria-label="simple table" >
 
               <TableHead>
                 <TableRow >

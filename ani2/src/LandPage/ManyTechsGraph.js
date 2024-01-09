@@ -17,18 +17,28 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
         return `#${randColor.toUpperCase()}`
     }
 
-    function numberToColorHsl(i) {
-        const colour_less = "rgb(54, 134, 106)"
-        const colour_medium = "rgb(60, 157, 146)"
-        const colour_high = "rgb(98, 205, 192)"
+    function numberToColorHsl(i, phase) {
+        const is_accomp = phase === 'Análise' ? true : false
+        const colour_less_blue = "rgb(54, 134, 106)"
+        const colour_medium_blue = "rgb(60, 157, 146)"
+        const colour_high_blue = "rgb(98, 205, 192)"
+
+        const colour_medium_pink = "rgb(250, 85, 96)"
+        const colour_less_pink = "rgb(250, 114, 123)"
+        const colour_high_pink = "rgb(249, 48, 62)"
 
         const firstThird = moreCostlyTask * (1/3)
         const secondThird = moreCostlyTask * (2/3)
         if (i < firstThird){
-            return colour_less
+            const res = is_accomp ? colour_less_blue :  colour_less_pink
+            return res
         }
-        if (i > secondThird) return colour_high
-        return colour_medium
+        if (i > secondThird) {
+            const res = is_accomp ? colour_high_blue :  colour_high_pink
+            return res
+        }
+        const res = is_accomp ? colour_medium_blue :  colour_medium_pink
+        return res
         
         // as the function expects a value between 0 and 1, and red = 0° and green = 120°
         // we convert the input to the appropriate hue value
@@ -142,7 +152,7 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
                     label: task,
                     data: dataThisTask,
                     borderColor: 'rgb(255, 99, 132)',
-                    backgroundColor: numberToColorHsl((1 - (cost / moreCostlyTask)) * 100),
+                    backgroundColor: numberToColorHsl((1 - (cost / moreCostlyTask)) * 100, task.split("-")[1]),
                 })
             }
 
