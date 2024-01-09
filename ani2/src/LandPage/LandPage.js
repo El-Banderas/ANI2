@@ -81,7 +81,6 @@ axios.get(`http://127.0.0.1:7999/?removeTecn=nothing`).then(
     return (
         <div >
 
-            <NavBar />
             {/**Caso dê problemas, remover o everything */}
             <div className="everything">
                 <Stack
