@@ -25,6 +25,7 @@ export default function TableProjects({ projects, urlBackend, submissionDone }) 
                 //"name" : "AAA"
             }
         });
+        // Change page
         submissionDone()
 
     }
@@ -97,7 +98,7 @@ export default function TableProjects({ projects, urlBackend, submissionDone }) 
                 fontSize: "14px",
                 color: "black",
                 fontWeight: "lighter",
-            }} ><TextComponentPrimary text={"Buscar"} size={16} fontWeightGiven={"regular"} /></Button>
+            }} ><TextComponentPrimary text={"Submeter"} size={16} fontWeightGiven={"regular"} /></Button>
         </div>
     )
 }

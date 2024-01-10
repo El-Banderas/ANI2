@@ -7,6 +7,7 @@ import NavBar from "./NavBar/Navbar";
 
 function App() {
   const urlBackend = "http://127.0.0.1:10000" 
+  //const urlBackend = "https://backend-valm.onrender.com" 
   const [currentPage, setCurPage] = useState("loadProjects")
 
   const submissionDone = () => {
@@ -20,7 +21,7 @@ function App() {
         currentPage === "loadProjects" && <LoadProjects urlBackend={urlBackend} submissionDone={submissionDone}/>
       }
       {
-        currentPage === "landPage" && <MainApp />
+        currentPage === "landPage" && <MainApp urlBackend={urlBackend} />
       }
     </div>
   );

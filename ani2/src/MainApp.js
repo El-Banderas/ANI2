@@ -6,7 +6,7 @@ import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
 import React, {useEffect, useState} from "react";
 
-export default function MainApp() {
+export default function MainApp({urlBackend}) {
 
   useEffect( () => {
     getAttributions();
@@ -38,7 +38,7 @@ export default function MainApp() {
   
 const getAttributions =  () => {
         console.log("GET initial attris")
-        axios.get(`http://127.0.0.1:7999/?attri=normal`).then(
+        axios.get(`${urlBackend}/attri`).then(
           (response) => {
             console.log("Receubeu resposta")
             const cleanAnswer = response['data']['input']
