@@ -141,6 +141,12 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
     }
 
     const labels = Object.keys(input["technicians"])  //['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    const maybeTask = (task) => {
+        if (task === "-Acompanhamento") return "Indefinido-Acompanhamento" 
+        if (task === "-Anális") return "Indefinido-Análise" 
+        return task
+
+    }
     const datasetsFromInput = () => {
         const res = []
         for (let [tecName, tasks] of Object.entries(input["technicians"])) {
@@ -148,8 +154,9 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
                 const cost = input["tasks"][task]
                 const dataThisTask = Array(labels.length).fill(0);
                 dataThisTask[labels.indexOf(tecName)] = cost
+                
                 res.push({
-                    label: task,
+                    label: maybeTask(task),
                     data: dataThisTask,
                     borderColor: 'rgb(255, 99, 132)',
                     backgroundColor: numberToColorHsl((1 - (cost / moreCostlyTask)) * 100, task.split("-")[1]),
