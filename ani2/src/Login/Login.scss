@@ -1,0 +1,15 @@
+.Login {
+  text-align: center;
+//   background-color: lightgray;
+margin: auto;
+  width: 50%;
+  padding: 10px;
+
+}
+.flexVertical{
+  display: flex;
+  flex-direction: column;
+   align-items: center;
+    justify-content: center;
+    gap: 30px;
+  }

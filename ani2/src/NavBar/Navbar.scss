@@ -6,6 +6,13 @@
     height: 4vw;
 }
 
+.btns{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-right: 5%;
+    transform: translateY(0.7vw);
+}
 
 .logo {
     width: 80px;
@@ -30,10 +37,15 @@
     @extend .logo;
     width: 90px;
 }
-
-.titleNavBar {
-
+.titleNavBarWithMargin {
     height: 3vw;
     transform: translateY(1vw);
     margin-right: 50%;
+}
+.titleNavBar {
+    height: 3vw;
+    transform: translateY(1vw);
+    margin-right: 25%;
+    width: 10%;
+    max-width: fit-content;
 }
