@@ -2,26 +2,26 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
-import TableProjects from "./TableProjects";
+import TableTecns from "./TableTecns";
 
 
 
-export default function LoadProjects({urlBackend, submissionDone}) {
+export default function LoadTecn({urlBackend, submissionDone}) {
 
   useEffect( () => {
-    getProjects();
+    getTecn();
   }, [] );
 
-  const [projectsAndNames, setProjectsAndNames] = useState({})
+  const [tecns, setTecns] = useState({})
 
-const getProjects =  () => {
-        axios.get(`${urlBackend}/proj_cost`).then(
+const getTecn =  () => {
+        axios.get(`${urlBackend}/tecns`).then(
           (response) => {
             console.log("Receubeu resposta")
             const cleanAnswer = response['data']
             console.log(cleanAnswer)
             //setProjects([...cleanAnswer, ...cleanAnswer])
-            setProjectsAndNames(cleanAnswer)
+            setTecns(cleanAnswer["tecns"])
           }
         ).catch(error => console.error(`Error: ${error}`))
         //axios.get('http://localhost:7999/')
@@ -30,8 +30,8 @@ const getProjects =  () => {
 
 
     return <div>
-{ Object.keys(projectsAndNames).length > 0 ?
-            <TableProjects projects={projectsAndNames} urlBackend={urlBackend} submissionDone={submissionDone}/>
+{ Object.keys(tecns).length > 0 ?
+            <TableTecns tecns={tecns} urlBackend={urlBackend} submissionDone={submissionDone}/>
             :
             <div>
             <h1>Loading</h1> 

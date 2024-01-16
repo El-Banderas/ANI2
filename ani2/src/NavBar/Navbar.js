@@ -4,11 +4,20 @@ import Ani from "./ani_corner.png";
 import UminhoPNG from "./uminho_corner.png";
 import IsepPNG from "./isep_corner.png";
 import TextWhite from '../TextComponents/TextWhite';
-import Button, { ButtonProps } from '@mui/material/Button';
-import { purple } from '@mui/material/colors';
+import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
+import axios from 'axios';
 
-export default function NavBar({ loggedIn, changeCurrentPage, reloadData }) {
+export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
+  
+  const reloadData = () => {
+    axios.get(`${urlBackend}/reload`).then(
+          (response) => {
+            console.log("Receubeu resposta")
+          }
+        ).catch(error => console.error(`Error: ${error}`))
+  }
+
 
     const ColorButton = styled(Button)(({ theme }) => ({
         backgroundColor: "#FC848C",
@@ -22,8 +31,9 @@ export default function NavBar({ loggedIn, changeCurrentPage, reloadData }) {
     }));
 
     const btnsChangePage = <div className='btns'>
+        <ColorButton onClick={() => changeCurrentPage("tecnInfo")} variant="outlined">Ver técnicos</ColorButton  >
         <ColorButton onClick={() => changeCurrentPage("loadProjects")} variant="outlined" >Muda projetos</ColorButton  >
-        <ColorButton onClick={() => changeCurrentPage("landPage")} variant="outlined">Vê configuração</ColorButton  >
+        <ColorButton onClick={() => changeCurrentPage("landPage")} variant="outlined">Ver alocação</ColorButton  >
         <ColorButton onClick={() => reloadData()} variant="outlined">Reload Data</ColorButton  >
     </div>
       const moreMargin = loggedIn ? "titleNavBar" : "titleNavBarWithMargin";
