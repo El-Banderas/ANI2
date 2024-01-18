@@ -10,6 +10,10 @@ import Button from '@mui/material/Button';
 import TextComponentPrimary from "../TextComponents/TextPrimary";
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
+import * as React from 'react';
+
+
+import TablePagination from '@mui/material/TablePagination';
 
 
 import './LoadProjects.scss'
@@ -33,18 +37,18 @@ export default function TableProjects({ projects, urlBackend, submissionDone }) 
     }
 
     const changeCampProject = (value, idProject, type) => {
-        const objIndex = projects["projects"].findIndex((obj => obj.id == idProject));
+        const objIndex = projects["projects"].findIndex((obj => obj.id === idProject));
         if (type === "Esf. acompanhamento") {
             projects["projects"][objIndex].effort_accomp = value
         }
         else {
-            if (type ===  "Esf. análise"){
-            projects["projects"][objIndex].effort_analisis = value
-        }
-        else {
+            if (type === "Esf. análise") {
+                projects["projects"][objIndex].effort_analisis = value
+            }
+            else {
 
-            projects["projects"][objIndex].phase = value
-        }
+                projects["projects"][objIndex].phase = value
+            }
 
         }
     }
@@ -65,7 +69,7 @@ export default function TableProjects({ projects, urlBackend, submissionDone }) 
             />
         )
     }
-const inputPhase = (defaultValue, id, value) => {
+    const inputPhase = (defaultValue, id, value) => {
         const title = "Fase"
         return (
             <TextField
@@ -79,30 +83,69 @@ const inputPhase = (defaultValue, id, value) => {
                     shrink: true,
                 }}
                 onChange={(e) => changeCampProject(e.target.value, id, title)}>
-               {optionsPhases()}
-             </TextField>
+                {optionsPhases()}
+            </TextField>
         )
     }
 
     const optionsPhases = () => {
-        const phasesNames = projects["phase_names"] 
+        const phasesNames = projects["phase_names"]
         return phasesNames.map((phaseName) => (
-         <MenuItem key={phaseName} value={phaseName}>
-         {phaseName}
-            </MenuItem> 
+            <MenuItem key={phaseName} value={phaseName}>
+                {phaseName}
+            </MenuItem>
         )
-        
+
         )
     }
 
     const alignText = "center"
-    return (
+    
+    // ----------------- Control table ------------------
+    
+
+    const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+   const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+
+    // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - projects["projects"].length) : 0;
+
+const visibleRows = React.useMemo(
+    () =>
+     projects["projects"].slice().sort((a,b) => {
+if (b["ID"] < a["ID"]) {
+    return -1;
+  }
+  if (b["ID"] > a["ID"]) {
+    return 1;
+  }
+  return 0;
+     }).slice(
+        page * rowsPerPage,
+        page * rowsPerPage + rowsPerPage,
+      ),
+    [page, rowsPerPage, projects],
+  );
+
+     return (
         <div>
             <div className='table'>
+                <TableContainer>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align={alignText}>ID</TableCell>
+                            <TableCell align={alignText} sortDirection="asc">ID</TableCell>
                             <TableCell align={alignText}> Nome</TableCell>
                             <TableCell align={alignText}> Área Temática</TableCell>
                             <TableCell align={alignText}> Topologia</TableCell>
@@ -112,7 +155,7 @@ const inputPhase = (defaultValue, id, value) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {projects["projects"].map((project) => (
+                        {visibleRows.map((project, index) => (
                             <TableRow
                                 key={project.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -124,14 +167,33 @@ const inputPhase = (defaultValue, id, value) => {
                                 <TableCell align={alignText}>{project.area}</TableCell>
                                 <TableCell align={alignText}>{project.topology}</TableCell>
                                 <TableCell align={alignText} style={{ width: 160 }}>{inputPhase(project.phase, project.id, "phase")}
-                                
+
                                 </TableCell>
                                 <TableCell align={alignText}>{inputEffort(project.effort_analisis, project.id, "effort_analisis")}</TableCell>
                                 <TableCell align={alignText}>{inputEffort(project.effort_accomp, project.id, "effort_accomp")}</TableCell>
                             </TableRow>
                         ))}
+                         {emptyRows > 0 && (
+                <TableRow
+                  style={{
+                    height:  53 * emptyRows,
+                  }}
+                >
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
                     </TableBody>
                 </Table>
+</TableContainer>
+ <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={projects["projects"].length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
             </div>
             <Button variant="outlined" onClick={() => submit()} style={{
                 borderRadius: 10,
