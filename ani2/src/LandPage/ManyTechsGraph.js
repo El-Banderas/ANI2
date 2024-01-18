@@ -8,14 +8,7 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
     let chartRef = useRef();
     const { abs, min, max, round } = Math;
     const moreCostlyTask = max(...Object.values(input["tasks"]))
-    function generateRandomColor() {
-        let maxVal = 0xFFFFFF; // 16777215
-        let randomNumber = Math.random() * maxVal;
-        randomNumber = Math.floor(randomNumber);
-        randomNumber = randomNumber.toString(16);
-        let randColor = randomNumber.padStart(6, 0);
-        return `#${randColor.toUpperCase()}`
-    }
+
 
     function numberToColorHsl(i, phase) {
         const is_accomp = phase === 'Análise' ? true : false
@@ -23,9 +16,9 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
         const colour_medium_blue = "rgb(60, 157, 146)"
         const colour_high_blue = "rgb(98, 205, 192)"
 
+        const colour_high_pink = "rgb(252, 30, 46)"
         const colour_medium_pink = "rgb(250, 85, 96)"
-        const colour_less_pink = "rgb(250, 114, 123)"
-        const colour_high_pink = "rgb(249, 48, 62)"
+        const colour_less_pink = "rgb(250, 127, 136)"
 
         const firstThird = moreCostlyTask * (1/3)
         const secondThird = moreCostlyTask * (2/3)
@@ -40,37 +33,6 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
         const res = is_accomp ? colour_medium_blue :  colour_medium_pink
         return res
         
-        // as the function expects a value between 0 and 1, and red = 0° and green = 120°
-        // we convert the input to the appropriate hue value
-        var hue = i * 1.2 / 360;
-        // we convert hsl to rgb (saturation 100%, lightness 50%)
-        var rgb = hslToRgb(hue, 1, .5);
-        // we format to css value and return
-        return 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
-    }
-    function hslToRgb(h, s, l) {
-        let r, g, b;
-
-        if (s === 0) {
-            r = g = b = l; // achromatic
-        } else {
-            const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-            const p = 2 * l - q;
-            r = hueToRgb(p, q, h + 1 / 3);
-            g = hueToRgb(p, q, h);
-            b = hueToRgb(p, q, h - 1 / 3);
-        }
-
-        return [round(r * 255), round(g * 255), round(b * 255)];
-    }
-
-    function hueToRgb(p, q, t) {
-        if (t < 0) t += 1;
-        if (t > 1) t -= 1;
-        if (t < 1 / 6) return p + (q - p) * 6 * t;
-        if (t < 1 / 2) return q;
-        if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-        return p;
     }
 
 
@@ -158,7 +120,8 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
                 res.push({
                     label: maybeTask(task),
                     data: dataThisTask,
-                    borderColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(56, 43, 43)',
+                    borderWidth: 2,
                     backgroundColor: numberToColorHsl((1 - (cost / moreCostlyTask)) * 100, task.split("-")[1]),
                 })
             }
