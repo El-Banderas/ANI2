@@ -152,10 +152,12 @@ if (b["ID"] < a["ID"]) {
                             <TableCell align={alignText}> Fase</TableCell>
                             <TableCell align={alignText}> Esf. previsto análise</TableCell>
                             <TableCell align={alignText}> Esf. previsto acompanhamento </TableCell>
+                            <TableCell align={alignText}> Data início </TableCell>
+                            <TableCell align={alignText}> Data fim</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {visibleRows.map((project, index) => (
+                        {visibleRows.map((project) => (
                             <TableRow
                                 key={project.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -171,6 +173,8 @@ if (b["ID"] < a["ID"]) {
                                 </TableCell>
                                 <TableCell align={alignText}>{inputEffort(project.effort_analisis, project.id, "effort_analisis")}</TableCell>
                                 <TableCell align={alignText}>{inputEffort(project.effort_accomp, project.id, "effort_accomp")}</TableCell>
+                                <TableCell align={alignText}>{project.data_init}</TableCell>
+                                <TableCell align={alignText}>{project.data_end}</TableCell>
                             </TableRow>
                         ))}
                          {emptyRows > 0 && (
