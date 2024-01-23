@@ -166,7 +166,7 @@ if (b["ID"] < a["ID"]) {
                                     {project.id}
                                 </TableCell>
                                 <TableCell align={alignText}>{project.name}</TableCell>
-                                <TableCell align={alignText}>{project.area}</TableCell>
+                                <TableCell align={alignText} style={{height: 80}}>{project.area}</TableCell>
                                 <TableCell align={alignText}>{project.topology}</TableCell>
                                 <TableCell align={alignText} style={{ width: 160 }}>{inputPhase(project.phase, project.id, "phase")}
 

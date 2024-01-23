@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import Chart from 'chart.js/auto';
 
 import './LandPage.scss';
-export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentArg }) {
+export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentArg, tecnsNames }) {
 
     let chartRef = useRef();
     const { abs, min, max, round } = Math;
@@ -102,7 +102,7 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
 
     }
 
-    const labels = Object.keys(input["technicians"])  //['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    const labels = tecnsNames  //['January', 'February', 'March']
     const maybeTask = (task) => {
         if (task === "-Acompanhamento") return "Indefinido-Acompanhamento" 
         if (task === "-Anális") return "Indefinido-Análise" 
@@ -111,7 +111,10 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
     }
     const datasetsFromInput = () => {
         const res = []
-        for (let [tecName, tasks] of Object.entries(input["technicians"])) {
+        //for (let [tecName, tasks] of Object.entries(input["technicians"])) {
+        for (let tecName of tecnsNames) {
+            const tasks = input["technicians"][tecName]
+
             for (let task of tasks) {
                 const cost = input["tasks"][task]
                 const dataThisTask = Array(labels.length).fill(0);

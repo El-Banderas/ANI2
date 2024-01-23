@@ -11,12 +11,14 @@ import TechHoliday from "../TechHoliday/TechHoliday";
 import NavBar from "../NavBar/Navbar";
 import TasksCards from '../TaskPage/TasksCards'
 import TextComponentPrimary from "../TextComponents/TextPrimary";
+import Slider from '@mui/material/Slider';
 
 
 export default function LandPage({ defaultInput, updateInput }) {
 
     const [currentArg, setCurrentArg] = useState("");
     const [currentSidePage, setCurrentSidePage] = useState("none");
+    const [currentselectedTecns, setCurrentSelectedTecns] = useState(0);
 
     const decideSidePannel = (currentState) => {
         switch (currentState) {
@@ -67,16 +69,23 @@ axios.get(`http://127.0.0.1:7999/?removeTecn=nothing`).then(
         //axios.get('http://localhost:7999/')
         
     }
-    const techHoliday = async () => {
-        //axios.get('http://localhost:7999/')
-
-        setCurrentArg(getCurrentSelectedTech())
-        setCurrentSidePage("tecnHoliday")
-    }
 
     const tecNames = () => {
         return Object.keys(defaultInput["technicians"])
     }
+    function valuetext(value) {
+  return `From ${value} to ${value+5}`;
+}
+
+const max_graph = 4
+const num_tecns = Object.keys(defaultInput["technicians"]).length 
+const maxSlider = num_tecns / (max_graph)
+const currentTecnsNames = Object.entries(defaultInput["technicians"]).slice(currentselectedTecns*max_graph, currentselectedTecns*max_graph + max_graph).map((pair) => pair[0])
+//const currentTecnsNames = Object.keys(defaultInput["technicians"])
+const changeCurrentTecn = (event, new_value) => {
+    setCurrentSelectedTecns(new_value)
+    
+}
 
     return (
         <div >
@@ -108,22 +117,24 @@ axios.get(`http://127.0.0.1:7999/?removeTecn=nothing`).then(
                             color: "black",
                             fontWeight: "lighter",
                         }} ><TextComponentPrimary text={"Buscar"} size={16} fontWeightGiven={"regular"} /></Button>
-                        <Button variant="outlined" onClick={() => removeTech()} style={{
-                            borderRadius: 10,
-                            backgroundColor: "#32DBC4",
-                            margin: "0% 0% 1% 0%",
-                            fontSize: "14px",
-                            color: "black",
-                            fontWeight: "lighter",
-                        }} ><TextComponentPrimary text={"Reload excel"} size={16} fontWeightGiven={"regular"} /></Button>
-
+                       <Slider
+  aria-label="Conjunto técnicos"
+  defaultValue={0}
+  getAriaValueText={valuetext}
+  valueLabelDisplay="auto"
+  step={1}
+  marks
+  min={0}
+  max={maxSlider-1}
+  onChangeCommitted={changeCurrentTecn}
+/> 
                     </div>
                 </Stack>
 
 
                 <div className="line">
 
-                    <ManyTechsGraph input={defaultInput} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} />
+                    <ManyTechsGraph input={defaultInput} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} tecnsNames={currentTecnsNames}/>
                     <div className="btnsColumn">
                         <Stack
                             justifyContent="space-evenly"

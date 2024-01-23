@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './Login.scss';
 import React, {useEffect, useState} from "react";
+import CircularProgress from '@mui/material/CircularProgress';
 
 import axios from 'axios';
 
@@ -10,11 +11,14 @@ export default function Login({urlBackend, logInDone}) {
   //const urlBackend = "https://backend-valm.onrender.com" 
   const [passowrd, setPassword] = useState("")
   const [passwordValid, setPasswordValid] = useState(true)
+  const [loading, setLoading] = useState(false)
+
 
   const changePassword = (value) => {
     setPassword(value)
 }
 const submit = () => {
+  setLoading(true)
         console.log("SUBMIT")
         console.log(passowrd)
         axios({
@@ -27,6 +31,7 @@ const submit = () => {
             },
         }).then(
           function (response) {
+            setLoading(false)
     if (response["data"] === "error") {
         setPasswordValid(false)
     }
@@ -66,6 +71,7 @@ const submit = () => {
                 color: "black",
                 fontWeight: "lighter",
             }} ><TextComponentPrimary text={"Submeter"} size={16} fontWeightGiven={"regular"} /></Button>
+            {loading && <CircularProgress />}
 
 </div>
    </div>
