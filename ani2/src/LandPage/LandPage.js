@@ -23,7 +23,7 @@ export default function LandPage({ defaultInput, updateInput }) {
     const decideSidePannel = (currentState) => {
         switch (currentState) {
             case "none":
-                return  <TextComponentPrimary text={"Nada selecionado"} size={32} fontWeightGiven={"medium"} /> 
+                return <TextComponentPrimary text={"Nada selecionado"} size={32} fontWeightGiven={"medium"} />
 
             case "task":
                 return <TaskPage request_word={"proj"} name={currentArg} />
@@ -58,34 +58,34 @@ export default function LandPage({ defaultInput, updateInput }) {
     }
     const removeTech = async () => {
         console.log("Update from excel")
-axios.get(`http://127.0.0.1:7999/?removeTecn=nothing`).then(
-          (response) => {
-            console.log("Change attribution")
-            const cleanAnswer = response['data']['input']
-            console.log(cleanAnswer)
-            updateInput(cleanAnswer)
-          }
+        axios.get(`http://127.0.0.1:7999/?removeTecn=nothing`).then(
+            (response) => {
+                console.log("Change attribution")
+                const cleanAnswer = response['data']['input']
+                console.log(cleanAnswer)
+                updateInput(cleanAnswer)
+            }
         ).catch(error => console.error(`Error: ${error}`))
         //axios.get('http://localhost:7999/')
-        
+
     }
 
     const tecNames = () => {
         return Object.keys(defaultInput["technicians"])
     }
     function valuetext(value) {
-  return `From ${value} to ${value+5}`;
-}
+        return `From ${value} to ${value + 5}`;
+    }
 
-const max_graph = 4
-const num_tecns = Object.keys(defaultInput["technicians"]).length 
-const maxSlider = num_tecns / (max_graph)
-const currentTecnsNames = Object.entries(defaultInput["technicians"]).slice(currentselectedTecns*max_graph, currentselectedTecns*max_graph + max_graph).map((pair) => pair[0])
-//const currentTecnsNames = Object.keys(defaultInput["technicians"])
-const changeCurrentTecn = (event, new_value) => {
-    setCurrentSelectedTecns(new_value)
-    
-}
+    const max_graph = 5
+    const num_tecns = Object.keys(defaultInput["technicians"]).length
+    const maxSlider = num_tecns / (max_graph)
+    const currentTecnsNames = Object.entries(defaultInput["technicians"]).slice(currentselectedTecns * max_graph, currentselectedTecns * max_graph + max_graph).map((pair) => pair[0])
+    //const currentTecnsNames = Object.keys(defaultInput["technicians"])
+    const changeCurrentTecn = (event, new_value) => {
+        setCurrentSelectedTecns(new_value)
+
+    }
 
     return (
         <div >
@@ -117,24 +117,24 @@ const changeCurrentTecn = (event, new_value) => {
                             color: "black",
                             fontWeight: "lighter",
                         }} ><TextComponentPrimary text={"Buscar"} size={16} fontWeightGiven={"regular"} /></Button>
-                       <Slider
-  aria-label="Conjunto técnicos"
-  defaultValue={0}
-  getAriaValueText={valuetext}
-  valueLabelDisplay="auto"
-  step={1}
-  marks
-  min={0}
-  max={maxSlider-1}
-  onChangeCommitted={changeCurrentTecn}
-/> 
+                        <Slider
+                            aria-label="Conjunto técnicos"
+                            defaultValue={0}
+                            getAriaValueText={valuetext}
+                            valueLabelDisplay="auto"
+                            step={1}
+                            marks
+                            min={0}
+                            max={maxSlider - 1}
+                            onChangeCommitted={changeCurrentTecn}
+                        />
                     </div>
                 </Stack>
 
 
                 <div className="line">
 
-                    <ManyTechsGraph input={defaultInput} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} tecnsNames={currentTecnsNames}/>
+                    <ManyTechsGraph input={defaultInput} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} tecnsNames={currentTecnsNames} />
                     <div className="btnsColumn">
                         <Stack
                             justifyContent="space-evenly"

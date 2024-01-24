@@ -2,7 +2,7 @@ import TextComponentPrimary from '../TextComponents/TextPrimary';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './Login.scss';
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 
 import axios from 'axios';

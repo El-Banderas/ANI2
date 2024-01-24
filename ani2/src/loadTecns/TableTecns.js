@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -17,14 +17,14 @@ import MenuItem from '@mui/material/MenuItem';
 import './LoadTecns.scss'
 
 export default function TableTecns({ tecns, urlBackend, submissionDone }) {
+  const [changedTecns, setChangedTecns] = useState({})
+  //const changedTecns= {}
     const submit = () => {
-        console.log("[TableTecns] SUBMIT")
-        console.log(tecns)
         axios({
             method: 'put',
             url: `${urlBackend}/update_tecns`,
             data: {
-                "tecns": tecns
+                "tecns": changedTecns
                 //"name" : "AAA"
             }
         });
@@ -40,6 +40,16 @@ export default function TableTecns({ tecns, urlBackend, submissionDone }) {
             // Convert string to value that DB could store
             const to_store = new_value ==="Sim" ? 1 : 0 
             tecns[objIndex].active = to_store
+        }
+        if (id in changedTecns){
+          let copyChangedTecns = {...changedTecns}
+          delete copyChangedTecns[id]
+          setChangedTecns(old => ({
+            ...copyChangedTecns
+          }))
+        }
+        else{
+          setChangedTecns({...changedTecns, [id] : new_value})
         }
 }
 
