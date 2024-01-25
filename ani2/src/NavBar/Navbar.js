@@ -31,7 +31,15 @@ export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
       }
     ).catch(error => console.error(`Error: ${error}`))
   }
-
+const makeAllocation = () => {
+    setOpenBackDropWaiting(true)
+    axios.get(`${urlBackend}/make_allocation`).then(
+      (response) => {
+        console.log("Receubeu resposta")
+        handleOpen()
+      }
+    ).catch(error => console.error(`Error: ${error}`))
+  }
 
   const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: "#FC848C",
@@ -45,6 +53,7 @@ export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
   }));
 
   const btnsChangePage = <div className='btns'>
+    <ColorButton onClick={() => makeAllocation()} variant="outlined">Fazer alocação</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("tecnInfo")} variant="outlined">Ver técnicos</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("loadProjects")} variant="outlined" >Muda projetos</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("landPage")} variant="outlined">Ver alocação</ColorButton  >

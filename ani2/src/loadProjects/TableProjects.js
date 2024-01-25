@@ -156,7 +156,7 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
     const optionsPhases = (idProject) => {
         // Get current phase of project
         const currentPhaseProj = unchangedInput["projects"].find((obj => obj.id === idProject))["phase"];
-        const allPhases = ["Não alocado", "Análise", "Acompanhamento", "Encerramento"]
+        const allPhases = ["Não alocado", "Análise", "Contratação", "Acompanhamento", "Encerramento"]
         // Find the index of phase in allPhases, and slice, to get all the phases next to the current, and create options
         // So, if current option is Análise, it will return "Análise", "Acompanhamento", ...
         const num_phase = allPhases.findIndex((onePhase) => onePhase===currentPhaseProj)

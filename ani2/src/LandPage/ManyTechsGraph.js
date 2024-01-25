@@ -125,7 +125,7 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
                     data: dataThisTask,
                     borderColor: 'rgb(56, 43, 43)',
                     borderWidth: 2,
-                    backgroundColor: numberToColorHsl((1 - (cost / moreCostlyTask)) * 100, task.split("-")[1]),
+                    backgroundColor: numberToColorHsl((1 - (cost / moreCostlyTask)) * 100, task.split("-").slice(-1)[0]),
                 })
             }
 
