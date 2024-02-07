@@ -19,16 +19,9 @@ import TextComponentPrimary from "../TextComponents/TextPrimary";
  * @returns 
  */
 export default function ProjectCard({ info, tecnId }) {
-  
 
   const getEffort = () => {
-    console.log("Effort?")
-    console.log(tecnId)
-    console.log(info)
-    console.log(info["Técnico análise"])
-    console.log(tecnId === info["Técnico análise"])
-
-    return tecnId === info["Técnico análise"] ? info["Esforço análise"] : info["Esforço acompanhamento"]
+        return tecnId === info["Técnico análise"] ? info["Esforço análise"] : info["Esforço acompanhamento"]
   }
 
   const getColourByPhase = (phaseInt) => {
@@ -100,7 +93,7 @@ return backColor
         <div className='tables'>
 <div className="littleBox">
             <TextComponentPrimary text={"Tipo: "} size={14} fontWeightGiven={'Bold'} />
-            <TextComponentPrimary text={info["Tipo de projeto"]} size={14} fontWeightGiven={'regular'} />
+            <TextComponentPrimary text={info["Tipo"]} size={14} fontWeightGiven={'regular'} />
           </div>
 
           <div className="littleBox">

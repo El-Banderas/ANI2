@@ -13,7 +13,8 @@ $myPaddingLeft: 2%;
 }
 
 .tabelTecs {
-    width: 80%;
+    flex-grow: 7;
+    width: 100%;
     height: 30em;
     max-height: 20em;
     overflow-y: scroll;
@@ -25,12 +26,6 @@ $myPaddingLeft: 2%;
     border-color: black;
 }
 
-
-.btnsColumn {
-    width: 20%;
-    margin-left: 5%;
-    margin-right: 5%;
-}
 
 .everything {
     background-color: #E7F7F4;
@@ -55,4 +50,15 @@ $myPaddingLeft: 2%;
 .getTecn {
     padding-top: 1%;
     padding-left: $myPaddingLeft;
+}
+
+.stats{
+    background-color: red;
+    margin-left: 5%;
+  margin-right: 5%;
+     display: flex;
+      height: 100%;
+       display: inline-block;
+  align-self: flex-end;
+  flex-shrink: 3;
 }

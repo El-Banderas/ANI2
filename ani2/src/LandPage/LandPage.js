@@ -12,9 +12,10 @@ import NavBar from "../NavBar/Navbar";
 import TasksCards from '../TaskPage/TasksCards'
 import TextComponentPrimary from "../TextComponents/TextPrimary";
 import Slider from '@mui/material/Slider';
+import StatsTable from "./StatsTable";
 
 
-export default function LandPage({ defaultInput, updateInput }) {
+export default function LandPage({ defaultInput, updateInput, urlBackend }) {
 
     const [currentArg, setCurrentArg] = useState("");
     const [currentSidePage, setCurrentSidePage] = useState("none");
@@ -26,12 +27,12 @@ export default function LandPage({ defaultInput, updateInput }) {
                 return <TextComponentPrimary text={"Nada selecionado"} size={32} fontWeightGiven={"medium"} />
 
             case "task":
-                return <TaskPage request_word={"proj"} name={currentArg} />
+                return <TaskPage request_word={"proj"} name={currentArg} urlBackend={urlBackend}/>
 
             case "tecn":
                 return <>
-                    <TaskPage request_word={"tecn"} name={currentArg} />
-                    <TasksCards name={currentArg} />
+                    <TaskPage request_word={"tecn"} name={currentArg} urlBackend={urlBackend}/>
+                    <TasksCards name={currentArg} urlBackend={urlBackend}/>
                 </>
 
             case "tecnHoliday":
@@ -54,7 +55,6 @@ export default function LandPage({ defaultInput, updateInput }) {
         setCurrentArg(getCurrentSelectedTech())
 
         setCurrentSidePage("tecn")
-
     }
     const removeTech = async () => {
         console.log("Update from excel")
@@ -134,7 +134,8 @@ export default function LandPage({ defaultInput, updateInput }) {
 
                 <div className="line">
 
-                    <ManyTechsGraph input={defaultInput} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} tecnsNames={currentTecnsNames} />
+                    <ManyTechsGraph  input={defaultInput} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} tecnsNames={currentTecnsNames} />
+                    <div className="stats"><StatsTable input={"asd"}/></div>
                     <div className="btnsColumn">
                         <Stack
                             justifyContent="space-evenly"

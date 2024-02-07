@@ -52,14 +52,11 @@ const getAttributions =  () => {
  
   const currentTech = "Tec1"
 
-  console.log("Current url")
-  console.log(window.location.href)
-
   // Other routes not working
   return (
     <div className="App">
           { Object.keys(input).length > 0 ?
-            <LandPage defaultInput={input} updateInput={setInput}/> :
+            <LandPage defaultInput={input} updateInput={setInput} urlBackend={urlBackend}/> :
             <div>
             <h1>Loading</h1> 
             <CircularProgress />

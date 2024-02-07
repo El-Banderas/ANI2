@@ -13,10 +13,9 @@ import TextComponentPrimary from "../TextComponents/TextPrimary";
 
 import CircularProgress from '@mui/material/CircularProgress';
 
-export default function TaskPage({ request_word, name }) {
+export default function TaskPage({ request_word, name, urlBackend }) {
 
   const [info, setInfo] = useState({})
-  const [infoProjects, setInfoProjects] = useState({})
 
   useEffect(() => {
     getTaskInfo();
@@ -25,16 +24,15 @@ export default function TaskPage({ request_word, name }) {
   const getTaskInfo = () => {
     const regexpSize = /([0-9]+)/;
     const match = name.match(regexpSize);
+    console.log("[TASK MAIN] Get url ")
     console.log(name)
-    axios.get(`http://localhost:7999/?${request_word}=${name}`).then(
+    console.log(`${urlBackend}/${request_word}/?name='${name}'`)
+    axios.get(`${urlBackend}/${request_word}/?name='${name}'`).then(
       (response) => {
         console.log("Receubeu resposta")
         const cleanAnswer = response['data']
         console.log(cleanAnswer)
         setInfo(cleanAnswer)
-        if ("projects" in cleanAnswer) {
-        setInfoProjects(cleanAnswer["projects"])
-        }
       }
     ).catch(error => console.error(`Error: ${error}`))
     //axios.get('http://localhost:7999/')
@@ -46,12 +44,13 @@ export default function TaskPage({ request_word, name }) {
 
   const convertInput = () => {
     console.log("CONVERT input")
+    console.log(info)
     if (Object.keys(info).length == 0) {
       return <CircularProgress color="inherit" />
     }
     const header = []
     const content = []
-    for (const [key, value] of Object.entries(info["info"])) {
+    for (const [key, value] of Object.entries(info["data"])) {
       console.log(`Entry ${key} - ${value}`)
       header.push(<TableCell align="center"><TextComponentPrimary text={key} size={16} fontWeightGiven={"bold"}/></TableCell>)
       typeof(value) === "boolean" ? 

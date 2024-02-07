@@ -12,7 +12,7 @@ import TextComponentPrimary from "../TextComponents/TextPrimary";
  * @param {str} nameTech Tech name to get his projects
  * @returns 
  */
-export default function TasksCards({ name }) {
+export default function TasksCards({ name , urlBackend}) {
 
   // Get info, equal to TaskMain...
   const [tasksInfo, setTaskInfo] = useState({})
@@ -26,39 +26,37 @@ export default function TasksCards({ name }) {
   const getTaskInfo = () => {
     const regexpSize = /([0-9]+)/;
     const match = name.match(regexpSize);
-    console.log(name)
-    axios.get(`http://localhost:7999/?tecn=${name}`).then(
+    axios.get(`${urlBackend}/tecn_projs/?tecn='${name}'`).then(
       (response) => {
         console.log(" [CARD] Receubeu resposta")
         const cleanAnswer = response['data']
         console.log(cleanAnswer)
         setTaskInfo(cleanAnswer)
         if ("projects" in cleanAnswer) {
-        setInfoProjects(cleanAnswer["projects"])
-        setTecnId(cleanAnswer["projects_tecn_id"])
+          setInfoProjects(cleanAnswer["projects"])
+          setTecnId(cleanAnswer["projects_tecn_id"])
         }
       }
     ).catch(error => console.error(`Error: ${error}`))
-    //axios.get('http://localhost:7999/')
   }
 
 
 
   // Functions to create mocked info
   function getRandomInt(max) {
-  return Math.floor(Math.random() * max).toString();
-}
+    return Math.floor(Math.random() * max).toString();
+  }
   const createProjectInfo = (id) => {
 
     return {
       "id": id,
-         "Name": `Projeto${id}`,
-        "Área" : getRandomInt(3),
-        "Fase": getRandomInt(4),
-        "TecAnalise": `Zé ${id}`,
-        "TecAcomp": `Zé ${id}`,
-        "Tipo projeto": "Mobilizador",
-      
+      "Name": `Projeto${id}`,
+      "Área": getRandomInt(3),
+      "Fase": getRandomInt(4),
+      "TecAnalise": `Zé ${id}`,
+      "TecAcomp": `Zé ${id}`,
+      "Tipo projeto": "Mobilizador",
+
     }
   }
 
@@ -67,70 +65,70 @@ export default function TasksCards({ name }) {
     const projectsInfo = []
     for (let i = 0; i < tasksInfo.length; i++) {
       projectsInfo.push(createProjectInfo(i))
-}
-return projectsInfo
+    }
+    return projectsInfo
 
   }
 
 
   // Render part
- 
 
-const convertPhaseToString = (phaseInt) => {
-  switch(phaseInt){
-    case "0":
-      return "Por avaliar";
-    case "1":
-      return "Aprovado";
-    case "2":
-      return "Rejeitado";
-    case "3":
-      return "Concluido";
+
+  const convertPhaseToString = (phaseInt) => {
+    switch (phaseInt) {
+      case "0":
+        return "Por avaliar";
+      case "1":
+        return "Aprovado";
+      case "2":
+        return "Rejeitado";
+      case "3":
+        return "Concluido";
       default:
         return phaseInt.toString()
+    }
   }
-}
-const getColourByPhase = (phaseInt) => {
-switch(phaseInt){
-    case 0:
-      return "#FFFFF0";
-    case 1:
-      return "#ADFF2F";
-    case 2:
-      return "#FF6347";
-    case 3:
-      return "#40E0D0";
+  const getColourByPhase = (phaseInt) => {
+    switch (phaseInt) {
+      case 0:
+        return "#FFFFF0";
+      case 1:
+        return "#ADFF2F";
+      case 2:
+        return "#FF6347";
+      case 3:
+        return "#40E0D0";
+    }
   }
-}
-const commonStyles = {
-  borderColor: 'text.primary',
-};
+  const commonStyles = {
+    borderColor: 'text.primary',
+  };
 
   const renderProjectInfo = (info) => {
-    return <ProjectCard info={info}  tecnId={tecnId}/>
+    return <ProjectCard info={info} tecnId={tecnId} />
   }
 
-  const convertInput= () => {
+  const convertInput = () => {
     return (
       <div className="max">
-      <div className="title">
-      <TextComponentPrimary text={`Projetos ${name}`} size={32} fontWeightGiven={"bold"}/>
-</div>
-      <div className="scrollable">
-      {infoProjects.map(project => renderProjectInfo(project))}
+        <div className="title">
+          <TextComponentPrimary text={`Projetos ${name}`} size={32} fontWeightGiven={"bold"} />
+        </div>
+        <div className="scrollable">
+          {infoProjects.map(project => renderProjectInfo(project))}
+        </div>
       </div>
-</div>
     )
-    }
+  }
   return (
-      <div className='verticalFlex'>
+    <div className='verticalFlex'>
 
-        {infoProjects.length >= 0 ?
-          convertInput() :
-          <CircularProgress color="inherit" />
-        }
+      {infoProjects.length >= 0 ?
+        convertInput() :
+        <CircularProgress color="inherit" />
+      }
 
-      </div>
+    </div>
 
   )
 }

@@ -16,9 +16,9 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
         const colour_medium_blue = "rgb(60, 157, 146)"
         const colour_high_blue = "rgb(98, 205, 192)"
 
-        const colour_high_pink = "rgb(252, 30, 46)"
+        const colour_less_pink = "rgb(252, 30, 46)"
         const colour_medium_pink = "rgb(250, 85, 96)"
-        const colour_less_pink = "rgb(250, 127, 136)"
+        const colour_high_pink = "rgb(250, 127, 136)"
 
         const firstThird = moreCostlyTask * (1/3)
         const secondThird = moreCostlyTask * (2/3)
@@ -102,7 +102,7 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
 
     }
 
-    const labels = tecnsNames  //['January', 'February', 'March']
+    const labels = tecnsNames  //Object.keys(input["technicians"]) //['January', 'February', 'March']
     const maybeTask = (task) => {
         if (task === "-Acompanhamento") return "Indefinido-Acompanhamento" 
         if (task === "-Anális") return "Indefinido-Análise" 

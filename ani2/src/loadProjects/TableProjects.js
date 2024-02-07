@@ -20,8 +20,6 @@ import './LoadProjects.scss'
 
 export default function TableProjects({ projects, urlBackend, submissionDone, unchangedInput }) {
     const [changedProjs, setChangedProjs] = useState({})
-    console.log("[Table Projects] Changed project")
-    console.log(changedProjs)
 
     const submit = () => {
         console.log("SUBMIT")
@@ -134,6 +132,17 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
             />
         )
     }
+
+    const getTecn = (info, phase) => {
+        if (phase === "Analisis"){
+            return info["Análise"].length > 0 ? info["Análise"][0] : "---"
+        }
+        if (phase === "Accomp"){
+            return info["Acompanhamento"].length > 0 ? info["Acompanhamento"][0] : "---"
+        }
+        return <h6>Coisa</h6>
+    } 
+
     const inputPhase = (defaultValue, id, value) => {
         const title = "Fase"
         return (
@@ -210,16 +219,18 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
         <div>
             <div className='table'>
                 <TableContainer>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <Table sx={{ minWidth: 730 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 <TableCell align={alignText} sortDirection="asc">ID</TableCell>
                                 <TableCell align={alignText}> Nome</TableCell>
                                 <TableCell align={alignText}> Área Temática</TableCell>
-                                <TableCell align={alignText}> Topologia</TableCell>
+                                <TableCell align={alignText}> Tipologia</TableCell>
                                 <TableCell align={alignText}> Fase</TableCell>
                                 <TableCell align={alignText}> Esf. previsto análise</TableCell>
+                                <TableCell align={alignText}> Técnico análise</TableCell>
                                 <TableCell align={alignText}> Esf. previsto acompanhamento </TableCell>
+                                <TableCell align={alignText}> Técnico acompanhamento </TableCell>
                                 <TableCell align={alignText}> Data início </TableCell>
                                 <TableCell align={alignText}> Data fim</TableCell>
                             </TableRow>
@@ -240,7 +251,9 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
 
                                     </TableCell>
                                     <TableCell align={alignText}>{inputEffort(project.effort_analisis, project.id, "effort_analisis")}</TableCell>
+                                    <TableCell align={alignText}>{getTecn(project.allocation, "Analisis")}</TableCell>
                                     <TableCell align={alignText}>{inputEffort(project.effort_accomp, project.id, "effort_accomp")}</TableCell>
+                                    <TableCell align={alignText}>{getTecn(project.allocation, "Accomp")}</TableCell>
                                     <TableCell align={alignText}>{project.data_init}</TableCell>
                                     <TableCell align={alignText}>{project.data_end}</TableCell>
                                 </TableRow>
