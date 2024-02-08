@@ -33,16 +33,22 @@ export default function MainApp({urlBackend}) {
   }
 
   //const [input, setInput] = useState({ })
-  const [input, setInput] = useState({"tasks": tasks, "technicians": technicians })
+  const defaultInput ={"input": 
+              {"tasks": tasks, "technicians": technicians },
+            "stats" : {
+              "min" : 0,
+              "max" : 0,
+              "std" : 0,
+              "amp" : 0,
+            } }
+  const [input, setInput] = useState(defaultInput)
 
   
 const getAttributions =  () => {
-        console.log("GET initial attris")
+        console.log("[MAIN APP] GET initial attris")
         axios.get(`${urlBackend}/attri`).then(
           (response) => {
-            console.log("Receubeu resposta")
-            const cleanAnswer = response['data']['input']
-            console.log(cleanAnswer)
+            const cleanAnswer = response['data']
             setInput(cleanAnswer)
           }
         ).catch(error => console.error(`Error: ${error}`))

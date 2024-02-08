@@ -12,23 +12,23 @@ export default function StatsTable({ input }) {
 //return  <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
 return  <Table size="small" aria-label="a dense table">
      
-        <TableBody>
+        <TableBody >
           <TableRow>
-              <TableCell align={align} >Desvio padrão</TableCell>
-              <TableCell align={align} >20</TableCell>
+              <TableCell className='cell' align={align} >Desvio padrão</TableCell>
+              <TableCell  align={align} >{input['std']}</TableCell>
             </TableRow>
           <TableRow>
-              <TableCell align={align} >Amplitude</TableCell>
-              <TableCell align={align} >20</TableCell>
+              <TableCell className='cell' align={align} >Amplitude</TableCell>
+              <TableCell align={align} >{input['amp']}</TableCell>
             </TableRow>
           <TableRow>
-              <TableCell align={align} >Esforço máximo</TableCell>
-              <TableCell align={align} >20</TableCell>
+              <TableCell className='cell' align={align} >Esforço máximo</TableCell>
+              <TableCell align={align} >{input['max']}</TableCell>
             </TableRow>
 
           <TableRow>
-              <TableCell align={align} >Esforço mínimo</TableCell>
-              <TableCell align={align} >20</TableCell>
+              <TableCell className='cell' align={align} >Esforço mínimo</TableCell>
+              <TableCell align={align} >{input['min']}</TableCell>
             </TableRow>
         </TableBody>
       </Table>

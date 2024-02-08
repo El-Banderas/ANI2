@@ -216,10 +216,10 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
     );
 
     return (
-        <div>
-            <div className='table'>
+        <div className='table'>
+            <div >
                 <TableContainer>
-                    <Table sx={{ minWidth: 730 }} aria-label="simple table">
+                    <Table sx={{ minWidth: 750 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 <TableCell align={alignText} sortDirection="asc">ID</TableCell>

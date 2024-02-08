@@ -61,7 +61,7 @@ export default function LandPage({ defaultInput, updateInput, urlBackend }) {
         axios.get(`http://127.0.0.1:7999/?removeTecn=nothing`).then(
             (response) => {
                 console.log("Change attribution")
-                const cleanAnswer = response['data']['input']
+                const cleanAnswer = response['data']//['input']
                 console.log(cleanAnswer)
                 updateInput(cleanAnswer)
             }
@@ -71,16 +71,16 @@ export default function LandPage({ defaultInput, updateInput, urlBackend }) {
     }
 
     const tecNames = () => {
-        return Object.keys(defaultInput["technicians"])
+        return Object.keys(defaultInput["input"]["technicians"])
     }
     function valuetext(value) {
         return `From ${value} to ${value + 5}`;
     }
 
     const max_graph = 5
-    const num_tecns = Object.keys(defaultInput["technicians"]).length
+    const num_tecns = Object.keys(defaultInput["input"]["technicians"]).length
     const maxSlider = num_tecns / (max_graph)
-    const currentTecnsNames = Object.entries(defaultInput["technicians"]).slice(currentselectedTecns * max_graph, currentselectedTecns * max_graph + max_graph).map((pair) => pair[0])
+    const currentTecnsNames = Object.entries(defaultInput["input"]["technicians"]).slice(currentselectedTecns * max_graph, currentselectedTecns * max_graph + max_graph).map((pair) => pair[0])
     //const currentTecnsNames = Object.keys(defaultInput["technicians"])
     const changeCurrentTecn = (event, new_value) => {
         setCurrentSelectedTecns(new_value)
@@ -134,19 +134,9 @@ export default function LandPage({ defaultInput, updateInput, urlBackend }) {
 
                 <div className="line">
 
-                    <ManyTechsGraph  input={defaultInput} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} tecnsNames={currentTecnsNames} />
-                    <div className="stats"><StatsTable input={"asd"}/></div>
-                    <div className="btnsColumn">
-                        <Stack
-                            justifyContent="space-evenly"
-                            alignItems="center"
-                            direction={{ xs: 'column' }}
-                            spacing={{ xs: 10 }}
-                            gap={{ xs: 3 }}
-                        >
-
-                        </Stack>
-                    </div>
+                    <ManyTechsGraph  input={defaultInput["input"]} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} tecnsNames={currentTecnsNames} />
+                    <div className="stats"><StatsTable input={defaultInput["stats"]}/></div>
+                    
                 </div>
                 {
                     decideSidePannel(currentSidePage)

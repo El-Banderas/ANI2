@@ -24,14 +24,10 @@ export default function TaskPage({ request_word, name, urlBackend }) {
   const getTaskInfo = () => {
     const regexpSize = /([0-9]+)/;
     const match = name.match(regexpSize);
-    console.log("[TASK MAIN] Get url ")
-    console.log(name)
     console.log(`${urlBackend}/${request_word}/?name='${name}'`)
     axios.get(`${urlBackend}/${request_word}/?name='${name}'`).then(
       (response) => {
-        console.log("Receubeu resposta")
         const cleanAnswer = response['data']
-        console.log(cleanAnswer)
         setInfo(cleanAnswer)
       }
     ).catch(error => console.error(`Error: ${error}`))
@@ -43,15 +39,12 @@ export default function TaskPage({ request_word, name, urlBackend }) {
   }
 
   const convertInput = () => {
-    console.log("CONVERT input")
-    console.log(info)
     if (Object.keys(info).length == 0) {
       return <CircularProgress color="inherit" />
     }
     const header = []
     const content = []
     for (const [key, value] of Object.entries(info["data"])) {
-      console.log(`Entry ${key} - ${value}`)
       header.push(<TableCell align="center"><TextComponentPrimary text={key} size={16} fontWeightGiven={"bold"}/></TableCell>)
       typeof(value) === "boolean" ? 
       content.push(<TableCell align="center"> <TextComponentPrimary text={convertBooleanStr(value)} size={16} fontWeightGiven={"regular"}/></TableCell>) : 

@@ -104,6 +104,7 @@ export default function ManyTechsGraph({ input, setCurrentSidePage, setCurrentAr
 
     const labels = tecnsNames  //Object.keys(input["technicians"]) //['January', 'February', 'March']
     const maybeTask = (task) => {
+        task = task.split('&')[1]
         if (task === "-Acompanhamento") return "Indefinido-Acompanhamento" 
         if (task === "-Anális") return "Indefinido-Análise" 
         return task

@@ -53,7 +53,7 @@ $myPaddingLeft: 2%;
 }
 
 .stats{
-    background-color: red;
+    background-color: white;
     margin-left: 5%;
   margin-right: 5%;
      display: flex;
@@ -61,4 +61,12 @@ $myPaddingLeft: 2%;
        display: inline-block;
   align-self: flex-end;
   flex-shrink: 3;
+}
+
+.cell{
+    border-right: solid 0.1em;
+    border-color: grey;
+  height: 30%;
+
+
 }
