@@ -230,7 +230,7 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
                                 <TableCell align={alignText}> Esf. previsto análise</TableCell>
                                 <TableCell align={alignText}> Técnico análise</TableCell>
                                 <TableCell align={alignText}> Esf. previsto acompanhamento </TableCell>
-                                <TableCell align={alignText}> Técnico acompanhamento </TableCell>
+                                <TableCell align={alignText}> Técnico acomp. </TableCell>
                                 <TableCell align={alignText}> Data início </TableCell>
                                 <TableCell align={alignText}> Data fim</TableCell>
                             </TableRow>

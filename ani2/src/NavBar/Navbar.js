@@ -53,6 +53,7 @@ const makeAllocation = () => {
   }));
 
   const btnsChangePage = <div className='btns'>
+    <ColorButton onClick={() => changeCurrentPage("chooseDate")} variant="outlined">Selecionar data</ColorButton  >
     <ColorButton onClick={() => makeAllocation()} variant="outlined">Fazer alocação</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("tecnInfo")} variant="outlined">Ver técnicos</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("loadProjects")} variant="outlined" >Muda projetos</ColorButton  >

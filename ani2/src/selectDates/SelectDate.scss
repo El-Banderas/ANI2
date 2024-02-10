@@ -1,0 +1,25 @@
+
+.flexCards{
+    margin-top: 3%;
+    margin-left: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; 
+    gap: 5px;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+}
+
+.positionRelative{
+    margin: 3% 3% 3% 3%;
+    position: relative;
+}
+.left{
+    position: absolute;
+    left: 0px;
+}

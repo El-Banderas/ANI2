@@ -6,14 +6,17 @@ import React, {useEffect, useState} from "react";
 import NavBar from "./NavBar/Navbar";
 import Login from './Login/Login';
 import LoadTecn from './loadTecns/LoadTecn';
+import SelectInput from '@mui/material/Select/SelectInput';
+import SelectDate from './selectDates/SelectDate';
 
 function App() {
   const urlBackend = "http://127.0.0.1:10000" 
   //const urlBackend = "https://backend-valm.onrender.com" 
   const [currentPage, setCurPage] = useState("login")
+  const [currentDate, setCurDate] = useState("")
 
   const logInDone = () => {
-    setCurPage("loadProjects")
+    setCurPage("chooseDate")
   }
 
   const submissionDone = () => {
@@ -23,6 +26,11 @@ function App() {
     setCurPage("tecnInfo")
   }
 
+  const chooseDate = (date) => {
+    setCurDate(date)
+    setCurPage("loadProjects")
+  }
+
   return (
     <div className="App">
             <NavBar loggedIn={currentPage !== "login"} changeCurrentPage={setCurPage} urlBackend={urlBackend}/>
@@ -30,7 +38,7 @@ function App() {
         currentPage === "login" && <Login urlBackend={urlBackend} logInDone={logInDone}/>
       }
       {
-        currentPage === "loadProjects" && <LoadProjects urlBackend={urlBackend} submissionDone={submissionDone}/>
+        currentPage === "loadProjects" && <LoadProjects urlBackend={urlBackend} submissionDone={submissionDone} date={currentDate}/>
         //currentPage === "loadProjects" && <h1>Load projs</h1>
       }
       {
@@ -40,6 +48,9 @@ function App() {
 
       {
         currentPage === "tecnInfo" && <LoadTecn urlBackend={urlBackend} submissionDone={submissionDone}>Ver técnicos</LoadTecn>
+      }
+      {
+        currentPage === "chooseDate" && <SelectDate urlBackend={urlBackend} submissionDone={chooseDate} >Ver datas </SelectDate >
       }
     </div>
   );
