@@ -19,8 +19,8 @@ const getDates =  () => {
         axios.get(`${urlBackend}/get_allocation_dates`).then(
           (response) => {
             const cleanAnswer = response['data']['input']
-            //console.log("[Get dates] Answer")
-            //console.log(cleanAnswer)
+            console.log("[Get dates] Answer")
+            console.log(cleanAnswer)
 
             //setProjects([...cleanAnswer, ...cleanAnswer])
             setDates(cleanAnswer)

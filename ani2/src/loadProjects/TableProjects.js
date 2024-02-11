@@ -24,11 +24,13 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
     const submit = () => {
         console.log("SUBMIT")
         console.log(changedProjs)
+        console.log(unchangedInput["projects"].map(x => x.id))
         axios({
             method: 'put',
             url: `${urlBackend}/add_efforts`,
             data: {
-                "projects": changedProjs//projects["projects"]
+                "projects": changedProjs, //projects["projects"]
+                "projects_ids": unchangedInput["projects"].map(x => x.id)
                 //"name" : "AAA"
             }
         });
