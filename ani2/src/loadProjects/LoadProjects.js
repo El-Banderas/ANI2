@@ -31,7 +31,7 @@ const getProjects =  () => {
 
     return <div>
 { Object.keys(projectsAndNames).length > 0 ?
-            <TableProjects projects={projectsAndNames} urlBackend={urlBackend} submissionDone={submissionDone} unchangedInput={JSON.parse(JSON.stringify(projectsAndNames))}/>
+            <TableProjects projects={projectsAndNames} urlBackend={urlBackend} submissionDone={submissionDone} unchangedInput={JSON.parse(JSON.stringify(projectsAndNames))} date={date}/>
             :
             <div>
             <h1>Loading</h1> 

@@ -14,6 +14,8 @@ function App() {
   //const urlBackend = "https://backend-valm.onrender.com" 
   const [currentPage, setCurPage] = useState("login")
   const [currentDate, setCurDate] = useState("")
+  console.log("Backend URL:")
+  console.log(urlBackend)
 
   const logInDone = () => {
     setCurPage("chooseDate")

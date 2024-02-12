@@ -13,6 +13,7 @@ import TasksCards from '../TaskPage/TasksCards'
 import TextComponentPrimary from "../TextComponents/TextPrimary";
 import Slider from '@mui/material/Slider';
 import StatsTable from "./StatsTable";
+import LineGraph from "./LineGraph";
 
 
 export default function LandPage({ defaultInput, updateInput, urlBackend }) {
@@ -134,8 +135,11 @@ export default function LandPage({ defaultInput, updateInput, urlBackend }) {
 
                 <div className="line">
 
+                    {/*
                     <ManyTechsGraph  input={defaultInput["input"]} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} tecnsNames={currentTecnsNames} />
                     <div className="stats"><StatsTable input={defaultInput["stats"]}/></div>
+*/}
+<LineGraph />
                     
                 </div>
                 {

@@ -18,7 +18,7 @@ import TablePagination from '@mui/material/TablePagination';
 
 import './LoadProjects.scss'
 
-export default function TableProjects({ projects, urlBackend, submissionDone, unchangedInput }) {
+export default function TableProjects({ projects, urlBackend, submissionDone, unchangedInput, date }) {
     const [changedProjs, setChangedProjs] = useState({})
 
     const submit = () => {
@@ -30,7 +30,8 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
             url: `${urlBackend}/add_efforts`,
             data: {
                 "projects": changedProjs, //projects["projects"]
-                "projects_ids": unchangedInput["projects"].map(x => x.id)
+                "projects_ids": unchangedInput["projects"].map(x => x.id),
+                "date": date
                 //"name" : "AAA"
             }
         });
