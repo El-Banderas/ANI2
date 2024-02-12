@@ -1,5 +1,6 @@
-import { LineChart } from '@mui/x-charts/LineChart';
+import { LineChart, ChartsItemTooltipContent } from '@mui/x-charts';
 
+import { ChartsTooltip } from '@mui/x-charts';
 export default function LineGraph({ }){
 
 const years = [
@@ -45,6 +46,7 @@ const Tecn2  ={
 
 const Tecn3  ={
   TecName : "Tecn3",
+  label : "Tecn3",
   efforts :  [
   25391, 26769.96, 27385.055,
   25391, 26769.96, 27385.055,
@@ -52,14 +54,34 @@ const Tecn3  ={
 ]};
 const Max  ={
 TecName : "Max",
- efforts : Array(years.length).fill(30000),
+label: "Máximo por semana",
+ efforts : Array(years.length).fill(90000),
 }
 const NumTecns = 35; 
-const list_tecns = Array.from(Array.from(Array(NumTecns).keys(NumTecns)), (x) => generate_tecn(x))
+const list_tecns1 = Array.from(Array.from(Array(NumTecns).keys(NumTecns)), (x) => generate_tecn(x))
+const list_tecns = [...list_tecns1, Max]
+
 
 console.log("Lista tecns?")
 console.log(list_tecns)
 
+const toolTipi = (a) => {
+  console.log("Tool tipi")
+  console.log(a)
+  return <h1>AAA</h1>
+}
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const dataPoint = payload[0].payload; // Extract data from payload
+    // Customize the tooltip content based on your data
+    return (
+      <div className="custom-tooltip">
+      AAAA
+      </div>
+    );
+  }
+  return null;
+};
 
   // Check this cool stuff:
   // https://mui.com/x/react-charts/line-demo/
@@ -86,6 +108,10 @@ return (
       width={900}
       height={400}
       margin={{ left: 70 }}
-    />
+      tooltip={{ trigger: 'item' }}
+      
+    > 
+    
+    </ LineChart>
   );
 }
