@@ -13,8 +13,7 @@ import TasksCards from '../TaskPage/TasksCards'
 import TextComponentPrimary from "../TextComponents/TextPrimary";
 import Slider from '@mui/material/Slider';
 import StatsTable from "./StatsTable";
-import LineGraph from "./LineGraph";
-
+import SelectTecns from "./selectTecns";
 
 export default function LandPage({ defaultInput, updateInput, urlBackend }) {
 
@@ -28,12 +27,12 @@ export default function LandPage({ defaultInput, updateInput, urlBackend }) {
                 return <TextComponentPrimary text={"Nada selecionado"} size={32} fontWeightGiven={"medium"} />
 
             case "task":
-                return <TaskPage request_word={"proj"} name={currentArg} urlBackend={urlBackend}/>
+                return <TaskPage request_word={"proj"} name={currentArg} urlBackend={urlBackend} />
 
             case "tecn":
                 return <>
-                    <TaskPage request_word={"tecn"} name={currentArg} urlBackend={urlBackend}/>
-                    <TasksCards name={currentArg} urlBackend={urlBackend}/>
+                    <TaskPage request_word={"tecn"} name={currentArg} urlBackend={urlBackend} />
+                    <TasksCards name={currentArg} urlBackend={urlBackend} />
                 </>
 
             case "tecnHoliday":
@@ -138,9 +137,10 @@ export default function LandPage({ defaultInput, updateInput, urlBackend }) {
                     {/*
                     <ManyTechsGraph  input={defaultInput["input"]} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} tecnsNames={currentTecnsNames} />
                     <div className="stats"><StatsTable input={defaultInput["stats"]}/></div>
+
 */}
-<LineGraph />
-                    
+                    <SelectTecns urlBackend={urlBackend} />
+
                 </div>
                 {
                     decideSidePannel(currentSidePage)
