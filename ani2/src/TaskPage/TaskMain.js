@@ -45,10 +45,10 @@ export default function TaskPage({ request_word, name, urlBackend }) {
     const header = []
     const content = []
     for (const [key, value] of Object.entries(info["data"])) {
-      header.push(<TableCell align="center"><TextComponentPrimary text={key} size={16} fontWeightGiven={"bold"}/></TableCell>)
+      header.push(<TableCell key={key} align="center"><TextComponentPrimary text={key} size={16} fontWeightGiven={"bold"}/></TableCell>)
       typeof(value) === "boolean" ? 
-      content.push(<TableCell align="center"> <TextComponentPrimary text={convertBooleanStr(value)} size={16} fontWeightGiven={"regular"}/></TableCell>) : 
-      content.push(<TableCell  align="center"><TextComponentPrimary text={value} size={16} fontWeightGiven={"regular"}/></TableCell>)
+      content.push(<TableCell key={key} align="center"> <TextComponentPrimary text={convertBooleanStr(value)} size={16} fontWeightGiven={"regular"}/></TableCell>) : 
+      content.push(<TableCell key={key}  align="center"><TextComponentPrimary text={value} size={16} fontWeightGiven={"regular"}/></TableCell>)
     }
     const title = request_word === "proj" ? `Informação projeto` : `Informação técnico`
 

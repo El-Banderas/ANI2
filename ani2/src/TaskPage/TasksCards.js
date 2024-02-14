@@ -105,7 +105,7 @@ export default function TasksCards({ name , urlBackend}) {
   };
 
   const renderProjectInfo = (info) => {
-    return <ProjectCard info={info} tecnId={tecnId} />
+    return <ProjectCard key={info.id} info={info} tecnId={tecnId} />
   }
 
   const convertInput = () => {
