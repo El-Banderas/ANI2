@@ -1,6 +1,7 @@
 import { LineChart, ChartsItemTooltipContent } from '@mui/x-charts';
 
 import { ChartsTooltip } from '@mui/x-charts';
+import { ChartsAxis } from '@mui/x-charts/ChartsAxis';
 
 import './LineGraph.scss'
 
@@ -16,15 +17,17 @@ return (
         {
           id: 'Years',
           data: years,
+          label: 'Anos',
           scaleType: 'time',
           valueFormatter: (date) => date.getFullYear().toString(),
         },
       ]}
+
+/*yAxis={{ label: 'Your Y-Axis Label' }}*/
       series={
         list_tecns.map(tecn => {
           return {
             id: tecn.TecName,
-            label: tecn.TecName,
             data: tecn.efforts,
             showMark: false
           }
@@ -33,11 +36,9 @@ return (
       width={900}
       height={400}
       margin={{ left: 70 }}
-      tooltip={{ trigger: 'item' }}
-       slotProps={{ legend: { hidden: true } }}
+       /*slotProps={{ legend: { hidden: true } }} */ 
       
     > 
-    
     </ LineChart>
       }
 </div>

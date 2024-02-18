@@ -6,7 +6,7 @@ import TableProjects from "./TableProjects";
 
 
 
-export default function LoadProjects({urlBackend, submissionDone, date}) {
+export default function LoadProjects({urlBackend, submissionDone, date, alreadyAllocated}) {
 
   useEffect( () => {
     getProjects();
@@ -15,7 +15,8 @@ export default function LoadProjects({urlBackend, submissionDone, date}) {
   const [projectsAndNames, setProjectsAndNames] = useState({})
 
 const getProjects =  () => {
-        axios.get(`${urlBackend}/proj_cost`, {params : {date : date}}).then(
+        const fullUrl = alreadyAllocated ? `${urlBackend}/projs_already_allocated` : `${urlBackend}/proj_cost`
+        axios.get(fullUrl, {params : {date : date}}).then(
           (response) => {
             console.log("[LOAD PROJECTS] Receubeu resposta")
             const cleanAnswer = response['data']
@@ -31,7 +32,7 @@ const getProjects =  () => {
 
     return <div>
 { Object.keys(projectsAndNames).length > 0 ?
-            <TableProjects projects={projectsAndNames} urlBackend={urlBackend} submissionDone={submissionDone} unchangedInput={JSON.parse(JSON.stringify(projectsAndNames))} date={date}/>
+            <TableProjects projects={projectsAndNames} urlBackend={urlBackend} submissionDone={submissionDone} unchangedInput={JSON.parse(JSON.stringify(projectsAndNames))} date={date} alreadyAllocated={alreadyAllocated}/>
             :
             <div>
             <h1>Loading</h1> 

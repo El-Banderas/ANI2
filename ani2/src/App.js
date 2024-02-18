@@ -16,6 +16,8 @@ function App() {
   const [currentDate, setCurDate] = useState("")
   console.log("Backend URL:")
   console.log(urlBackend)
+  console.log("Current page")
+  console.log(currentPage)
 
   const logInDone = () => {
     setCurPage("chooseDate")
@@ -28,9 +30,9 @@ function App() {
     setCurPage("tecnInfo")
   }
 
-  const chooseDate = (date) => {
+  const chooseDate = (date, otherPage) => {
     setCurDate(date)
-    setCurPage("loadProjects")
+    setCurPage(otherPage)
   }
 
   return (
@@ -40,7 +42,12 @@ function App() {
         currentPage === "login" && <Login urlBackend={urlBackend} logInDone={logInDone}/>
       }
       {
-        currentPage === "loadProjects" && <LoadProjects urlBackend={urlBackend} submissionDone={submissionDone} date={currentDate}/>
+        currentPage === "loadProjects" && <LoadProjects urlBackend={urlBackend} submissionDone={submissionDone} date={currentDate} alreadyAllocated={false}/>
+        //currentPage === "loadProjects" && <h1>Load projs</h1>
+      }
+
+      {
+        currentPage === "loadProjectsAllocated" && <LoadProjects urlBackend={urlBackend} submissionDone={submissionDone} date={currentDate} alreadyAllocated={true}/>
         //currentPage === "loadProjects" && <h1>Load projs</h1>
       }
       {
@@ -52,7 +59,11 @@ function App() {
         currentPage === "tecnInfo" && <LoadTecn urlBackend={urlBackend} submissionDone={submissionDone}>Ver técnicos</LoadTecn>
       }
       {
-        currentPage === "chooseDate" && <SelectDate urlBackend={urlBackend} submissionDone={chooseDate} >Ver datas </SelectDate >
+        currentPage === "chooseDate" && <SelectDate urlBackend={urlBackend} submissionDone={chooseDate} keywordGet={"get_allocation_dates"}>Ver datas </SelectDate >
+      }
+
+      {
+        currentPage === "alocatedProjs" && <SelectDate urlBackend={urlBackend} submissionDone={chooseDate} keywordGet={"get_allocatted_dates"}>Ver Projetos alocados </SelectDate >
       }
     </div>
   );

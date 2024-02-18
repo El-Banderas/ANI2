@@ -7,11 +7,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-
+import {getDate} from '../utils/convertDates'
 
 import './SelectDate.scss'
 
-export default function DateCard({  info, onClick }) {
+export default function DateCard({  info, onClick, nextPage }) {
   
   /*
   //const changedTecns= {}
@@ -49,15 +49,15 @@ const num_allocation_accomp = "Date_acomp" in info[1] ? info[1]["Date_acomp"] : 
       <CardContent className="card">
 
         {textLeft("Dia")}
-        {textLeft(info[0], true)}
+        {textLeft(getDate(info[0]), true)}
         {textLeft()}
-        {textLeft(`N. º projetos análise: ${num_allocation_analisis}`)}
-        {textLeft(`N. º projetos acompanhamento: ${num_allocation_accomp}`)}
+        {textLeft(`N.º projetos análise: ${num_allocation_analisis}`)}
+        {textLeft(`N.º projetos acompanhamento: ${num_allocation_accomp}`)}
         
         
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={() => onClick(info[0])}>Selecionar</Button>
+        <Button size="small" onClick={() => onClick(info[0], nextPage )}>Selecionar</Button>
       </CardActions>
     </Card>
         </div>

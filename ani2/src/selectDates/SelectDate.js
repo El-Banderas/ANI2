@@ -7,8 +7,9 @@ import DateCard from "./DateCard";
 import './SelectDate.scss'
 
 
-export default function SelectDate({urlBackend, submissionDone}) {
+export default function SelectDate({urlBackend, submissionDone, keywordGet}) {
 
+  const nextPage = keywordGet === "get_allocatted_dates" ? "loadProjectsAllocated" : "loadProjects"
   useEffect( () => {
     getDates();
   }, [] );
@@ -16,12 +17,12 @@ export default function SelectDate({urlBackend, submissionDone}) {
   const [dates, setDates] = useState([])
 
 const getDates =  () => {
-        axios.get(`${urlBackend}/get_allocation_dates`).then(
+        axios.get(`${urlBackend}/${keywordGet}`).then(
           (response) => {
             const cleanAnswer = response['data']['input']
 
             //setProjects([...cleanAnswer, ...cleanAnswer])
-            setDates(cleanAnswer)
+            setDates(cleanAnswer, nextPage)
           }
         ).catch(error => console.error(`Error: ${error}`))
         //axios.get('http://localhost:7999/')
@@ -33,7 +34,7 @@ const getDates =  () => {
 { Object.keys(dates).length > 0 ?
           <div className="flexCards">
           {
-            dates.map(dateInfo => (<DateCard key={dateInfo[0]} info={dateInfo} onClick={submissionDone} />))
+            dates.map(dateInfo => (<DateCard key={dateInfo[0]} info={dateInfo} onClick={submissionDone} nextPage={nextPage} />))
           }
           </div>
             :

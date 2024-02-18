@@ -11,6 +11,7 @@ import TextComponentPrimary from "../TextComponents/TextPrimary";
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import React, { useState } from "react";
+import { getDate } from '../utils/convertDates'
 
 
 import TablePagination from '@mui/material/TablePagination';
@@ -18,7 +19,7 @@ import TablePagination from '@mui/material/TablePagination';
 
 import './LoadProjects.scss'
 
-export default function TableProjects({ projects, urlBackend, submissionDone, unchangedInput, date }) {
+export default function TableProjects({ projects, urlBackend, submissionDone, unchangedInput, date, alreadyAllocated }) {
     const [changedProjs, setChangedProjs] = useState({})
 
     const submit = () => {
@@ -137,14 +138,14 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
     }
 
     const getTecn = (info, phase) => {
-        if (phase === "Analisis"){
+        if (phase === "Analisis") {
             return info["Análise"].length > 0 ? info["Análise"][0] : "---"
         }
-        if (phase === "Accomp"){
+        if (phase === "Accomp") {
             return info["Acompanhamento"].length > 0 ? info["Acompanhamento"][0] : "---"
         }
         return <h6>Coisa</h6>
-    } 
+    }
 
     const inputPhase = (defaultValue, id, value) => {
         const title = "Fase"
@@ -171,12 +172,12 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
         const allPhases = ["Não alocado", "Análise", "Contratação", "Acompanhamento", "Encerramento"]
         // Find the index of phase in allPhases, and slice, to get all the phases next to the current, and create options
         // So, if current option is Análise, it will return "Análise", "Acompanhamento", ...
-        const num_phase = allPhases.findIndex((onePhase) => onePhase===currentPhaseProj)
-            return allPhases.slice(num_phase).map((phaseName) => (
-                <MenuItem key={phaseName} value={phaseName}>
-                    {phaseName}
-                </MenuItem>
-            ))
+        const num_phase = allPhases.findIndex((onePhase) => onePhase === currentPhaseProj)
+        return allPhases.slice(num_phase).map((phaseName) => (
+            <MenuItem key={phaseName} value={phaseName}>
+                {phaseName}
+            </MenuItem>
+        ))
     }
 
     const alignText = "center"
@@ -250,27 +251,43 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
                                     <TableCell align={alignText}>{project.name}</TableCell>
                                     <TableCell align={alignText} style={{ height: 80 }}>{project.area}</TableCell>
                                     <TableCell align={alignText}>{project.topology}</TableCell>
-                                    <TableCell align={alignText} style={{ width: 160 }}>{inputPhase(project.phase, project.id, "phase")}
+                                    {!alreadyAllocated ?
+                                        <>
 
-                                    </TableCell>
-                                    <TableCell align={alignText}>{inputEffort(project.effort_analisis, project.id, "effort_analisis")}</TableCell>
-                                    <TableCell align={alignText}>{getTecn(project.allocation, "Analisis")}</TableCell>
-                                    <TableCell align={alignText}>{inputEffort(project.effort_accomp, project.id, "effort_accomp")}</TableCell>
-                                    <TableCell align={alignText}>{getTecn(project.allocation, "Accomp")}</TableCell>
-                                    <TableCell align={alignText}>{project.data_init}</TableCell>
-                                    <TableCell align={alignText}>{project.data_end}</TableCell>
-                                </TableRow>
+                                                <TableCell align={alignText} style={{ width: 160 }}>{inputPhase(project.phase, project.id, "phase")}</TableCell>
+                                            <TableCell align={alignText}>{inputEffort(project.effort_analisis, project.id, "effort_analisis")}</TableCell>
+                                            <TableCell align={alignText}>{getTecn(project.allocation, "Analisis")}</TableCell>
+                                            <TableCell align={alignText}>{inputEffort(project.effort_accomp, project.id, "effort_accomp")}</TableCell>
+                                            <TableCell align={alignText}>{getTecn(project.allocation, "Accomp")}</TableCell>
+                                            <TableCell align={alignText}>{getDate(project.data_init)}</TableCell>
+                                            <TableCell align={alignText}>{getDate(project.data_end)}</TableCell>
+                                            </>
+                                            :
+
+                                            <>
+
+                                            <TableCell align={alignText} style={{ width: 160 }}>{project.phase}</TableCell>
+
+                                            <TableCell align={alignText}>{project.effort_analisis}</TableCell>
+                                            <TableCell align={alignText}>{getTecn(project.allocation, "Analisis")}</TableCell>
+                                            <TableCell align={alignText}>{project.effort_accomp}</TableCell>
+                                            <TableCell align={alignText}>{getTecn(project.allocation, "Accomp")}</TableCell>
+                                            <TableCell align={alignText}>{getDate(project.data_init)}</TableCell>
+                                            <TableCell align={alignText}>{getDate(project.data_end)}</TableCell>
+                                                </>
+                                    }
+                                        </TableRow>
                             ))}
-                            {emptyRows > 0 && (
-                                <TableRow
-                                    style={{
-                                        height: 53 * emptyRows,
-                                    }}
-                                >
-                                    <TableCell colSpan={6} />
-                                </TableRow>
-                            )}
-                        </TableBody>
+                                    {emptyRows > 0 && (
+                                        <TableRow
+                                            style={{
+                                                height: 53 * emptyRows,
+                                            }}
+                                        >
+                                            <TableCell colSpan={6} />
+                                        </TableRow>
+                                    )}
+                                </TableBody>
                     </Table>
                 </TableContainer>
                 <TablePagination
@@ -283,6 +300,7 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </div>
+            { !alreadyAllocated &&  
             <Button variant="outlined" onClick={() => submit()} style={{
                 borderRadius: 10,
                 backgroundColor: "#32DBC4",
@@ -291,6 +309,7 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
                 color: "black",
                 fontWeight: "lighter",
             }} ><TextComponentPrimary text={"Submeter"} size={16} fontWeightGiven={"regular"} /></Button>
+        }
         </div>
     )
 }

@@ -71,7 +71,7 @@ export default function LandPage({ defaultInput, updateInput, urlBackend }) {
     }
 
     const tecNames = () => {
-        return Object.keys(defaultInput["input"]["technicians"])
+        return Object.keys(defaultInput["input"]["technicians"]).sort()
     }
     function valuetext(value) {
         return `From ${value} to ${value + 5}`;
