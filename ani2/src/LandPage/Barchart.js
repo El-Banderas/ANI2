@@ -13,7 +13,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import  BarChart2  from './Barchart2';
+import BarChart2 from './Barchart2';
 import './BarGraph.scss';
 import TextComponentPrimary from "../TextComponents/TextPrimary";
 
@@ -41,21 +41,20 @@ export function BarChart({ urlBackend }) {
 
     useEffect(() => {
         if (Object.keys(currentInfo).length > 0) {
-        const tempInfo = {
-                    "labels": months,
-                    "datasets": filterInfoByYear(currentYearSelected, fullGraphInfo['info'])
-                }
-                setCurrentInfo(tempInfo)
+            const tempInfo = {
+                "labels": months,
+                "datasets": filterInfoByYear(currentYearSelected, fullGraphInfo['info'])
             }
+            setCurrentInfo(tempInfo)
+        }
     }, [currentYearSelected]);
-    
+
     const getData = () => {
         const fullUrl = `${urlBackend}/tecns_efforts`
         axios.get(fullUrl).then(
             (response) => {
                 console.log("[BAR CHART] Receubeu resposta")
                 const cleanAnswer = response['data']['efforts']
-                console.log(cleanAnswer)
                 //setProjects([...cleanAnswer, ...cleanAnswer])
                 setFullGraphInfo(cleanAnswer)
                 const firstYear = cleanAnswer['years'][0]
@@ -96,9 +95,8 @@ export function BarChart({ urlBackend }) {
         },
     };
 
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-    
+
 
     const changeSelectedYear = (event, new_value) => {
         setCurrentYear(new_value)
@@ -106,19 +104,19 @@ export function BarChart({ urlBackend }) {
 
     const MySliderYears = () => {
         const firstYear = fullGraphInfo['years'][0]
-        const lastYear = fullGraphInfo['years'][fullGraphInfo['years'].length -1]
+        const lastYear = fullGraphInfo['years'][fullGraphInfo['years'].length - 1]
         return <div className="MySlider">
-                    <TextComponentPrimary text={"Selecione o ano:"} size={20} fontWeightGiven={"bold"} />
-<Slider
-                        aria-label="Conjunto técnicos"
-                        defaultValue={currentYearSelected}
-                        valueLabelDisplay="auto"
-                        step={1}
-                        marks
-                        min={firstYear}
-                        max={lastYear}
-                        onChangeCommitted={changeSelectedYear}
-                    />
+            <TextComponentPrimary text={"Selecione o ano:"} size={20} fontWeightGiven={"bold"} />
+            <Slider
+                aria-label="Conjunto técnicos"
+                defaultValue={currentYearSelected}
+                valueLabelDisplay="auto"
+                step={1}
+                marks
+                min={firstYear}
+                max={lastYear}
+                onChangeCommitted={changeSelectedYear}
+            />
         </div>
     }
     //return <Bar options={options} data={data} />
@@ -127,18 +125,16 @@ export function BarChart({ urlBackend }) {
             Object.keys(currentInfo).length > 0 ?
                 <div className="column ">
                     <div className="barChart">
-                    <BarChart2 options={options} data={currentInfo} />
-</div>
-<MySliderYears />
-                    
-
+                        <BarChart2 options={options} data={currentInfo} />
                     </div>
-        :
+                    <MySliderYears />
+                </div>
+                :
 
-            <div>
-            <h1>Loading</h1> 
-            <CircularProgress />
-            </div>
-}
+                <div>
+                    <h1>Loading</h1>
+                    <CircularProgress />
+                </div>
+        }
     </>
 }

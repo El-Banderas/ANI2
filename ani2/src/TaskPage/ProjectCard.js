@@ -57,11 +57,11 @@ return backColor
         <div className='horizontalFlexSpaceBetween'>
           <div className="horizontalFlex">
             <TextComponentPrimary text={`Data início: `} size={14} fontWeightGiven={'Bold'} />
-            <TextComponentPrimary text={`${info["Data início"]}`} size={14} fontWeightGiven={'regular'} />
+            <TextComponentPrimary text={`${info["Data início"].split(" ")[0]}`} size={14} fontWeightGiven={'regular'} />
           </div>
           <div className="horizontalFlex">
             <TextComponentPrimary text={`Data fim: `} size={14} fontWeightGiven={'Bold'} />
-            <TextComponentPrimary text={`${info["Data fim"]}`} size={14} fontWeightGiven={'regular'} />
+            <TextComponentPrimary text={`${info["Data fim"].split(" ")[0]}`} size={14} fontWeightGiven={'regular'} />
           </div>
         </div>
 
