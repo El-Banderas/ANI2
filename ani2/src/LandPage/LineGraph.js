@@ -29,7 +29,8 @@ return (
           return {
             id: tecn.TecName,
             data: tecn.efforts,
-            showMark: false
+            showMark: false,
+            curve: "stepBefore",
           }
         }) 
         }

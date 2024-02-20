@@ -11,9 +11,9 @@ import TechHoliday from "../TechHoliday/TechHoliday";
 import NavBar from "../NavBar/Navbar";
 import TasksCards from '../TaskPage/TasksCards'
 import TextComponentPrimary from "../TextComponents/TextPrimary";
-import Slider from '@mui/material/Slider';
 import StatsTable from "./StatsTable";
 import SelectTecns from "./selectTecns";
+import { BarChart } from "./Barchart";
 
 export default function LandPage({ defaultInput, updateInput, urlBackend }) {
 
@@ -56,25 +56,9 @@ export default function LandPage({ defaultInput, updateInput, urlBackend }) {
 
         setCurrentSidePage("tecn")
     }
-    const removeTech = async () => {
-        console.log("Update from excel")
-        axios.get(`http://127.0.0.1:7999/?removeTecn=nothing`).then(
-            (response) => {
-                console.log("Change attribution")
-                const cleanAnswer = response['data']//['input']
-                console.log(cleanAnswer)
-                updateInput(cleanAnswer)
-            }
-        ).catch(error => console.error(`Error: ${error}`))
-        //axios.get('http://localhost:7999/')
-
-    }
 
     const tecNames = () => {
         return Object.keys(defaultInput["input"]["technicians"]).sort()
-    }
-    function valuetext(value) {
-        return `From ${value} to ${value + 5}`;
     }
 
     const max_graph = 5
@@ -82,10 +66,6 @@ export default function LandPage({ defaultInput, updateInput, urlBackend }) {
     const maxSlider = num_tecns / (max_graph)
     const currentTecnsNames = Object.entries(defaultInput["input"]["technicians"]).slice(currentselectedTecns * max_graph, currentselectedTecns * max_graph + max_graph).map((pair) => pair[0])
     //const currentTecnsNames = Object.keys(defaultInput["technicians"])
-    const changeCurrentTecn = (event, new_value) => {
-        setCurrentSelectedTecns(new_value)
-
-    }
 
     return (
         <div >
@@ -117,31 +97,13 @@ export default function LandPage({ defaultInput, updateInput, urlBackend }) {
                             color: "black",
                             fontWeight: "lighter",
                         }} ><TextComponentPrimary text={"Buscar"} size={16} fontWeightGiven={"regular"} /></Button>
-                        <Slider
-                            aria-label="Conjunto técnicos"
-                            defaultValue={0}
-                            getAriaValueText={valuetext}
-                            valueLabelDisplay="auto"
-                            step={1}
-                            marks
-                            min={0}
-                            max={maxSlider - 1}
-                            onChangeCommitted={changeCurrentTecn}
-                        />
+
                     </div>
                 </Stack>
 
 
-                <div className="line">
+                <BarChart urlBackend={urlBackend} />
 
-                    {/*
-                    <ManyTechsGraph  input={defaultInput["input"]} setCurrentSidePage={setCurrentSidePage} setCurrentArg={setCurrentArg} tecnsNames={currentTecnsNames} />
-                    <div className="stats"><StatsTable input={defaultInput["stats"]}/></div>
-
-*/}
-                    <SelectTecns urlBackend={urlBackend} />
-
-                </div>
                 {
                     decideSidePannel(currentSidePage)
                 }
