@@ -82,7 +82,7 @@ return backColor
 
           <div className="littleBox">
             <TextComponentPrimary text={"Fase: "} size={14} fontWeightGiven={'Bold'} />
-            <TextComponentPrimary text={info["Fase atual"]} size={14} fontWeightGiven={'regular'} />
+            <TextComponentPrimary text={info["Fase realizada"]} size={14} fontWeightGiven={'regular'} />
           </div>
 
           <div className="littleBox">
