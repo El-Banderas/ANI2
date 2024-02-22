@@ -54,11 +54,12 @@ export default function TableTecns({ tecns, urlBackend, submissionDone }) {
 }
 
 const inputActive = (defaultValue, id, value) => {
-        const title = "Active"
+        const title = "Ativo"
         const content = defaultValue === 1 ? "Sim" : "Não"
         return (
             <TextField
                 id="outlined-number"
+                disabled
                 label={title}
                 defaultValue={content}
                 size="small"
@@ -167,6 +168,7 @@ const inputActive = (defaultValue, id, value) => {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+                labelRowsPerPage= {"Técnicos por página"}
         />
             </div>
             <Button variant="outlined" onClick={() => submit()} style={{

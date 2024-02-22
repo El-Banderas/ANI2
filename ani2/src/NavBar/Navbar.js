@@ -51,10 +51,12 @@ const makeAllocation = () => {
       backgroundColor: "#fb505c",
     },
   }));
+  const changeURL = (url) => {
+    window.open(url, "_blank")
+  }
 
   const btnsChangePage = <div className='btns'>
     <ColorButton onClick={() => changeCurrentPage("chooseDate")} variant="outlined">Selecionar data</ColorButton  >
-    <ColorButton onClick={() => makeAllocation()} variant="outlined">Fazer nada</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("tecnInfo")} variant="outlined">Ver técnicos</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("alocatedProjs")} variant="outlined" >Projetos alocados</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("landPage")} variant="outlined">Ver alocação</ColorButton  >
@@ -63,7 +65,9 @@ const makeAllocation = () => {
   const moreMargin = loggedIn ? "titleNavBar" : "titleNavBarWithMargin";
   return (
     <div className='flexNavBar'>
-      <img src={Ani} className='ani_logo' alt="Your SVG" />
+
+      <img src={Ani} className='ani_logo' alt="ANI logo"  onClick={() => changeURL("https://www.ani.pt/")}
+/>
       <div className={moreMargin}>
 
         <TextWhite text={"Projeto ANI"} size={20} fontWeightGiven={"medium"} />
@@ -73,8 +77,8 @@ const makeAllocation = () => {
         loggedIn &&
         btnsChangePage
       }
-      <img src={UminhoPNG} alt="UMINHO" className='uminho_logo' />
-      <img src={IsepPNG} alt="ISEP" className='isep_logo' />
+      <img src={UminhoPNG} alt="UMINHO" className='uminho_logo' onClick={() => changeURL("https://www.uminho.pt/PT")}/>
+      <img src={IsepPNG} alt="ISEP" className='isep_logo' onClick={() => changeURL("https://www.isep.ipp.pt/")}/>
 {openBackDropWaiting && 
         <Backdrop
             sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

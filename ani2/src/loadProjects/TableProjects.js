@@ -298,6 +298,7 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
+                labelRowsPerPage= {"Projetos por página"}
                 />
             </div>
             { !alreadyAllocated &&  

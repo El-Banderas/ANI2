@@ -29,6 +29,13 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max) + 1;
 }
 
+
+
+const randomColor = () => {
+  const randomColor = Math.floor(Math.random()*16777215).toString(16);
+  return "#" + randomColor;
+}
+
 const months = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
 export function BarChart({ urlBackend }) {
 
@@ -57,7 +64,7 @@ export function BarChart({ urlBackend }) {
                 const cleanAnswer = response['data']['efforts']
                 //setProjects([...cleanAnswer, ...cleanAnswer])
                 setFullGraphInfo(cleanAnswer)
-                const firstYear = cleanAnswer['years'][0]
+                const firstYear = cleanAnswer['years'][0]+1
                 setCurrentInfo(firstYear)
                 const tempInfo = {
                     "labels": months,
@@ -72,7 +79,10 @@ export function BarChart({ urlBackend }) {
     const filterInfoByYear = (year, fullData) => {
         const datasets1 = []
         for (const [key, value] of Object.entries(fullData)) {
-            datasets1.push({ 'label': key, 'data': value['data'][year] })
+           const sumEfforts = value['data'][year].reduce((partialSum, a) => partialSum + a, 0) 
+           if ( sumEfforts > 0) {
+            datasets1.push({ 'label': key, 'data': value['data'][year], backgroundColor: randomColor() })
+           }
         }
         return datasets1
     }
@@ -103,7 +113,7 @@ export function BarChart({ urlBackend }) {
     }
 
     const MySliderYears = () => {
-        const firstYear = fullGraphInfo['years'][0]
+        const firstYear = fullGraphInfo['years'][0]+1
         const lastYear = fullGraphInfo['years'][fullGraphInfo['years'].length - 1]
         return <div className="MySlider">
             <TextComponentPrimary text={"Selecione o ano:"} size={20} fontWeightGiven={"bold"} />
@@ -125,7 +135,7 @@ export function BarChart({ urlBackend }) {
             Object.keys(currentInfo).length > 0 ?
                 <div className="column ">
                     <div className="barChart">
-                        <BarChart2 options={options} data={currentInfo} />
+                        <BarChart2 options={options} data={currentInfo} year={currentYearSelected} />
                     </div>
                     <MySliderYears />
                 </div>

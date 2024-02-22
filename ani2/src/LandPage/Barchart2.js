@@ -25,14 +25,14 @@ ChartJS.register(
 );
 
 const months = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
-export default function BarChart2({ data }) {
+export default function BarChart2({ data , year}) {
 
 
     const options = {
         plugins: {
             title: {
                 display: true,
-                text: 'Esforço dos técnicos ao longo do ano',
+                text: `Esforço dos técnicos ao longo do ano ${year}`,
             },
         },
         responsive: true,
@@ -41,14 +41,14 @@ export default function BarChart2({ data }) {
                 stacked: true,
                 title: {
                     display : true,
-                    text : "months"
+                    text : "Meses"
                 }
             },
             y: {
                 stacked: true,
                 title: {
                     display : true,
-                    text : "Hours of work"
+                    text : "Horas de trabalho"
                 }
             },
         },
