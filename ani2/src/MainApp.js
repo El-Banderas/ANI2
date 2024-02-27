@@ -1,12 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
-import LandPage from './LandPage/LandPage'
+import LandPageChart from './LandPage/LandPageChart'
+import LandPageSearch from './LandPage/LandPageSearch'
 import axios from 'axios';
 
 import CircularProgress from '@mui/material/CircularProgress';
 import React, {useEffect, useState} from "react";
 
-export default function MainApp({urlBackend}) {
+export default function MainApp({urlBackend, chartOrSearch}) {
 
   useEffect( () => {
     getAttributions();
@@ -57,12 +58,16 @@ const getAttributions =  () => {
 
  
   const currentTech = "Tec1"
+    const chooseBarOrSearch = () => chartOrSearch ? 
+            <LandPageChart defaultInput={input} updateInput={setInput} urlBackend={urlBackend}/> :
+            <LandPageSearch defaultInput={input} updateInput={setInput} urlBackend={urlBackend}/> 
 
   // Other routes not working
   return (
     <div className="App">
           { Object.keys(input).length > 0 ?
-            <LandPage defaultInput={input} updateInput={setInput} urlBackend={urlBackend}/> :
+           chooseBarOrSearch() 
+             :
             <div>
             <h1>Loading</h1> 
             <CircularProgress />

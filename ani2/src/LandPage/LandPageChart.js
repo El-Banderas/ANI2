@@ -15,7 +15,7 @@ import StatsTable from "./StatsTable";
 import SelectTecns from "./selectTecns";
 import { BarChart } from "./Barchart";
 
-export default function LandPage({ defaultInput, updateInput, urlBackend }) {
+export default function LandPageChart({ defaultInput, updateInput, urlBackend }) {
 
     const [currentArg, setCurrentArg] = useState("");
     const [currentSidePage, setCurrentSidePage] = useState("none");
@@ -69,44 +69,11 @@ export default function LandPage({ defaultInput, updateInput, urlBackend }) {
 
     return (
         <div >
-
             {/**Caso dê problemas, remover o everything */}
             <div className="everything">
-                <Stack
-                    direction="column"
-                    alignItems="flex-start"
-                    spacing={2}
-                    className="getTecn"
-
-                >
-
-                    <TextComponentPrimary text={"Selecione o técnico"} size={20} fontWeightGiven={"bold"} />
-                    <div className="rowButtons">
-                        <Autocomplete
-                            disablePortal
-                            id="selectTecn"
-                            options={tecNames()}
-                            sx={{ width: 600 }}
-                            renderInput={(params) => <TextField {...params} />}
-                        />
-                        <Button variant="outlined" onClick={() => getTecn()} style={{
-                            borderRadius: 10,
-                            backgroundColor: "#32DBC4",
-                            margin: "0% 0% 1% 0%",
-                            fontSize: "14px",
-                            color: "black",
-                            fontWeight: "lighter",
-                        }} ><TextComponentPrimary text={"Buscar"} size={16} fontWeightGiven={"regular"} /></Button>
-
-                    </div>
-                </Stack>
 
 
                 <BarChart urlBackend={urlBackend} />
-
-                {
-                    decideSidePannel(currentSidePage)
-                }
             </div>
         </div>
     )

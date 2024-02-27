@@ -51,10 +51,12 @@ function App() {
         //currentPage === "loadProjects" && <h1>Load projs</h1>
       }
       {
-        currentPage === "landPage" && <MainApp urlBackend={urlBackend} />
-        //currentPage === "landPage" && <h1>Página principal</h1>
+        currentPage === "landPageSearch" && <MainApp urlBackend={urlBackend} chartOrSearch={false} />
       }
 
+      {
+        currentPage === "landPageGraph" && <MainApp urlBackend={urlBackend} chartOrSearch={true} />
+      }
       {
         currentPage === "tecnInfo" && <LoadTecn urlBackend={urlBackend} submissionDone={submissionDone}>Ver técnicos</LoadTecn>
       }

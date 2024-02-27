@@ -59,7 +59,8 @@ const makeAllocation = () => {
     <ColorButton onClick={() => changeCurrentPage("chooseDate")} variant="outlined">Selecionar data</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("tecnInfo")} variant="outlined">Ver técnicos</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("alocatedProjs")} variant="outlined" >Projetos alocados</ColorButton  >
-    <ColorButton onClick={() => changeCurrentPage("landPage")} variant="outlined">Ver alocação</ColorButton  >
+    <ColorButton onClick={() => changeCurrentPage("landPageGraph")} variant="outlined" >Alocação geral</ColorButton  >
+    <ColorButton onClick={() => changeCurrentPage("landPageSearch")} variant="outlined">Alocação de técnico</ColorButton  >
     <ColorButton onClick={() => reloadData()} variant="outlined">Reload Data</ColorButton  >
   </div>
   const moreMargin = loggedIn ? "titleNavBar" : "titleNavBarWithMargin";
