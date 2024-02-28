@@ -16,6 +16,7 @@ import { Bar } from 'react-chartjs-2';
 import BarChart2 from './Barchart2';
 import './BarGraph.scss';
 import TextComponentPrimary from "../TextComponents/TextPrimary";
+import { useDateTimeField } from "@mui/x-date-pickers/DateTimeField/useDateTimeField";
 
 ChartJS.register(
     CategoryScale,
@@ -37,7 +38,7 @@ const randomColor = () => {
 }
 
 const months = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
-export function BarChart({ urlBackend }) {
+export default function BarChart({ urlBackend , tecnName }) {
 
     const [fullGraphInfo, setFullGraphInfo] = useState({})
     const [currentInfo, setCurrentInfo] = useState({})
@@ -56,9 +57,10 @@ export function BarChart({ urlBackend }) {
         }
     }, [currentYearSelected]);
 
-    const getData = () => {
-        const fullUrl = `${urlBackend}/tecns_efforts`
-        axios.get(fullUrl).then(
+    const getData = () => { 
+        console.log("Wich tecnName")
+        const fullurlBackend = tecnName !== undefined ? `${urlBackend}/tecn_effort/?tecn_name='${tecnName}'` : `${urlBackend}/tecns_efforts`
+        axios.get(fullurlBackend).then(
             (response) => {
                 const cleanAnswer = response['data']['efforts']
                 //setProjects([...cleanAnswer, ...cleanAnswer])
@@ -129,12 +131,15 @@ export function BarChart({ urlBackend }) {
         </div>
     }
     //return <Bar options={options} data={data} />
+    const title = tecnName !== undefined ? 
+        `Esforços do/a técnico/a ${tecnName}` :
+        `Esforço dos técnicos ao longo do ano ${currentYearSelected}`
     return <>
         {
             Object.keys(currentInfo).length > 0 ?
                 <div className="column ">
                     <div className="barChart">
-                        <BarChart2 options={options} data={currentInfo} year={currentYearSelected} />
+                        <BarChart2 options={options} data={currentInfo} title={title}/>
                     </div>
                     <MySliderYears />
                 </div>

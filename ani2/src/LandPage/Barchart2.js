@@ -25,15 +25,16 @@ ChartJS.register(
 );
 
 const months = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
-export default function BarChart2({ data , year}) {
+export default function BarChart2({ data , title}) {
     
+
 
 
     const options = {
         plugins: {
             title: {
                 display: true,
-                text: `Esforço dos técnicos ao longo do ano ${year}`,
+                text: title,
             },
         },
         responsive: true,
@@ -56,6 +57,5 @@ export default function BarChart2({ data , year}) {
         maintainAspectRatio: false,
     };
 
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
     return <Bar options={options} data={data} />
 }

@@ -13,7 +13,7 @@ import TasksCards from '../TaskPage/TasksCards'
 import TextComponentPrimary from "../TextComponents/TextPrimary";
 import StatsTable from "./StatsTable";
 import SelectTecns from "./selectTecns";
-import { BarChart } from "./Barchart";
+import  BarChart  from "./Barchart";
 
 export default function LandPageChart({ defaultInput, updateInput, urlBackend }) {
 
@@ -73,7 +73,7 @@ export default function LandPageChart({ defaultInput, updateInput, urlBackend })
             <div className="everything">
 
 
-                <BarChart urlBackend={urlBackend} />
+                <BarChart urlBackend={urlBackend} tecnName={undefined}/>
             </div>
         </div>
     )

@@ -24,7 +24,7 @@ function App() {
   }
 
   const submissionDone = () => {
-    setCurPage("landPage")
+    setCurPage("landPageGraph")
   }
   const checkTecns = () => {
     setCurPage("tecnInfo")

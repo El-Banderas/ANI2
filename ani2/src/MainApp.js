@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import LandPageChart from './LandPage/LandPageChart'
-import LandPageSearch from './LandPage/SearchTecn/LandPageSearch'
+import LandPageSearch from './LandPage/LandPageSearch'
 import axios from 'axios';
 
 import CircularProgress from '@mui/material/CircularProgress';

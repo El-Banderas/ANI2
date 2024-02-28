@@ -1,13 +1,13 @@
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import './../LandPage.scss';
+import './LandPage.scss';
 import React, { useState} from "react";
-import TaskPage from "../../TaskPage/TaskMain";
+import TaskPage from "../TaskPage/TaskMain";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import TasksCards from '../../TaskPage/TasksCards'
-import TextComponentPrimary from "../../TextComponents/TextPrimary";
-import { BarChartTecn } from './BarChartTecn';
+import TasksCards from '../TaskPage/TasksCards'
+import TextComponentPrimary from "../TextComponents/TextPrimary";
+import  BarChart from './Barchart';
 
 export default function LandPageChart({ defaultInput, updateInput, urlBackend }) {
 
@@ -27,7 +27,7 @@ export default function LandPageChart({ defaultInput, updateInput, urlBackend })
                 return <>
                     <TaskPage request_word={"tecn"} name={currentArg} urlBackend={urlBackend} />
                     <TasksCards name={currentArg} urlBackend={urlBackend} />
-                    <BarChartTecn name={currentArg} urlBackend={urlBackend} />
+                    <BarChart tecnName={currentArg} urlBackend={urlBackend}  />
                 </>
 
             default:
