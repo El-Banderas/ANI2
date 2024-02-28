@@ -1,19 +1,13 @@
-import ManyTechsGraph from "./ManyTechsGraph";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import './LandPage.scss';
-import axios from 'axios';
-import React, { useState, useRef } from "react";
-import TaskPage from "../TaskPage/TaskMain";
+import './../LandPage.scss';
+import React, { useState} from "react";
+import TaskPage from "../../TaskPage/TaskMain";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import TechHoliday from "../TechHoliday/TechHoliday";
-import NavBar from "../NavBar/Navbar";
-import TasksCards from '../TaskPage/TasksCards'
-import TextComponentPrimary from "../TextComponents/TextPrimary";
-import StatsTable from "./StatsTable";
-import SelectTecns from "./selectTecns";
-import { BarChart } from "./Barchart";
+import TasksCards from '../../TaskPage/TasksCards'
+import TextComponentPrimary from "../../TextComponents/TextPrimary";
+import { BarChartTecn } from './BarChartTecn';
 
 export default function LandPageChart({ defaultInput, updateInput, urlBackend }) {
 
@@ -33,10 +27,9 @@ export default function LandPageChart({ defaultInput, updateInput, urlBackend })
                 return <>
                     <TaskPage request_word={"tecn"} name={currentArg} urlBackend={urlBackend} />
                     <TasksCards name={currentArg} urlBackend={urlBackend} />
+                    <BarChartTecn name={currentArg} urlBackend={urlBackend} />
                 </>
 
-            case "tecnHoliday":
-                return <TechHoliday techName={getCurrentSelectedTech()} />
             default:
                 return <div>Default</div>
 

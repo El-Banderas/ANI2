@@ -13,9 +13,9 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import BarChart2 from './Barchart2';
+import BarChartDisplay from './BarChartDisplay';
 import './BarGraph.scss';
-import TextComponentPrimary from "../TextComponents/TextPrimary";
+import TextComponentPrimary from "../../TextComponents/TextPrimary";
 
 ChartJS.register(
     CategoryScale,
@@ -37,7 +37,7 @@ const randomColor = () => {
 }
 
 const months = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
-export function BarChart({ urlBackend }) {
+export function BarChartTecn({ name, urlBackend }) {
 
     const [fullGraphInfo, setFullGraphInfo] = useState({})
     const [currentInfo, setCurrentInfo] = useState({})
@@ -57,7 +57,7 @@ export function BarChart({ urlBackend }) {
     }, [currentYearSelected]);
 
     const getData = () => {
-        const fullUrl = `${urlBackend}/tecns_efforts`
+        const fullUrl = `${urlBackend}/tecn_effort/?tecn_name='${name}'`
         axios.get(fullUrl).then(
             (response) => {
                 const cleanAnswer = response['data']['efforts']
@@ -134,7 +134,7 @@ export function BarChart({ urlBackend }) {
             Object.keys(currentInfo).length > 0 ?
                 <div className="column ">
                     <div className="barChart">
-                        <BarChart2 options={options} data={currentInfo} year={currentYearSelected} />
+                        <BarChartDisplay options={options} data={currentInfo} year={currentYearSelected} />
                     </div>
                     <MySliderYears />
                 </div>
