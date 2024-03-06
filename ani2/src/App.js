@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import MainApp from './MainApp'
-import LoadProjects from './loadProjects/LoadProjects';
+import LoadProjects from './MakeAllocations/LoadProjects';
+import MyStepper from './MakeAllocations/Stepper';
 import React, {useEffect, useState} from "react";
 import NavBar from "./NavBar/Navbar";
 import Login from './Login/Login';
@@ -42,7 +43,7 @@ function App() {
         currentPage === "login" && <Login urlBackend={urlBackend} logInDone={logInDone}/>
       }
       {
-        currentPage === "loadProjects" && <LoadProjects urlBackend={urlBackend} submissionDone={submissionDone} date={currentDate} alreadyAllocated={false}/>
+        currentPage === "loadProjects" && <MyStepper urlBackend={urlBackend} submissionDone={submissionDone} date={currentDate} alreadyAllocated={false}/>
         //currentPage === "loadProjects" && <h1>Load projs</h1>
       }
 
