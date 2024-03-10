@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './LoadProjects.scss'
 import TextComponentPrimary from "../TextComponents/TextPrimary";
+import SecondPage from './SecondPage';
 
 const steps = ['Alterar esforços de projetos', 'Comparar alocações', 'Alocação submetida!'];
 
@@ -29,9 +30,9 @@ export default function MyStepper({ urlBackend, submissionDone, date, alreadyAll
 
 
   const chooseContent = () => {
-    if (activeStep == 0)
+    if (activeStep === 0)
       return <LoadProjects urlBackend={urlBackend} submissionDone={submissionDone} date={date} alreadyAllocated={alreadyAllocated} />
-    if (activeStep === 1) return <h1>Coisa 2</h1>
+    if (activeStep === 1) return <SecondPage />
     if (activeStep === 2) return <h1>Coisa 3</h1>
   }
 
@@ -85,8 +86,6 @@ export default function MyStepper({ urlBackend, submissionDone, date, alreadyAll
               <Box sx={{ flex: '1 1 auto' }} />
 
               {button(handleNext, activeStep === steps.length - 1 ? 'Finish' : 'Next')}
-              {button(handleNext, "Não submeter Coisa")}
-              {button(handleNext, "Submeter Coisa")}
             </Box>
           </React.Fragment>
         )}

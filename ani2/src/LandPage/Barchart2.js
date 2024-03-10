@@ -29,7 +29,6 @@ export default function BarChart2({ data , title}) {
     
 
 
-
     const options = {
         plugins: {
             title: {
@@ -43,18 +42,18 @@ export default function BarChart2({ data , title}) {
                 stacked: true,
                 title: {
                     display : true,
-                    text : "Meses"
+                    text : "meses"
                 }
             },
             y: {
                 stacked: true,
                 title: {
                     display : true,
-                    text : "Horas de trabalho"
+                    text : "horas de trabalho"
                 }
             },
         },
-        maintainAspectRatio: false,
+        maintainaspectratio: false,
     };
 
     return <Bar options={options} data={data} />
