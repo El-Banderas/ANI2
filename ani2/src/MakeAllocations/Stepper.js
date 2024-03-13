@@ -9,12 +9,13 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './LoadProjects.scss'
 import TextComponentPrimary from "../TextComponents/TextPrimary";
-import SecondPage from './SecondPage';
+import SecondPage from './SecondPage/SecondPage';
 
-const steps = ['Alterar esforços de projetos', 'Comparar alocações', 'Alocação submetida!'];
+const steps = ['Alterar esforços de projetos','Escolher cenário', 'Comparar alocações', 'Alocação submetida!'];
 
 export default function MyStepper({ urlBackend, submissionDone, date, alreadyAllocated }) {
   const [activeStep, setActiveStep] = React.useState(0);
+  const [argLastPage, setArgLastPage] = React.useState(null);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -31,9 +32,10 @@ export default function MyStepper({ urlBackend, submissionDone, date, alreadyAll
 
   const chooseContent = () => {
     if (activeStep === 0)
-      return <LoadProjects urlBackend={urlBackend} submissionDone={submissionDone} date={date} alreadyAllocated={alreadyAllocated} />
-    if (activeStep === 1) return <SecondPage />
-    if (activeStep === 2) return <h1>Coisa 3</h1>
+      return <LoadProjects urlBackend={urlBackend} submissionDone={handleNext} date={date} alreadyAllocated={alreadyAllocated} setArgLastPage={setArgLastPage}/>
+    if (activeStep === 1) return <h1>Coisa 1</h1>
+    if (activeStep === 2) return <SecondPage scenarioInfo={argLastPage}/>
+    if (activeStep === 3) return <h1>Coisa 3</h1>
   }
 
   const button = (onClicki, text) => {

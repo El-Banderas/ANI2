@@ -19,7 +19,7 @@ import TablePagination from '@mui/material/TablePagination';
 
 import './LoadProjects.scss'
 
-export default function TableProjects({ projects, urlBackend, submissionDone, unchangedInput, date, alreadyAllocated }) {
+export default function TableProjects({ projects, urlBackend, submissionDone, unchangedInput, date, alreadyAllocated , setArgLastPage}) {
     const [changedProjs, setChangedProjs] = useState({})
 
     const submit = () => {
@@ -35,7 +35,11 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
                 "date": date
                 //"name" : "AAA"
             }
-        });
+        }).then(
+            (response) => {
+                setArgLastPage(response.data)
+  }
+        );
         // Change page
         submissionDone()
 

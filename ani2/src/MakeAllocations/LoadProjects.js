@@ -6,7 +6,7 @@ import TableProjects from "./TableProjects";
 
 
 
-export default function LoadProjects({urlBackend, submissionDone, date, alreadyAllocated}) {
+export default function LoadProjects({urlBackend, submissionDone, date, alreadyAllocated, setArgLastPage}) {
 
   useEffect( () => {
     getProjects();
@@ -32,7 +32,7 @@ const getProjects =  () => {
 
     return <div>
 { Object.keys(projectsAndNames).length > 0 ?
-            <TableProjects projects={projectsAndNames} urlBackend={urlBackend} submissionDone={submissionDone} unchangedInput={JSON.parse(JSON.stringify(projectsAndNames))} date={date} alreadyAllocated={alreadyAllocated}/>
+            <TableProjects projects={projectsAndNames} urlBackend={urlBackend} submissionDone={submissionDone} unchangedInput={JSON.parse(JSON.stringify(projectsAndNames))} date={date} alreadyAllocated={alreadyAllocated} setArgLastPage={setArgLastPage}/>
             :
             <div>
             <h1>Loading</h1> 
