@@ -13,6 +13,15 @@ import TextComponentPrimary from "../TextComponents/TextPrimary";
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ptBR } from '@mui/x-date-pickers/locales';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import MomentUtils from "@date-io/moment";
+import moment from "moment";
+import "moment/locale/pt";
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+
 
 import './LoadTecns.scss'
 
@@ -30,7 +39,8 @@ export default function TableTecns({ tecns, urlBackend, submissionDone }) {
         });
         // Change page
         submissionDone()
-
+console.log("Submit tecns")
+console.log(changedTecns)
     }
 
     const changeActivePhase = (new_value, id, title) => {
@@ -49,7 +59,7 @@ export default function TableTecns({ tecns, urlBackend, submissionDone }) {
           }))
         }
         else{
-          setChangedTecns({...changedTecns, [id] : new_value})
+          setChangedTecns({...changedTecns, [id] : {"answer" : new_value, date : new Date()}})
         }
 }
 
@@ -59,7 +69,6 @@ const inputActive = (defaultValue, id, value) => {
         return (
             <TextField
                 id="outlined-number"
-                disabled
                 label={title}
                 defaultValue={content}
                 size="small"
@@ -121,6 +130,43 @@ const inputActive = (defaultValue, id, value) => {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tecns.length) : 0;
 
+const checkTecnActive = (active, tecnId) => {
+  const tecnSetInactive = tecnId in changedTecns && changedTecns[tecnId]["answer"] === "Não"
+  // True => Disabled
+  // If the tecn is not active, is out, the datepicker is disabled
+  // If the tecn was changed to a state of "Não", it will allow do datepick
+  return active === 0 || !tecnSetInactive
+}
+
+  const setTecnDateOut = (tecnId, date) => {
+    const oldValue = changedTecns[tecnId]["answer"]
+          setChangedTecns({...changedTecns, [tecnId] : {"answer" : oldValue, date : date._d}})
+  }
+
+    const MyPickDate = ({maybeDisabled, tecnId}) => {
+      
+      const dateIsSet = tecnId in changedTecns // && typeof(changedTecns[tecnId]["date"]) == "object"
+      const valueDatePicker = dateIsSet ? changedTecns[tecnId]["date"] : new Date()
+      return (
+        <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale={"pt"} >
+      <DatePicker
+        label="Selecionar data de saída"
+        inputformat="dd-MMMM-yyyyy"
+          mask="__/__/____"
+          placeholder="dd/MM/yyyy"
+          okLabel="Escolher"
+          clearLabel="Limpar"
+          cancelLabel="Cancelar"
+          value={valueDatePicker}
+          format="L"
+          views={["year", "month", "date"]}
+          disabled={maybeDisabled} 
+          onChange={(dateChanged) => setTecnDateOut(tecnId, dateChanged)}
+      />
+</MuiPickersUtilsProvider>
+      
+      )
+    }
     return (
         <div>
             <div className='table'>
@@ -131,6 +177,7 @@ const inputActive = (defaultValue, id, value) => {
                             <TableCell align={alignText}>ID</TableCell>
                             <TableCell align={alignText}> Nome</TableCell>
                             <TableCell align={alignText}> Ativo</TableCell>
+                            <TableCell align={alignText}> Data saída </TableCell>
                             <TableCell align={alignText}> Ano de vínculo</TableCell>
                         </TableRow>
                     </TableHead>
@@ -145,6 +192,9 @@ const inputActive = (defaultValue, id, value) => {
                                 </TableCell>
                                 <TableCell align={alignText}>{tecn.name}</TableCell>
                                 <TableCell align={alignText}>{inputActive(tecn.active, tecn.id, "active")}</TableCell>
+                                <TableCell align={alignText}> 
+                                <MyPickDate maybeDisabled={checkTecnActive(tecn.active, tecn.id)} tecnId={tecn.id} />
+                                </TableCell>
                                 <TableCell align={alignText}>{tecn.start_date}</TableCell>
                             </TableRow>
                         ))}
