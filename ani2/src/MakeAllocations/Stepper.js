@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {useEffect, useState} from "react";
 import LoadProjects from './LoadProjects';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -10,13 +10,30 @@ import Typography from '@mui/material/Typography';
 import './LoadProjects.scss'
 import TextComponentPrimary from "../TextComponents/TextPrimary";
 import SecondPage from './SecondPage/SecondPage';
+import axios from 'axios';
+import ChooseScenario from "./SecondPage/ChooseScenario";
 
 const steps = ['Alterar esforços de projetos','Escolher cenário', 'Comparar alocações', 'Alocação submetida!'];
 
 export default function MyStepper({ urlBackend, submissionDone, date, alreadyAllocated }) {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [argLastPage, setArgLastPage] = React.useState(null);
+  const [activeStep, setActiveStep] = useState(0);
+  const [argLastPage, setArgLastPage] = useState(null);
 
+  useEffect( () => {
+    checkIsSpecial();
+  }, [] );
+const checkIsSpecial =  () => {
+        axios.get(`${urlBackend}/scenarioDay`).then(
+          (response) => {
+            const scenarioDAY = response['data']['answer']
+            const specialFirstPage = scenarioDAY.localeCompare(date.split(' ')[0]) === 0 ? 1 : 0
+            setActiveStep(specialFirstPage)
+            //setIsSpecial(scenarioDAY)
+          }
+        ).catch(error => console.error(`Error: ${error}`))
+        //axios.get('http://localhost:7999/')
+    }
+ 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -29,11 +46,16 @@ export default function MyStepper({ urlBackend, submissionDone, date, alreadyAll
     setActiveStep(0);
   };
 
+  const chooseScenario = (scenarioName) => {
+    console.log("[STEPPER] Choose scenario")
+    console.log(scenarioName)
+
+  }
 
   const chooseContent = () => {
     if (activeStep === 0)
       return <LoadProjects urlBackend={urlBackend} submissionDone={handleNext} date={date} alreadyAllocated={alreadyAllocated} setArgLastPage={setArgLastPage}/>
-    if (activeStep === 1) return <h1>Coisa 1</h1>
+    if (activeStep === 1) return <ChooseScenario urlBackend={urlBackend} chooseScenario={chooseScenario} />
     if (activeStep === 2) return <SecondPage scenarioInfo={argLastPage}/>
     if (activeStep === 3) return <h1>Coisa 3</h1>
   }

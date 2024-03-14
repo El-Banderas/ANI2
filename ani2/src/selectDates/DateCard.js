@@ -11,7 +11,7 @@ import {getDate} from '../utils/convertDates'
 
 import './SelectDate.scss'
 
-export default function DateCard({  info, onClick, nextPage }) {
+export default function DateCard({  info, onClick, nextPage , special}) {
   
   /*
   //const changedTecns= {}
@@ -43,9 +43,10 @@ const textLeft = (textField, bold=false) => {
 }
 const num_allocation_analisis = "Date_analisis" in info[1] ? info[1]["Date_analisis"] : 0  
 const num_allocation_accomp = "Date_acomp" in info[1] ? info[1]["Date_acomp"] : 0  
+const backGroundColor = special ? "red" : ""
    return (
         <div >
-        <Card sx={{ minWidth: 275 }}>
+        <Card sx={{ minWidth: 275 , backgroundColor: backGroundColor}}>
       <CardContent className="card">
 
         {textLeft("Dia")}

@@ -15,26 +15,28 @@ export default function SelectDate({urlBackend, submissionDone, keywordGet}) {
   }, [] );
 
   const [dates, setDates] = useState([])
+  const [scenarioDay, setScenarioDay] = useState("")
 
 const getDates =  () => {
         axios.get(`${urlBackend}/${keywordGet}`).then(
           (response) => {
             const cleanAnswer = response['data']['input']
+            const scenarioDAY = response['data']['dayScenario']
 
             //setProjects([...cleanAnswer, ...cleanAnswer])
             setDates(cleanAnswer, nextPage)
+            setScenarioDay(scenarioDAY)
           }
         ).catch(error => console.error(`Error: ${error}`))
         //axios.get('http://localhost:7999/')
     }
 
 
-
     return <div >
 { Object.keys(dates).length > 0 ?
           <div className="flexCards">
           {
-            dates.map(dateInfo => (<DateCard key={dateInfo[0]} info={dateInfo} onClick={submissionDone} nextPage={nextPage} />))
+            dates.map(dateInfo => (<DateCard key={dateInfo[0]} info={dateInfo} onClick={submissionDone} nextPage={nextPage} special={dateInfo[0].split(' ')[0].localeCompare(scenarioDay) === 0} />))
           }
           </div>
             :
