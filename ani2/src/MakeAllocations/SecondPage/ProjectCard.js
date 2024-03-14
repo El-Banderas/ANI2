@@ -16,7 +16,7 @@ import TextComponentPrimary from "../../TextComponents/TextPrimary";
 
 export default function ProjectCard({ info, tecnId , changeTecn, possibleTecns}) {
 
-
+const [selected, setSelected] = useState([]);
   const getColourByPhase = (phaseInt) => {
 const backColor = tecnId !== info["Técnico análise"] ?  "#FC848C" : "#3C9D92"
 return backColor
@@ -38,8 +38,10 @@ return backColor
   };
 
   const selectTecn = () => {
-       const element = document.getElementById("ProjectCard-searchTecn").value; 
-       changeTecn(parseInt(info["id"]), tecnId, element)
+
+       if (selected != undefined && !isNaN(parseInt(selected))) {
+       changeTecn(parseInt(info["id"]), tecnId, parseInt(selected))
+       }
        
   }
 
@@ -73,9 +75,12 @@ return backColor
         disablePortal
           fullWidth
         id="ProjectCard-searchTecn"
+        onChange={(event, value) => setSelected(value)}
+        value={selected}
         options={possibleTecns}
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Técnicos possíveis" />}
+        getOptionLabel = {option => String(option)}
       />
  <Button variant="outlined" onClick={selectTecn} style={{
         borderRadius: 10,
