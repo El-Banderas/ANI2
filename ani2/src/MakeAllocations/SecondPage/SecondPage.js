@@ -61,8 +61,8 @@ axios({
  }
  return (
     <div >
-      <EffortsGraph current_efforts={current_efforts} allocations={thisAllocation} costsProjs={costsProjs} />      
-      <SeachChooseTecn possibilities={Object.keys(thisAllocation)} changeCurrentTecn={setSelectedTecn} saveScenario={saveScenario} chooseScenarioToAllocation={chooseScenarioToAllocation}/>
+      <EffortsGraph current_efforts={current_efforts} allocations={thisAllocation} costsProjs={costsProjs} />
+      <SeachChooseTecn possibilities={Object.keys(thisAllocation)} changeCurrentTecn={setSelectedTecn} saveScenario={saveScenario} chooseScenarioToAllocation={chooseScenarioToAllocation} />
      {
       selectedTecn !== null &&  thisAllocation[selectedTecn] !== undefined && 
         <div className='scrollable'> 

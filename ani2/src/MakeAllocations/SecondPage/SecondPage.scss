@@ -13,6 +13,24 @@
 
   gap: 3%;
 }
+.horizontalFlex1{
+   display: flex;
+   flex-direction: row;
+   width: 90%;
+   margin: auto;
+    justify-content: center;
+   margin-left: 4%;
+}
+
+.growBarChart{
+  flex-grow: 3;
+}
+.statsTable{
+  flex-shrink: 3;
+   transform: translateY(100%);
+   border: 3px solid grey; 
+   height: fit-content;
+}
 .horizontalFlex{
    display: flex;
    flex-direction: row;

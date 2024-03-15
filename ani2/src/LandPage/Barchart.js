@@ -66,7 +66,7 @@ export default function BarChart({ urlBackend , tecnName }) {
                 //setProjects([...cleanAnswer, ...cleanAnswer])
                 setFullGraphInfo(cleanAnswer)
                 const firstYear = cleanAnswer['years'][0]+1
-                setCurrentInfo(firstYear)
+                setCurrentYear(firstYear)
                 const tempInfo = {
                     "labels": months,
                     "datasets": filterInfoByYear(firstYear, cleanAnswer['info'])

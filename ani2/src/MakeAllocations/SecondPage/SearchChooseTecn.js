@@ -22,7 +22,7 @@ const style = {
 
 };
 
-export default function SeachChooseTecn({ possibilities, changeCurrentTecn, saveScenario, chooseScenarioToAllocation }) {
+export default function SeachChooseTecn({ possibilities, changeCurrentTecn, saveScenario, chooseScenarioToAllocation}) {
 
   const [openSave, setOpenSave] = useState(false);
   const [openChoose, setOpenChoose] = useState(false);
