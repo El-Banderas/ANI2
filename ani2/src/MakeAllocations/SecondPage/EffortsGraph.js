@@ -1,6 +1,7 @@
 
 import { Bar } from 'react-chartjs-2';
 export default function EffortsGraph({current_efforts , allocations , costsProjs }) {
+  
 const options = {
     plugins: {
       title: {

@@ -1,5 +1,5 @@
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import LoadProjects from './LoadProjects';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -13,33 +13,36 @@ import SecondPage from './SecondPage/SecondPage';
 import axios from 'axios';
 import ChooseScenario from "./SecondPage/ChooseScenario";
 
-const steps = ['Alterar esforços de projetos','Escolher cenário', 'Comparar alocações', 'Alocação submetida!'];
+const steps = ['Alterar esforços de projetos', 'Escolher cenário', 'Comparar alocações', 'Alocação submetida!'];
 
-export default function MyStepper({ urlBackend, submissionDone, date, alreadyAllocated }) {
+export default function MyStepper({ urlBackend, selectDatePage, date, alreadyAllocated, submissionDone }) {
   const [activeStep, setActiveStep] = useState(0);
   const [argLastPage, setArgLastPage] = useState(null);
 
-  useEffect( () => {
+  useEffect(() => {
     checkIsSpecial();
-  }, [] );
-const checkIsSpecial =  () => {
-        axios.get(`${urlBackend}/scenarioDay`).then(
-          (response) => {
-            const scenarioDAY = response['data']['answer']
-            const specialFirstPage = scenarioDAY.localeCompare(date.split(' ')[0]) === 0 ? 1 : 0
-            setActiveStep(specialFirstPage)
-            //setIsSpecial(scenarioDAY)
-          }
-        ).catch(error => console.error(`Error: ${error}`))
-        //axios.get('http://localhost:7999/')
-    }
- 
+  }, []);
+  const checkIsSpecial = () => {
+    axios.get(`${urlBackend}/scenarioDay`).then(
+      (response) => {
+        const scenarioDAY = response['data']['answer']
+        const specialFirstPage = scenarioDAY.localeCompare(date.split(' ')[0]) === 0 ? 1 : 0
+        setActiveStep(specialFirstPage)
+        //setIsSpecial(scenarioDAY)
+      }
+    ).catch(error => console.error(`Error: ${error}`))
+    //axios.get('http://localhost:7999/')
+  }
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    if (activeStep === 0) selectDatePage();
+    else {
+      setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    }
   };
 
   const handleReset = () => {
@@ -49,14 +52,21 @@ const checkIsSpecial =  () => {
   const chooseScenario = (scenarioName) => {
     console.log("[STEPPER] Choose scenario")
     console.log(scenarioName)
+    axios.get(`${urlBackend}/get_scenario`, { params: { name: scenarioName, date: date } }).then(
+      (response) => {
+        const stuff = response['data']
+        setArgLastPage(stuff)
+        setActiveStep(2)
+      }
+    ).catch(error => console.error(`Error: ${error}`))
 
   }
 
   const chooseContent = () => {
     if (activeStep === 0)
-      return <LoadProjects urlBackend={urlBackend} submissionDone={handleNext} date={date} alreadyAllocated={alreadyAllocated} setArgLastPage={setArgLastPage}/>
+      return <LoadProjects urlBackend={urlBackend} submissionDone={handleNext} date={date} alreadyAllocated={alreadyAllocated} setArgLastPage={setArgLastPage} />
     if (activeStep === 1) return <ChooseScenario urlBackend={urlBackend} chooseScenario={chooseScenario} />
-    if (activeStep === 2) return <SecondPage scenarioInfo={argLastPage}/>
+    if (activeStep === 2) return <SecondPage scenarioInfo={argLastPage} urlBackend={urlBackend} submitDone={handleBack} scenarioChoosen={submissionDone} />
     if (activeStep === 3) return <h1>Coisa 3</h1>
   }
 
@@ -86,7 +96,7 @@ const checkIsSpecial =  () => {
             );
           })}
         </Stepper>
-</Box> 
+      </Box>
     )
   }
   const sliderBTNS = () => {

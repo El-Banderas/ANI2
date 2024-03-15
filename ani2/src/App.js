@@ -24,6 +24,9 @@ function App() {
     setCurPage("chooseDate")
   }
 
+  const selectDatePage = () => {
+    setCurPage("chooseDate")
+  }
   const submissionDone = () => {
     setCurPage("landPageGraph")
   }
@@ -43,7 +46,7 @@ function App() {
         currentPage === "login" && <Login urlBackend={urlBackend} logInDone={logInDone}/>
       }
       {
-        currentPage === "loadProjects" && <MyStepper urlBackend={urlBackend} submissionDone={submissionDone} date={currentDate} alreadyAllocated={false}/>
+        currentPage === "loadProjects" && <MyStepper urlBackend={urlBackend} selectDatePage={selectDatePage} date={currentDate} alreadyAllocated={false} submissionDone={submissionDone}/>
         //currentPage === "loadProjects" && <h1>Load projs</h1>
       }
 

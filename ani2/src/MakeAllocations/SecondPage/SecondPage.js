@@ -3,16 +3,18 @@ import React from 'react';
 import EffortsGraph from './EffortsGraph'
 import SeachChooseTecn from './SearchChooseTecn';
 import ProjectCard from './ProjectCard';
+import axios from 'axios';
 
 
 
-export default function SecondPage({ scenarioInfo }) {
+export default function SecondPage({ scenarioInfo, urlBackend, submitDone, scenarioChoosen }) {
   const [selectedTecn, setSelectedTecn] = React.useState(null);
   const [thisAllocation, setThisAllocation] = React.useState({...scenarioInfo["allocations"]});
+  
   console.log("Info to render second page")
   console.log(scenarioInfo)
+  
   const current_efforts = scenarioInfo["current_efforts"]
-  const allocations = scenarioInfo["allocations"]
   const costsProjs = scenarioInfo["costsProjs"]
 
  const changeTecn = (projID, oldTecn, newTecn) => {
@@ -32,11 +34,35 @@ copyAllocation[newTecn]= [projID]
     }
     setThisAllocation(copyAllocation )
  }
-
+ 
+ const saveScenario = (name) => {
+  console.log("Save scenario")
+axios({
+            method: 'put',
+            url: `${urlBackend}/saveScenarius`,
+            data: {allocation: thisAllocation, projsInfo : costsProjs, scenarioName : name},
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        }).then(submitDone)
+ }
+const chooseScenarioToAllocation = () => {
+  
+axios({
+            method: 'put',
+            url: `${urlBackend}/chooseScenarioToSave`,
+            data: {allocation: thisAllocation, projsInfo : costsProjs, scenarioName : ""},
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        }).then(scenarioChoosen)
+ }
  return (
     <div >
       <EffortsGraph current_efforts={current_efforts} allocations={thisAllocation} costsProjs={costsProjs} />      
-      <SeachChooseTecn possibilities={Object.keys(thisAllocation)} changeCurrentTecn={setSelectedTecn} />
+      <SeachChooseTecn possibilities={Object.keys(thisAllocation)} changeCurrentTecn={setSelectedTecn} saveScenario={saveScenario} chooseScenarioToAllocation={chooseScenarioToAllocation}/>
      {
       selectedTecn !== null &&  thisAllocation[selectedTecn] !== undefined && 
         <div className='scrollable'> 

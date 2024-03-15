@@ -42,3 +42,10 @@
   flex-basis: 0;
   padding-left: 5px;
 }
+
+.modal{
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vh;
+}

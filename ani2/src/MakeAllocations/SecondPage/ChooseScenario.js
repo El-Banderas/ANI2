@@ -30,7 +30,7 @@ axios.get(`${urlBackend}/getScenariosNames`).then(
      }
      {
       scenariosNames.length > 0 &&  
-        <div > 
+        <div className="horizontalFlex"> 
           {scenariosNames.map((scenarioName) => <ScenarioCard key={scenarioName} info={scenarioName} setScenario={chooseScenario} /> )}
           </div>
      }
