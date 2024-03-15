@@ -37,11 +37,10 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
             }
         }).then(
             (response) => {
-                setArgLastPage(response.data)
+        submissionDone()
   }
         );
         // Change page
-        submissionDone()
 
     }
 
