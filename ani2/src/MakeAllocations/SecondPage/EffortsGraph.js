@@ -72,6 +72,9 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs}
       },
     ],
   };
+
+
+
 const average = arr => parseInt(arr.reduce( ( p, c ) => p + c, 0 ) / arr.length);
 
 function getStandardDeviation (array) {
@@ -95,12 +98,31 @@ function getStandardDeviation (array) {
     return { 'Média': average(totalEfforts), 'Desvio padrão': getStandardDeviation(totalEfforts)
             , 'Amplitude': maxValue-minValue, 'Máximo': `${maxValueTecn} (${maxValue})`, 'Mínimo': `${minValueTecn} (${minValue})` }
   }
+const myLine = {
+  id : 'myLine',
+  beforeDatasetsDraw(chart, args, plugin){
+    const {ctx, scales: {x,y}, chartArea : {left, right} } = chart; 
+    ctx.save();
+    function drawLine (lineColor, yCoor) {
+    ctx.beginPath();
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth = 5;
+    ctx.moveTo(left,y.getPixelForValue(yCoor))
+    ctx.lineTo(right, y.getPixelForValue(yCoor))
+    ctx.stroke()
+  }
+  drawLine('green',metrics()["Média"]  )
+  drawLine('red', metrics()["Desvio padrão"])
+
+  }
+}
   return (
     <div className='horizontalFlex1'>
       <Bar
         className='growBarChart'
         options={options}
         data={data}
+        plugins={[myLine]}
       />
       <div className='statsTable'>
         <StatsTable input={metrics()} />
