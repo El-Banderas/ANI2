@@ -15,6 +15,8 @@ import TextComponentPrimary from "../../TextComponents/TextPrimary";
 
 
 export default function ProjectCard({ info, tecnId , changeTecn, possibleTecns}) {
+  console.log("Project card what possibilities")
+  console.log(possibleTecns)
 
 const [selected, setSelected] = useState([]);
   const getColourByPhase = (phaseInt) => {
@@ -39,9 +41,7 @@ return backColor
 
   const selectTecn = () => {
 
-       if (selected != undefined && !isNaN(parseInt(selected))) {
-       changeTecn(parseInt(info["id"]), tecnId, parseInt(selected))
-       }
+       changeTecn(parseInt(info["id"]), tecnId, selected)
        
   }
 

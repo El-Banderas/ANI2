@@ -39,7 +39,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs}
 
 
   //const labels = ['Técnico 0', 'Técnico 1', 'Técnico 2', 'Técnico 3', 'Técnico 4', 'Técnico 5', 'Técnico 6', 'Técnico 7', 'Técnico 8', 'Técnico 9', 'Técnico 10', 'Técnico 11', 'Técnico 12', 'Técnico 13', 'Técnico 14', 'Técnico 15', 'Técnico 16', 'Técnico 17', 'Técnico 18', 'Técnico 19', 'Técnico 20', 'Técnico 21', 'Técnico 22', 'Técnico 23', 'Técnico 24', 'Técnico 25', 'Técnico 26', 'Técnico 27', 'Técnico 28', 'Técnico 29', 'Técnico 30', 'Técnico 31', 'Técnico 32']
-  const labels = Object.keys(current_efforts)
+  const labels = Object.keys(current_efforts).sort()
   const getEffortsCurrentAllcoation = () => {
     const currsEffort = []
     for (const tecnId of labels) {
