@@ -1,7 +1,7 @@
 
 import { Bar } from 'react-chartjs-2';
 import StatsTable from './StatsTable';
-export default function EffortsGraph({ current_efforts, allocations, costsProjs}) {
+export default function EffortsGraph({ current_efforts, allocations, costsProjs }) {
 
   const options = {
     plugins: {
@@ -75,13 +75,13 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs}
 
 
 
-const average = arr => parseInt(arr.reduce( ( p, c ) => p + c, 0 ) / arr.length);
+  const average = arr => parseInt(arr.reduce((p, c) => p + c, 0) / arr.length);
 
-function getStandardDeviation (array) {
-  const n = array.length
-  const mean = array.reduce((a, b) => a + b) / n
-  return parseInt(Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n))
-}
+  function getStandardDeviation(array) {
+    const n = array.length
+    const mean = array.reduce((a, b) => a + b) / n
+    return parseInt(Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n))
+  }
 
   const metrics = () => {
     const allocationEfforts = getEffortsCurrentAllcoation()
@@ -89,33 +89,41 @@ function getStandardDeviation (array) {
       return num + allocationEfforts[idx];
     })
 
-  const indexOfLargestValue = totalEfforts.reduce((maxIndex, currentValue, currentIndex, array) => currentValue > array[maxIndex] ? currentIndex : maxIndex, 0);
+    const indexOfLargestValue = totalEfforts.reduce((maxIndex, currentValue, currentIndex, array) => currentValue > array[maxIndex] ? currentIndex : maxIndex, 0);
     const maxValue = parseInt(totalEfforts[indexOfLargestValue])
     const maxValueTecn = labels[indexOfLargestValue]
-  const indexOfLowerValue = totalEfforts.reduce((maxIndex, currentValue, currentIndex, array) => currentValue < array[maxIndex] ? currentIndex : maxIndex, 0);
+    const indexOfLowerValue = totalEfforts.reduce((maxIndex, currentValue, currentIndex, array) => currentValue < array[maxIndex] ? currentIndex : maxIndex, 0);
     const minValue = parseInt(totalEfforts[indexOfLowerValue])
     const minValueTecn = labels[indexOfLowerValue]
-    return { 'Média': average(totalEfforts), 'Desvio padrão': getStandardDeviation(totalEfforts)
-            , 'Amplitude': maxValue-minValue, 'Máximo': `${maxValueTecn} (${maxValue})`, 'Mínimo': `${minValueTecn} (${minValue})` }
-  }
-const myLine = {
-  id : 'myLine',
-  beforeDatasetsDraw(chart, args, plugin){
-    const {ctx, scales: {x,y}, chartArea : {left, right} } = chart; 
-    ctx.save();
-    function drawLine (lineColor, yCoor) {
-    ctx.beginPath();
-    ctx.strokeStyle = lineColor;
-    ctx.lineWidth = 5;
-    ctx.moveTo(left,y.getPixelForValue(yCoor))
-    ctx.lineTo(right, y.getPixelForValue(yCoor))
-    ctx.stroke()
-  }
-  drawLine('green',metrics()["Média"]  )
-  drawLine('red', metrics()["Desvio padrão"])
 
+    return {
+      'Média': average(totalEfforts), 'Desvio padrão': getStandardDeviation(totalEfforts)
+      , 'Amplitude': maxValue - minValue, 'Esforço Máximo': `${maxValueTecn} (${maxValue})`, 
+      'Esforço Mínimo': `${minValueTecn} (${minValue})`,
+      'Desvio máximo': `${maxValue - average(totalEfforts)}`,
+      'Desvio mínimo': `${ average(totalEfforts) - minValue}`
+    }
   }
-}
+  const metricsCalculated = metrics()
+  const myLine = {
+    id: 'myLine',
+    beforeDatasetsDraw(chart, args, plugin) {
+      const { ctx, scales: { x, y }, chartArea: { left, right } } = chart;
+      ctx.save();
+      function drawLine(lineColor, yCoor) {
+        ctx.beginPath();
+        ctx.strokeStyle = lineColor;
+        ctx.lineWidth = 5;
+        ctx.moveTo(left, y.getPixelForValue(yCoor))
+        ctx.lineTo(right, y.getPixelForValue(yCoor))
+        ctx.stroke()
+      }
+      drawLine('green', metricsCalculated["Média"])
+      drawLine('red', metricsCalculated["Média"] + metricsCalculated["Desvio padrão"])
+      drawLine('red', metricsCalculated["Média"] - metricsCalculated["Desvio padrão"])
+
+    }
+  }
   return (
     <div className='horizontalFlex1'>
       <Bar

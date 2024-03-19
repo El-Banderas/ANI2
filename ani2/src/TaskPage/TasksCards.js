@@ -5,6 +5,10 @@ import './TaskMain.scss';
 import axios from 'axios';
 import ProjectCard from './ProjectCard'
 import TextComponentPrimary from "../TextComponents/TextPrimary";
+import Switch from '@mui/material/Switch';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import TableProjs from "./TableProjs";
 
 /**
  * This class shows the projects the tech is involved, in cards
@@ -12,12 +16,13 @@ import TextComponentPrimary from "../TextComponents/TextPrimary";
  * @param {str} nameTech Tech name to get his projects
  * @returns 
  */
-export default function TasksCards({ name , urlBackend}) {
+export default function TasksCards({ name, urlBackend }) {
 
   // Get info, equal to TaskMain...
   const [tasksInfo, setTaskInfo] = useState({})
   const [infoProjects, setInfoProjects] = useState({})
   const [tecnId, setTecnId] = useState("")
+  const [tableOrCard, setTableOrCard] = useState(true)
 
   useEffect(() => {
     getTaskInfo();
@@ -39,37 +44,6 @@ export default function TasksCards({ name , urlBackend}) {
       }
     ).catch(error => console.error(`Error: ${error}`))
   }
-
-
-
-  // Functions to create mocked info
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * max).toString();
-  }
-  const createProjectInfo = (id) => {
-
-    return {
-      "id": id,
-      "Name": `Projeto${id}`,
-      "Área": getRandomInt(3),
-      "Fase": getRandomInt(4),
-      "TecAnalise": `Zé ${id}`,
-      "TecAcomp": `Zé ${id}`,
-      "Tipo projeto": "Mobilizador",
-
-    }
-  }
-
-
-  const defaultCardsInput = () => {
-    const projectsInfo = []
-    for (let i = 0; i < tasksInfo.length; i++) {
-      projectsInfo.push(createProjectInfo(i))
-    }
-    return projectsInfo
-
-  }
-
 
   // Render part
 
@@ -108,14 +82,31 @@ export default function TasksCards({ name , urlBackend}) {
     return <ProjectCard key={info.id} info={info} tecnId={tecnId} />
   }
 
+  const switchChanged = (event) => {
+    setTableOrCard(event.target.checked)
+  }
+
   const convertInput = () => {
     return (
       <div className="max">
         <div className="title">
           <TextComponentPrimary text={`Projetos ${name}`} size={32} fontWeightGiven={"bold"} />
         </div>
-        <div className="scrollable">
-          {infoProjects.map(project => renderProjectInfo(project))}
+        <div className="verticalFlex1">
+        <FormGroup>
+      <FormControlLabel control={<Switch defaultChecked  onChange={switchChanged}/>} label="Tabela" />
+          </FormGroup>
+          {
+            tableOrCard && <TableProjs info={infoProjects} /> 
+            }
+
+          {
+            !tableOrCard && 
+          <div className="scrollable">
+            {infoProjects.map(project => renderProjectInfo(project))}
+          </div>
+
+          }
         </div>
       </div>
     )

@@ -12,11 +12,17 @@
   padding: 10px;
 }
 
+.verticalFlex1{
+   display: flex;
+   flex-direction: column;
+   gap: 2px;
+}
 .scrollable {
       display: flex;
   flex-direction: row;
   overflow-x: auto;
-  width: 80vw;
+  width: 60vw;
+  max-width: 80vw;
   justify-content: flex-start;
 
   gap: 3%;
@@ -31,6 +37,8 @@
   padding-left: 10px;
   padding-bottom: 20px;
 }
+
+
 
 .horizontalFlex{
    display: flex;

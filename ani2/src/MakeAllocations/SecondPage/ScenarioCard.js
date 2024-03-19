@@ -8,22 +8,22 @@ import TextComponentPrimary from '../../TextComponents/TextPrimary';
 export default function ScenarioCard({ info, setScenario, metrics }) {
 return (
 <div >
-        <Card sx={{ minWidth: 275 , maxWidth: 400}}>
+        <Card sx={{ minWidth: 275 , maxWidth: 300}}>
       <CardContent className="card">
             <TextComponentPrimary text={info} size={20} fontWeightGiven={"bold"} />
 <div className='tables'>
 
-          <div className="littleBox">
-            <TextComponentPrimary text={"Média: "} size={14} fontWeightGiven={'Bold'} />
-            <TextComponentPrimary text={metrics["Média"]} size={14} fontWeightGiven={'regular'} />
+          {Object.entries(metrics)
+            .map(([metricName, value]) => 
+            
+          <div className="littleBox" key={metricName}>
+            <TextComponentPrimary text={metricName} size={14} fontWeightGiven={'Bold'} />
+            <TextComponentPrimary text={value} size={14} fontWeightGiven={'regular'} />
           </div>
+            )}
 
-          <div className="littleBox">
-            <TextComponentPrimary text={"Desv. Padrão"} size={14} fontWeightGiven={'Bold'} />
-            <TextComponentPrimary text={metrics["Std. Dev."]} size={14} fontWeightGiven={'regular'} />
           </div>
-        </div>
- </CardContent>
+</CardContent>
       <CardActions>
         <Button size="small" onClick={() => setScenario(info)}>Selecionar</Button>
       </CardActions>

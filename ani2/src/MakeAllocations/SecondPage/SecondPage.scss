@@ -17,17 +17,20 @@
    display: flex;
    flex-direction: row;
    width: 90%;
+   max-width: 90%;
    margin: auto;
     justify-content: center;
-   margin-left: 4%;
+   margin-left: 6%;
 }
 
 .growBarChart{
   flex-grow: 3;
+  max-width: 93%;
 }
 .statsTable{
   flex-shrink: 3;
-   transform: translateY(100%);
+   transform: translateY(30%);
+   margin-left: 1%;
    border: 3px solid grey; 
    height: fit-content;
 }
@@ -49,7 +52,7 @@
 
 .tables{
   @extend .horizontalFlex;
-  padding-top: 2%;
+  padding-top: 3%;
   gap: 10px;
   flex-wrap: wrap ;
 }
@@ -59,6 +62,8 @@
   flex: 1 1 0px;
   flex-basis: 0;
   padding-left: 5px;
+  padding-right: 5px;
+  white-space: nowrap;
 }
 
 .modal{
