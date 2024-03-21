@@ -5,6 +5,7 @@ import LoadProjects from './MakeAllocations/LoadProjects';
 import MyStepper from './MakeAllocations/Stepper';
 import React, {useEffect, useState} from "react";
 import NavBar from "./NavBar/Navbar";
+import LoginDate from './Login/LoginDate';
 import Login from './Login/Login';
 import LoadTecn from './loadTecns/LoadTecn';
 import SelectInput from '@mui/material/Select/SelectInput';
@@ -13,7 +14,7 @@ import SelectDate from './selectDates/SelectDate';
 function App() {
   const urlBackend = "http://127.0.0.1:10000" 
   //const urlBackend = "https://backend-valm.onrender.com" 
-  const [currentPage, setCurPage] = useState("login")
+  const [currentPage, setCurPage] = useState("loginDate")
   const [currentDate, setCurDate] = useState("")
   console.log("Backend URL:")
   console.log(urlBackend)
@@ -42,6 +43,10 @@ function App() {
   return (
     <div className="App">
             <NavBar loggedIn={currentPage !== "login"} changeCurrentPage={setCurPage} urlBackend={urlBackend}/>
+
+      {
+        currentPage === "loginDate" && <LoginDate urlBackend={urlBackend} logInDone={logInDone}/>
+      }
       {
         currentPage === "login" && <Login urlBackend={urlBackend} logInDone={logInDone}/>
       }
