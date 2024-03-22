@@ -14,7 +14,7 @@ import SelectDate from './selectDates/SelectDate';
 function App() {
   const urlBackend = "http://127.0.0.1:10000" 
   //const urlBackend = "https://backend-valm.onrender.com" 
-  const [currentPage, setCurPage] = useState("loginDate")
+  const [currentPage, setCurPage] = useState("login")
   const [currentDate, setCurDate] = useState("")
   console.log("Backend URL:")
   console.log(urlBackend)
@@ -39,6 +39,9 @@ function App() {
     setCurDate(date)
     setCurPage(otherPage)
   }
+  const selectFilterDate = () => {
+    setCurPage("loginDate")
+  }
 
   return (
     <div className="App">
@@ -48,7 +51,7 @@ function App() {
         currentPage === "loginDate" && <LoginDate urlBackend={urlBackend} logInDone={logInDone}/>
       }
       {
-        currentPage === "login" && <Login urlBackend={urlBackend} logInDone={logInDone}/>
+        currentPage === "login" && <Login urlBackend={urlBackend} logInDone={selectFilterDate}/>
       }
       {
         currentPage === "loadProjects" && <MyStepper urlBackend={urlBackend} selectDatePage={selectDatePage} date={currentDate} alreadyAllocated={false} submissionDone={submissionDone}/>
