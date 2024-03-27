@@ -52,7 +52,7 @@ return (
 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align={alignText}>ID</TableCell>
+                            <TableCell align={alignText}> ID</TableCell>
                             <TableCell align={alignText}> Sigla</TableCell>
                             <TableCell align={alignText}> Data início</TableCell>
                             <TableCell align={alignText}> Data fim </TableCell>
@@ -66,7 +66,7 @@ return (
                                 key={proj.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row">
+                                <TableCell align={alignText} component="th" scope="row">
                                     {proj["id"]}
                                 </TableCell>
                                 <TableCell align={alignText}>{proj["Sigla"]}</TableCell>

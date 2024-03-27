@@ -21,6 +21,19 @@ export default function LoginDate({ urlBackend, logInDone }) {
   const [dateInitFromDB, setDateInitFromDB] = useState(null)
   const [dateEndFromDB, setDateEndFromDB] = useState(null)
 
+  const checkingDatesEqual = (date1, dateInit2) => {
+    if (date1 !== null) {
+      if (typeof (date1) === "string"){
+        return date1.localeCompare(dateInit2) === 0
+      }
+      else {
+        const dateConverted = date1._d.toLocaleDateString('pt-PT')
+
+        return dateInit2.localeCompare(dateConverted) === 0
+      }
+    }
+
+  }
   const [waitingForLoading, setWaitingForLoading] = useState(false)
 
   useEffect(() => {
@@ -46,101 +59,94 @@ export default function LoginDate({ urlBackend, logInDone }) {
   }
   const changeDate = () => {
     setWaitingForLoading(true)
+    const date1Converted = typeof(dateInit) === "string" ? dateInit :  dateInit._d.toLocaleDateString('pt-PT')
+    const date2Converted = typeof(dateEnd) === "string" ? dateEnd :  dateEnd._d.toLocaleDateString('pt-PT')
     axios({
       method: 'put',
       url: `${urlBackend}/change_filter_dates`,
-      data: { "startFilterDate": dateInit, "endFilterDate": dateEnd },
+      data: { "startFilterDate": date1Converted, "endFilterDate": date2Converted },
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
     }).then(
-      console.log("Já recebeu resposta?"),
-      console.log("2 Já recebeu resposta?"),
       setWaitingForLoading(false),
-    logInDone()
+      logInDone()
     )
 
-}
+  }
 
-const MyPickDate = ({ date, changeDateFunction }) => {
+  const MyPickDate = ({ date, changeDateFunction }) => {
 
-  return (
-    <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale={"pt"} >
-      <DatePicker
-        label="Selecionar data de saída"
-        inputformat="dd-MMMM-yyyyy"
-        mask="__/__/____"
-        placeholder="dd/MM/yyyy"
-        okLabel="Escolher"
-        clearLabel="Limpar"
-        cancelLabel="Cancelar"
-        value={date}
-        format="L"
-        views={["year", "month", "date"]}
-        onChange={(dateChanged) => changeDateFunction(dateChanged)}
-      />
-    </MuiPickersUtilsProvider>
+    return (
+      <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale={"pt"} >
+        <DatePicker
+          label="Selecionar data"
+          inputformat="dd-MMMM-yyyyy"
+          mask="__/__/____"
+          placeholder="dd/MM/yyyy"
+          okLabel="Escolher"
+          clearLabel="Limpar"
+          cancelLabel="Cancelar"
+          value={date}
+          format="L"
+          views={["year", "month", "date"]}
+          onChange={(dateChanged) => changeDateFunction(dateChanged)}
+        />
+      </MuiPickersUtilsProvider>
 
-  )
-}
+    )
+  }
 
-// Change page
-// submissionDone()
-const columnSelectDate = (text, dateState, changeDateFunction) => {
-  return (
-    <div className='flexVertical'>
-      <TextComponentPrimary text={text} size={30} />
-      <MyPickDate date={dateState} changeDateFunction={changeDateFunction} />
+  // Change page
+  // submissionDone()
+  const columnSelectDate = (text, dateState, changeDateFunction) => {
+    return (
+      <div className='flexVertical'>
+        <TextComponentPrimary text={text} size={30} />
+        <MyPickDate date={dateState} changeDateFunction={changeDateFunction} />
 
-    </div>
+      </div>
 
-  )
-}
-
-return (
-  <>
-    {
-      dateInitFromDB !== null ?
-
-        <div className="Login">
-          <div className='flexVertical'>
-            <TextComponentPrimary text={"Datas selecionadas anteriormente"} size={30} />
-            <TextComponentPrimary text={`Data de início de filtro: ${dateInitFromDB}`} size={15} />
-            <TextComponentPrimary text={`Data de fim de filtro: ${dateEndFromDB}`} size={15} />
-            <div className='flexHorizontal'>
-              {columnSelectDate("Selecionar data de início de filtro", dateInit, setDateInit)}
-              {columnSelectDate("Selecionar data de fim de filtro", dateEnd, setDateEnd)}
-            </div>
-          </div>
-          <div className='flexHorizontal'>
-            <Button variant="outlined" onClick={() => keepDate()} style={{
-              borderRadius: 10,
-              backgroundColor: "#32DBC4",
-              margin: "5% 20% 1% 0%",
-              fontSize: "14px",
-              color: "black",
-              fontWeight: "lighter",
-              width: "30%",
-            }} ><TextComponentPrimary text={"Manter filtro"} size={16} fontWeightGiven={"regular"} /></Button>
-            <Button variant="outlined" onClick={() => changeDate()} style={{
-              borderRadius: 10,
-              backgroundColor: "#32DBC4",
-              margin: "5% 0% 1% 0%",
-              fontSize: "14px",
-              color: "black",
-              fontWeight: "lighter",
-              width: "30%",
-            }} ><TextComponentPrimary text={"Submeter novo filtro"} size={16} fontWeightGiven={"regular"} /></Button>
-
-          </div>
-
-        </div>
-        :
-        <CircularProgress />
+    )
+  }
+  const advance = () => {
+    if (checkingDatesEqual(dateInit, dateInitFromDB) && checkingDatesEqual(dateEnd, dateEndFromDB)){
+      keepDate()
     }
-    {waitingForLoading && <CircularProgress />}
-  </>
-);
+    else {
+      changeDate()
+    }
+  }
+  return (
+    <>
+      {
+        dateInitFromDB !== null ?
+
+          <div className="Login">
+              <div className='flexHorizontal'>
+                {columnSelectDate("Selecionar data de início de filtro", dateInit, setDateInit)}
+                {columnSelectDate("Selecionar data de fim de filtro", dateEnd, setDateEnd)}
+              </div>
+            <div className='flexHorizontal'>
+              <Button variant="outlined" onClick={() => advance()  } style={{
+                borderRadius: 10,
+                backgroundColor: "#32DBC4",
+                margin: "5% 0% 1% 0%",
+                fontSize: "14px",
+                color: "black",
+                fontWeight: "lighter",
+                width: "30%",
+              }} ><TextComponentPrimary text={"Avançar"} size={16} fontWeightGiven={"regular"} /></Button>
+              
+            </div>
+
+          </div>
+          :
+          <CircularProgress />
+      }
+      {waitingForLoading && <CircularProgress />}
+    </>
+  );
 }
 

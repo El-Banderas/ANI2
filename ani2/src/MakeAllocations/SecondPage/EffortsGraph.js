@@ -70,6 +70,18 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs 
         data: getEffortsCurrentAllcoation(),
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
+      {
+        label: 'Média',
+        data: [],
+        backgroundColor: 'black',
+      },
+
+      {
+        label: 'Média +/- Desvio padrão',
+        data: [],
+        backgroundColor: 'grey',
+        borderDash: [10, 5]
+      },
     ],
   };
 
@@ -110,17 +122,19 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs 
     beforeDatasetsDraw(chart, args, plugin) {
       const { ctx, scales: { x, y }, chartArea: { left, right } } = chart;
       ctx.save();
-      function drawLine(lineColor, yCoor) {
+      function drawLine(lineColor, yCoor, dotted) {
         ctx.beginPath();
         ctx.strokeStyle = lineColor;
-        ctx.lineWidth = 5;
+        const valueDotted = dotted ? 6 : 0
+        ctx.setLineDash([valueDotted,valueDotted])
+        ctx.lineWidth = 1;
         ctx.moveTo(left, y.getPixelForValue(yCoor))
         ctx.lineTo(right, y.getPixelForValue(yCoor))
         ctx.stroke()
       }
-      drawLine('green', metricsCalculated["Média"])
-      drawLine('red', metricsCalculated["Média"] + metricsCalculated["Desvio padrão"])
-      drawLine('red', metricsCalculated["Média"] - metricsCalculated["Desvio padrão"])
+      drawLine('black', metricsCalculated["Média"], false)
+      drawLine('grey', metricsCalculated["Média"] + metricsCalculated["Desvio padrão"], true)
+      drawLine('grey', metricsCalculated["Média"] - metricsCalculated["Desvio padrão"], true)
 
     }
   }

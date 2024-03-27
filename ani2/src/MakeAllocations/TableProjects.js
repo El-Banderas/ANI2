@@ -21,11 +21,11 @@ import './LoadProjects.scss'
 
 export default function TableProjects({ projects, urlBackend, submissionDone, unchangedInput, date, alreadyAllocated , setArgLastPage}) {
     const [changedProjs, setChangedProjs] = useState({})
+    const [preventDoubleClick, setPreventDoubleClick] = useState(true)
 
     const submit = () => {
-        console.log("SUBMIT")
-        console.log(changedProjs)
-        console.log(unchangedInput["projects"].map(x => x.id))
+        if (preventDoubleClick) {
+            setPreventDoubleClick(false)
         axios({
             method: 'put',
             url: `${urlBackend}/add_efforts`,
@@ -40,8 +40,11 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
         submissionDone()
   }
         );
-        // Change page
 
+}
+else {
+    console.log("Don't click two times, please, just wait!!!")
+}
     }
 
     const removeChange = (idProject, type, new_value) => {
@@ -257,7 +260,7 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
                                     {!alreadyAllocated ?
                                         <>
 
-                                                <TableCell align={alignText} style={{ width: 160 }}>{inputPhase(project.phase, project.id, "phase")}</TableCell>
+                                                <TableCell align={alignText} style={{ width: 160 }}>{project.phase}</TableCell>
                                             <TableCell align={alignText}>{inputEffort(project.effort_analisis, project.id, "effort_analisis")}</TableCell>
                                             <TableCell align={alignText}>{getTecn(project.allocation, "Analisis")}</TableCell>
                                             <TableCell align={alignText}>{inputEffort(project.effort_accomp, project.id, "effort_accomp")}</TableCell>
