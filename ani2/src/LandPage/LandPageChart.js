@@ -72,7 +72,6 @@ export default function LandPageChart({ defaultInput, updateInput, urlBackend })
             {/**Caso dê problemas, remover o everything */}
             <div className="everything">
 
-
                 <BarChart urlBackend={urlBackend} tecnName={undefined}/>
             </div>
         </div>

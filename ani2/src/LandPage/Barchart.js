@@ -48,6 +48,9 @@ export default function BarChart({ urlBackend , tecnName }) {
     }, []);
 
     useEffect(() => {
+        getData();
+    }, [tecnName]);
+    useEffect(() => {
         if (Object.keys(currentInfo).length > 0) {
             const tempInfo = {
                 "labels": months,
@@ -55,7 +58,7 @@ export default function BarChart({ urlBackend , tecnName }) {
             }
             setCurrentInfo(tempInfo)
         }
-    }, [currentYearSelected]);
+    }, [currentYearSelected, fullGraphInfo]);
 
     const getData = () => { 
         console.log("Wich tecnName")
@@ -63,9 +66,11 @@ export default function BarChart({ urlBackend , tecnName }) {
         axios.get(fullurlBackend).then(
             (response) => {
                 const cleanAnswer = response['data']['efforts']
+                console.log("What received for graph")
+                console.log(response)
                 //setProjects([...cleanAnswer, ...cleanAnswer])
                 setFullGraphInfo(cleanAnswer)
-                const firstYear = cleanAnswer['years'][0]+1
+                const firstYear = cleanAnswer['years'][0]
                 setCurrentYear(firstYear)
                 const tempInfo = {
                     "labels": months,
@@ -114,7 +119,7 @@ export default function BarChart({ urlBackend , tecnName }) {
     }
 
     const MySliderYears = () => {
-        const firstYear = fullGraphInfo['years'][0]+1
+        const firstYear = fullGraphInfo['years'][0]
         const lastYear = fullGraphInfo['years'][fullGraphInfo['years'].length - 1]
         return <div className="MySlider">
             <TextComponentPrimary text={"Selecione o ano:"} size={20} fontWeightGiven={"bold"} />

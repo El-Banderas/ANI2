@@ -71,7 +71,6 @@ export default function LandPageChart({ defaultInput, updateInput, urlBackend })
                     className="getTecn"
 
                 >
-
                     <TextComponentPrimary text={"Selecione o técnico"} size={20} fontWeightGiven={"bold"} />
                     <div className="rowButtons">
                         <Autocomplete

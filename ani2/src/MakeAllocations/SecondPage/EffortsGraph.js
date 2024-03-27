@@ -100,6 +100,8 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs 
     const totalEfforts = current_efforts_tecns.map(function (num, idx) {
       return num + allocationEfforts[idx];
     })
+    console.log("Total efforts")
+    console.log(totalEfforts)
 
     const indexOfLargestValue = totalEfforts.reduce((maxIndex, currentValue, currentIndex, array) => currentValue > array[maxIndex] ? currentIndex : maxIndex, 0);
     const maxValue = parseInt(totalEfforts[indexOfLargestValue])
