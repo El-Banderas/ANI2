@@ -18,9 +18,7 @@ const getProjects =  () => {
         const fullUrl = alreadyAllocated ? `${urlBackend}/projs_already_allocated` : `${urlBackend}/proj_cost`
         axios.get(fullUrl, {params : {date : date}}).then(
           (response) => {
-            console.log("[LOAD PROJECTS] Receubeu resposta")
             const cleanAnswer = response['data']
-            console.log(cleanAnswer)
             //setProjects([...cleanAnswer, ...cleanAnswer])
             setProjectsAndNames(cleanAnswer)
           }

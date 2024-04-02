@@ -58,6 +58,7 @@ export default function LoginDate({ urlBackend, logInDone }) {
     logInDone()
   }
   const changeDate = () => {
+    console.log("[LOGIN DATES] Change data of filters")
     setWaitingForLoading(true)
     const date1Converted = typeof(dateInit) === "string" ? dateInit :  dateInit._d.toLocaleDateString('pt-PT')
     const date2Converted = typeof(dateEnd) === "string" ? dateEnd :  dateEnd._d.toLocaleDateString('pt-PT')
@@ -69,9 +70,12 @@ export default function LoginDate({ urlBackend, logInDone }) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-    }).then(
-      setWaitingForLoading(false),
+    }).then((respose) => {
+      console.log("[LOGIN DATES] Server reloaded all data?")
+      console.log(respose)
+      setWaitingForLoading(false)
       logInDone()
+    }
     )
 
   }

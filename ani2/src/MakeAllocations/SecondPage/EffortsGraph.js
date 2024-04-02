@@ -1,8 +1,14 @@
 
 import { Bar } from 'react-chartjs-2';
 import StatsTable from './StatsTable';
-export default function EffortsGraph({ current_efforts, allocations, costsProjs }) {
+import React, { useState } from "react";
 
+import TextComponentPrimary from "../../TextComponents/TextPrimary";
+import Button from '@mui/material/Button';
+
+export default function EffortsGraph({ current_efforts, allocations, costsProjs, totalWorkHours }) {
+
+  const [totalWork, setTotalWork] = useState(true);
   const options = {
     plugins: {
       title: {
@@ -31,10 +37,15 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs 
         title: {
           display: true,
           text: "Horas de trabalho"
-        }
+        },
+          max: totalWork ? Math.floor(totalWorkHours*1.1) : undefined,
       },
     },
   };
+
+  const switchShowTotalWorkHours = () => {
+    setTotalWork(!totalWork)
+  }
 
 
 
@@ -61,12 +72,12 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs 
     labels: labels,
     datasets: [
       {
-        label: 'Esforços anteriores',
+        label: 'Esforços alocados',
         data: current_efforts_tecns,
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
       {
-        label: 'Esforços alocados',
+        label: 'Esforços a alocar',
         data: getEffortsCurrentAllcoation(),
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
@@ -76,6 +87,11 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs 
         backgroundColor: 'black',
       },
 
+      {
+        label: 'Total de horas',
+        data: [],
+        backgroundColor: 'red',
+      },
       {
         label: 'Média +/- Desvio padrão',
         data: [],
@@ -100,8 +116,6 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs 
     const totalEfforts = current_efforts_tecns.map(function (num, idx) {
       return num + allocationEfforts[idx];
     })
-    console.log("Total efforts")
-    console.log(totalEfforts)
 
     const indexOfLargestValue = totalEfforts.reduce((maxIndex, currentValue, currentIndex, array) => currentValue > array[maxIndex] ? currentIndex : maxIndex, 0);
     const maxValue = parseInt(totalEfforts[indexOfLargestValue])
@@ -115,7 +129,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs 
       , 'Amplitude': maxValue - minValue, 'Esforço Máximo': `${maxValueTecn} (${maxValue})`, 
       'Esforço Mínimo': `${minValueTecn} (${minValue})`,
       'Desvio máximo': `${maxValue - average(totalEfforts)}`,
-      'Desvio mínimo': `${ average(totalEfforts) - minValue}`
+      'Desvio mínimo': `${ Math.min(average(totalEfforts) - minValue, 0)}`
     }
   }
   const metricsCalculated = metrics()
@@ -136,9 +150,23 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs 
       }
       drawLine('black', metricsCalculated["Média"], false)
       drawLine('grey', metricsCalculated["Média"] + metricsCalculated["Desvio padrão"], true)
-      drawLine('grey', metricsCalculated["Média"] - metricsCalculated["Desvio padrão"], true)
+      drawLine('grey', Math.max(0, metricsCalculated["Média"] - metricsCalculated["Desvio padrão"]), true)
+      drawLine('red', totalWorkHours, false)
 
     }
+  }
+  const button = (onClicki, text) => {
+    return (
+      <Button variant="outlined" onClick={onClicki} style={{
+        borderRadius: 10,
+        backgroundColor: "#32DBC4",
+        margin: "0% 0% 1% 0%",
+        fontSize: "14px",
+        color: "black",
+        fontWeight: "lighter",
+      }} ><TextComponentPrimary text={text} size={16} fontWeightGiven={"regular"} /></Button>
+
+    )
   }
   return (
     <div className='horizontalFlex1'>
@@ -148,8 +176,11 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs 
         data={data}
         plugins={[myLine]}
       />
+      <div className='verticalFlex'>
       <div className='statsTable'>
-        <StatsTable input={metrics()} />
+        <StatsTable input={metrics()}  />
+</div>
+{button(switchShowTotalWorkHours, "Visualizar esf. total")}
       </div>
     </div>
   )
