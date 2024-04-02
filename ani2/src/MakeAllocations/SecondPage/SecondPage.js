@@ -5,9 +5,11 @@ import SeachChooseTecn from './SearchChooseTecn';
 import ProjectCard from './ProjectCard';
 import axios from 'axios';
 
+import Button from '@mui/material/Button';
+import TextComponentPrimary from "../../TextComponents/TextPrimary";
 
 
-export default function SecondPage({ scenarioInfo, urlBackend, submitDone, scenarioChoosen }) {
+export default function SecondPage({ scenarioInfo, urlBackend, scenarioChoosen, goBack }) {
   const [selectedTecn, setSelectedTecn] = React.useState(null);
   const [thisAllocation, setThisAllocation] = React.useState({ ...scenarioInfo["allocations"] });
   const totalWorkHours = scenarioInfo["work_hours"];
@@ -46,7 +48,7 @@ export default function SecondPage({ scenarioInfo, urlBackend, submitDone, scena
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-    }).then(submitDone)
+    }).then(goBack)
   }
   const chooseScenarioToAllocation = () => {
 
@@ -60,6 +62,20 @@ export default function SecondPage({ scenarioInfo, urlBackend, submitDone, scena
       },
     }).then(scenarioChoosen)
   }
+
+const button = (onClicki, text) => {
+    return (
+      <Button variant="outlined" onClick={onClicki} style={{
+        borderRadius: 10,
+        backgroundColor: "#32DBC4",
+        margin: "0% 0% 1% 0%",
+        fontSize: "14px",
+        color: "black",
+        fontWeight: "lighter",
+      }} ><TextComponentPrimary text={text} size={16} fontWeightGiven={"regular"} /></Button>
+
+    )
+  }
   return (
     <div >
       <EffortsGraph current_efforts={current_efforts} allocations={thisAllocation} costsProjs={costsProjs} totalWorkHours={totalWorkHours} />
@@ -71,7 +87,9 @@ export default function SecondPage({ scenarioInfo, urlBackend, submitDone, scena
           {thisAllocation[selectedTecn].map((projId) => <ProjectCard key={`${selectedTecn}-${projId}`} info={costsProjs[projId]} tecnId={selectedTecn} changeTecn={changeTecn} possibleTecns={Object.keys(current_efforts).map(String)} />)}
         </div>
       }
-
+      <div className='allLeft'>
+      {button(goBack, "Voltar atrás")}
+</div>
     </div>
   )
 }

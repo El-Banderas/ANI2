@@ -5,7 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import ScenarioCard from "./ScenarioCard";
 
 
-export default function ChooseScenario({ urlBackend, chooseScenario, date }) {
+export default function ChooseScenario({ urlBackend, chooseScenario, date, allScenariosDeleted }) {
 
   useEffect(() => {
     getNamesScenarios();
@@ -19,8 +19,20 @@ export default function ChooseScenario({ urlBackend, chooseScenario, date }) {
         const cleanAnswer = response['data']['answer']
 
         setScenariosNames(cleanAnswer)
+
       }
     ).catch(error => console.error(`Error: ${error}`))
+  }
+const deleteScenario = (scenarioName) => {
+
+    axios.get(`${urlBackend}/delete_scenario`, { params: { name: scenarioName } }).then(
+      () =>
+{
+  const copyDict= {...scenariosNames}
+   delete copyDict[scenarioName]
+  setScenariosNames(copyDict)
+  if (Object.keys(copyDict).length === 0) allScenariosDeleted()
+    }    ).catch(error => console.error(`Error: ${error}`))
   }
   return (
     <div >
@@ -32,7 +44,7 @@ export default function ChooseScenario({ urlBackend, chooseScenario, date }) {
         Object.keys(scenariosNames).length > 0 &&
         <div className="horizontalFlex">
           {Object.entries(scenariosNames)
-            .map(([scenarioName, metrics]) => <ScenarioCard key={scenarioName} info={scenarioName} setScenario={chooseScenario} metrics={metrics} /> )}
+            .map(([scenarioName, metrics]) => <ScenarioCard key={scenarioName} info={scenarioName} setScenario={chooseScenario} metrics={metrics} deleteScenario={deleteScenario}/> )}
         </div>
       }
 

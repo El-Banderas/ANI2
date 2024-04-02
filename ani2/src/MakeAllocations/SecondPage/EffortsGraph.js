@@ -15,7 +15,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
         display: true,
         text: "Esforços totais por técnico",
       },
-    },
+  },
     responsive: true,
     scales: {
       xAxes: [{
@@ -87,10 +87,14 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
 
       
       {
+        type: 'line',
         label: 'Média +/- Desvio padrão',
         data: [],
-        backgroundColor: 'grey',
-        borderDash: [10, 5]
+        //borderDash: [30, 10],
+        //backgroundColor: "transparent",
+         //borderColor: "grey",
+        backgroundColor: "grey",
+
       },
 {
         label: 'Total de horas',

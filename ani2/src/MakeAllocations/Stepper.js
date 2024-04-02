@@ -65,8 +65,8 @@ export default function MyStepper({ urlBackend, selectDatePage, date, alreadyAll
   const chooseContent = () => {
     if (activeStep === 0)
       return <LoadProjects urlBackend={urlBackend} submissionDone={handleNext} date={date} alreadyAllocated={alreadyAllocated}  />
-    if (activeStep === 1) return <ChooseScenario urlBackend={urlBackend} chooseScenario={chooseScenario} date={date}/>
-    if (activeStep === 2) return <SecondPage scenarioInfo={argLastPage} urlBackend={urlBackend} submitDone={handleBack} scenarioChoosen={submissionDone} />
+    if (activeStep === 1) return <ChooseScenario urlBackend={urlBackend} chooseScenario={chooseScenario} date={date} allScenariosDeleted={handleBack}/>
+    if (activeStep === 2) return <SecondPage scenarioInfo={argLastPage} urlBackend={urlBackend}  scenarioChoosen={submissionDone} goBack={handleBack} />
     if (activeStep === 3) return <h1>Coisa 3</h1>
   }
 
@@ -131,6 +131,5 @@ export default function MyStepper({ urlBackend, selectDatePage, date, alreadyAll
   return <div className='stepperContainer'>
     {sliderUp()}
     {chooseContent()}
-    {sliderBTNS()}
   </div>
 }
