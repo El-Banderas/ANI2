@@ -4,6 +4,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import TextComponentPrimary from '../../TextComponents/TextPrimary';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 export default function ScenarioCard({ info, setScenario, metrics }) {
 return (
@@ -24,8 +25,9 @@ return (
 
           </div>
 </CardContent>
-      <CardActions>
+      <CardActions className='horizontalFlexSpaceBetween'>
         <Button size="small" onClick={() => setScenario(info)}>Selecionar</Button>
+        <Button size="small" onClick={() => setScenario(info)}><DeleteOutlineIcon /></Button>
       </CardActions>
     </Card>
 </div>

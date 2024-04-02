@@ -68,9 +68,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
     return currsEffort
   }
   const current_efforts_tecns = labels.map((tecnId) => current_efforts[tecnId])
-  const data = {
-    labels: labels,
-    datasets: [
+  const datasets1 = [
       {
         label: 'Esforços alocados',
         data: current_efforts_tecns,
@@ -87,19 +85,23 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
         backgroundColor: 'black',
       },
 
-      {
-        label: 'Total de horas',
-        data: [],
-        backgroundColor: 'red',
-      },
+      
       {
         label: 'Média +/- Desvio padrão',
         data: [],
         backgroundColor: 'grey',
         borderDash: [10, 5]
       },
-    ],
-  };
+{
+        label: 'Total de horas',
+        data: [],
+        backgroundColor: 'red',
+      },
+    ]
+
+  const data = {
+    labels: labels,
+    datasets: totalWork ? datasets1 : datasets1.slice(0,-1)  };
 
 
 

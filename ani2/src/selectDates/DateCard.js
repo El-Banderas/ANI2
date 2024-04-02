@@ -43,7 +43,7 @@ const textLeft = (textField, bold=false) => {
 }
 const num_allocation_analisis = "Date_analisis" in info[1] ? info[1]["Date_analisis"] : 0  
 const num_allocation_accomp = "Date_acomp" in info[1] ? info[1]["Date_acomp"] : 0  
-const backGroundColor = special ? "red" : ""
+const backGroundColor = special ? "#FC848C" : ""
    return (
         <div >
         <Card sx={{ minWidth: 275 , backgroundColor: backGroundColor}}>
