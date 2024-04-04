@@ -2,6 +2,7 @@ import * as React from 'react';
 import './Navbar.scss'
 import Ani from "./ani_corner.png";
 import UminhoPNG from "./uminho_corner.png";
+import Logos from "./NavBarTheirLogos.png";
 import IsepPNG from "./isep_corner.png";
 import TextWhite from '../TextComponents/TextWhite';
 import Button from '@mui/material/Button';
@@ -31,7 +32,7 @@ export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
       }
     ).catch(error => console.error(`Error: ${error}`))
   }
-const makeAllocation = () => {
+  const makeAllocation = () => {
     setOpenBackDropWaiting(true)
     axios.get(`${urlBackend}/make_allocation`).then(
       (response) => {
@@ -67,8 +68,10 @@ const makeAllocation = () => {
   return (
     <div className='flexNavBar'>
 
-      <img src={Ani} className='ani_logo' alt="ANI logo"  onClick={() => changeURL("https://www.ani.pt/")}
-/>
+      <img src={Ani} className='ani_logo' alt="ANI logo" onClick={() => changeURL("https://www.ani.pt/")}/>
+
+      <img src={UminhoPNG} alt="UMINHO" className='uminho_logo' onClick={() => changeURL("https://www.uminho.pt/PT")} />
+      <img src={IsepPNG} alt="ISEP" className='isep_logo' onClick={() => changeURL("https://www.isep.ipp.pt/")} />
       <div className={moreMargin}>
 
         <TextWhite text={"Projeto ANI"} size={20} fontWeightGiven={"medium"} />
@@ -78,29 +81,29 @@ const makeAllocation = () => {
         loggedIn &&
         btnsChangePage
       }
-      <img src={UminhoPNG} alt="UMINHO" className='uminho_logo' onClick={() => changeURL("https://www.uminho.pt/PT")}/>
-      <img src={IsepPNG} alt="ISEP" className='isep_logo' onClick={() => changeURL("https://www.isep.ipp.pt/")}/>
-{openBackDropWaiting && 
-        <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-              open={openBackDropWaiting}
-              onClick={() => setOpenBackDropWaiting(false)}
-            >
-             <CircularProgress color="inherit" />
-        </Backdrop>
-        }
 
-        {openBackDropSucess && 
+      <img src={Logos} alt="UMINHO" className='logos'  />
+      {openBackDropWaiting &&
         <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-              open={openBackDropSucess}
-              onClick={handleClose}
-            >
-                 <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-                 Informação carregada com sucesso!
-    </Alert>
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={openBackDropWaiting}
+          onClick={() => setOpenBackDropWaiting(false)}
+        >
+          <CircularProgress color="inherit" />
         </Backdrop>
-        }
+      }
+
+      {openBackDropSucess &&
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={openBackDropSucess}
+          onClick={handleClose}
+        >
+          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+            Informação carregada com sucesso!
+          </Alert>
+        </Backdrop>
+      }
     </div>
   )
 }

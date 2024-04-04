@@ -9,8 +9,8 @@
 .btns{
     display: flex;
     flex-direction: row;
-    gap: 10px;
-    margin-right: 5%;
+    gap: 7px;
+    margin-right: 2%;
     transform: translateY(0.7vw);
 }
 
@@ -18,36 +18,37 @@
     width: 80px;
     height: 3vw;
     transform: translateY(0.5vw);
-
     cursor: pointer;
 }
 
 .ani_logo {
     @extend .logo;
     width: 60px;
-    padding-left: 4%;
-    padding-right: 3%;
+    padding-left: 1%;
+    padding-right: 2%;
 }
 .uminho_logo {
-
     @extend .logo;
-    margin-right: 3%;
+    margin-right: 2%;
 }
 
+.logos {
+    @extend .logo;
+    width: 30%;
+}
 .isep_logo {
     @extend .logo;
     width: 85px;
-    margin-right: 3%;
+    margin-right: 2%;
 }
 .titleNavBarWithMargin {
     height: 3vw;
     transform: translateY(1vw);
-    margin-right: 50%;
+    margin-right: 40%;
 }
 .titleNavBar {
     height: 3vw;
     transform: translateY(1vw);
-    margin-right: 20%;
-    width: 13%;
-    max-width: fit-content;
+    margin-right: 3%;
+    width: 25%;
 }
