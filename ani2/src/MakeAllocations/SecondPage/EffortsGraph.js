@@ -18,7 +18,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
   },
     responsive: true,
     scales: {
-      xAxes: [{
+      x: [{
         ticks: {
           autoSkip: false,
           maxRotation: 90,
@@ -135,11 +135,13 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
       , 'Amplitude': maxValue - minValue, 'Esforço Máximo': `${maxValueTecn} (${maxValue})`, 
       'Esforço Mínimo': `${minValueTecn} (${minValue})`,
       'Desvio máximo': `${maxValue - average(totalEfforts)}`,
-      'Desvio mínimo': `${ Math.min(average(totalEfforts) - minValue, 0)}`
+      'Desvio mínimo': `${ Math.min(average(totalEfforts) - minValue, 0)}`,
+      'Total de horas': `${totalWorkHours}`
     }
   }
   const metricsCalculated = metrics()
-  const myLine = {
+
+const myLine= {
     id: 'myLine',
     beforeDatasetsDraw(chart, args, plugin) {
       const { ctx, scales: { x, y }, chartArea: { left, right } } = chart;
@@ -157,8 +159,32 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
       drawLine('black', metricsCalculated["Média"], false)
       drawLine('grey', metricsCalculated["Média"] + metricsCalculated["Desvio padrão"], true)
       drawLine('grey', Math.max(0, metricsCalculated["Média"] - metricsCalculated["Desvio padrão"]), true)
-      drawLine('red', totalWorkHours, false)
 
+      console.log("NOT Paint red")
+    }
+  }
+  const myLineRed = {
+    id: 'myLine',
+    beforeDatasetsDraw(chart, args, plugin) {
+      const { ctx, scales: { x, y }, chartArea: { left, right } } = chart;
+      ctx.save();
+      function drawLine(lineColor, yCoor, dotted) {
+        ctx.beginPath();
+        ctx.strokeStyle = lineColor;
+        const valueDotted = dotted ? 6 : 0
+        ctx.setLineDash([valueDotted,valueDotted])
+        ctx.lineWidth = 1;
+        ctx.moveTo(left, y.getPixelForValue(yCoor))
+        ctx.lineTo(right, y.getPixelForValue(yCoor))
+        ctx.stroke()
+      }
+      drawLine('black', metricsCalculated["Média"], false)
+      drawLine('grey', metricsCalculated["Média"] + metricsCalculated["Desvio padrão"], true)
+      drawLine('grey', Math.max(0, metricsCalculated["Média"] - metricsCalculated["Desvio padrão"]), true)
+
+      if (totalWork) drawLine('red', totalWorkHours, false)
+      if (totalWork) console.log(`Paint red ${totalWork} |`)
+      
     }
   }
   const button = (onClicki, text) => {
@@ -174,14 +200,26 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
 
     )
   }
+  console.log("Total work?")
+  console.log(totalWork)
   return (
-    <div className='horizontalFlex1'>
-      <Bar
+    <div className='horizontalFlex1' >
+      {totalWork ? 
+       <Bar
+        className='growBarChart'
+        options={options}
+        data={data}
+        plugins={[myLineRed]}
+      />
+      :
+<Bar
         className='growBarChart'
         options={options}
         data={data}
         plugins={[myLine]}
       />
+      }
+     
       <div className='verticalFlex'>
       <div className='statsTable'>
         <StatsTable input={metrics()}  />

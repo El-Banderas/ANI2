@@ -29,7 +29,7 @@
 }
 .statsTable{
   flex-shrink: 3;
-   transform: translateY(30%);
+   transform: translateY(15%);
    margin-left: 1%;
    border: 3px solid grey; 
    height: fit-content;
@@ -76,12 +76,23 @@
 .verticalFlex{
    display: flex;
    flex-direction: column;
-gap: 30%;
+gap: 20%;
 }
 .allLeft{
   display: flex;
 justify-content: flex-start;
 margin-left: 1%;
 margin-top: 1%;
+gap:3%;
   
+}
+
+.table{
+  margin: 0.5%;
+}
+.tableBorder{
+  margin: 0.5%;
+  border-width: thin;
+ border-color: grey;
+ border-style: solid;
 }
