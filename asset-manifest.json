@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/ANI2/static/css/main.c2414ffe.css",
-    "main.js": "/ANI2/static/js/main.267c1755.js",
+    "main.js": "/ANI2/static/js/main.36714e64.js",
     "static/media/isep_corner.png": "/ANI2/static/media/isep_corner.364dbe2b51921249de9a.png",
     "static/media/uminho_corner.png": "/ANI2/static/media/uminho_corner.55930965484f5036c19c.png",
     "static/media/NavBar2.png": "/ANI2/static/media/NavBar2.40bffbba85bdeab07785.png",
@@ -9,10 +9,10 @@
     "static/media/logo.svg": "/ANI2/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/ANI2/index.html",
     "main.c2414ffe.css.map": "/ANI2/static/css/main.c2414ffe.css.map",
-    "main.267c1755.js.map": "/ANI2/static/js/main.267c1755.js.map"
+    "main.36714e64.js.map": "/ANI2/static/js/main.36714e64.js.map"
   },
   "entrypoints": [
     "static/css/main.c2414ffe.css",
-    "static/js/main.267c1755.js"
+    "static/js/main.36714e64.js"
   ]
 }
