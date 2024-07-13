@@ -71,7 +71,7 @@ export default function SeachChooseTecn({ possibilities, changeCurrentTecn, save
             required
             id="outlined-required"
             label="Required"
-            defaultValue="Cenário 1"
+            defaultValue="Solução"
             inputRef={thisRef}
           />
   }

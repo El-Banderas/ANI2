@@ -2,7 +2,7 @@ import * as React from 'react';
 import './Navbar.scss'
 import Ani from "./ani_corner.png";
 import UminhoPNG from "./uminho_corner.png";
-import Logos from "./NavBarTheirLogos.png";
+import Logos from "./NavBar2.png";
 import IsepPNG from "./isep_corner.png";
 import TextWhite from '../TextComponents/TextWhite';
 import Button from '@mui/material/Button';

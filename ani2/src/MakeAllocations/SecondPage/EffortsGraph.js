@@ -68,7 +68,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
           display: true,
           text: "Horas de trabalho"
         },
-        max: totalWork ? Math.floor(totalWorkHours * 1.1) : undefined,
+        max: totalWork ? Math.max(Math.floor(totalWorkHours * 1.1), parseInt(maxEffort*1.1)) : undefined,
       },
     },
   };
@@ -109,7 +109,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
 
     },
     {
-      label: 'Total de horas',
+      label: 'Capacidade máxima',
       data: [],
       backgroundColor: 'red',
     },
@@ -237,7 +237,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
         <div className='statsTable'>
           <StatsTable input={metrics()} />
         </div>
-        {showOptionChangeTotalEffort && button(switchShowTotalWorkHours, "Visualizar esf. total")}
+        {showOptionChangeTotalEffort && button(switchShowTotalWorkHours, "Visualizar capacidade máxima")}
       </div>
     </div>
   )
