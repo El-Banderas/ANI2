@@ -26,7 +26,7 @@ return (
           </div>
 </CardContent>
       <CardActions className='horizontalFlexSpaceBetween'>
-        <Button size="small" onClick={() => setScenario(info)}>Selecionar</Button>
+        <Button size="small" onClick={() => setScenario(info)}>Select</Button>
         <Button size="small" onClick={() => deleteScenario(info)}><DeleteOutlineIcon /></Button>
       </CardActions>
     </Card>

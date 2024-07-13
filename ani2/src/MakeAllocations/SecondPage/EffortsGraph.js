@@ -82,17 +82,17 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
   //const labels = ['Técnico 0', 'Técnico 1', 'Técnico 2', 'Técnico 3', 'Técnico 4', 'Técnico 5', 'Técnico 6', 'Técnico 7', 'Técnico 8', 'Técnico 9', 'Técnico 10', 'Técnico 11', 'Técnico 12', 'Técnico 13', 'Técnico 14', 'Técnico 15', 'Técnico 16', 'Técnico 17', 'Técnico 18', 'Técnico 19', 'Técnico 20', 'Técnico 21', 'Técnico 22', 'Técnico 23', 'Técnico 24', 'Técnico 25', 'Técnico 26', 'Técnico 27', 'Técnico 28', 'Técnico 29', 'Técnico 30', 'Técnico 31', 'Técnico 32']
   const datasets1 = [
     {
-      label: 'Esforços alocados',
+      label: 'Allocated efforts',
       data: current_efforts_tecns,
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
     {
-      label: 'Esforços a alocar',
+      label: 'Efforts to allocate',
       data: getEffortsCurrentAllcoation(),
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
     },
     {
-      label: 'Média',
+      label: 'Average',
       data: [],
       backgroundColor: 'black',
     },
@@ -100,7 +100,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
 
     {
       type: 'line',
-      label: 'Média +/- Desvio padrão',
+      label: 'Average +/- Std. Dev.',
       data: [],
       //borderDash: [30, 10],
       //backgroundColor: "transparent",
@@ -109,7 +109,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
 
     },
     {
-      label: 'Capacidade máxima',
+      label: 'Max. capacity',
       data: [],
       backgroundColor: 'red',
     },
@@ -144,12 +144,12 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
     const minValueTecn = labels[indexOfLowerValue]
 
     return {
-      'Média': average(totalEfforts), 'Desvio padrão': getStandardDeviation(totalEfforts)
-      , 'Amplitude': maxValue - minValue, 'Esforço Máximo': `${maxValueTecn} (${maxValue})`,
-      'Esforço Mínimo': `${minValueTecn} (${minValue})`,
-      'Desvio máximo': `${maxValue - average(totalEfforts)}`,
-      'Desvio mínimo': `${Math.min(average(totalEfforts) - minValue, 0)}`,
-      'Total de horas': `${totalWorkHours}`
+      'Average': average(totalEfforts), 'Std. Dev.': getStandardDeviation(totalEfforts)
+      , 'Amplitude': maxValue - minValue, 'Max. capacity': `${maxValueTecn} (${maxValue})`,
+      'Min. effort': `${minValueTecn} (${minValue})`,
+      'Max. deviation': `${maxValue - average(totalEfforts)}`,
+      'Min. deviation': `${Math.min(average(totalEfforts) - minValue, 0)}`,
+      'Totoal work': `${totalWorkHours}`
     }
   }
   const metricsCalculated = metrics()
@@ -237,7 +237,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
         <div className='statsTable'>
           <StatsTable input={metrics()} />
         </div>
-        {showOptionChangeTotalEffort && button(switchShowTotalWorkHours, "Visualizar capacidade máxima")}
+        {showOptionChangeTotalEffort && button(switchShowTotalWorkHours, "View full capacity")}
       </div>
     </div>
   )

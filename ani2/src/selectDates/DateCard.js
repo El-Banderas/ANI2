@@ -49,11 +49,11 @@ const backGroundColor = special ? "#FC848C" : ""
         <Card sx={{ minWidth: 275 , backgroundColor: backGroundColor}}>
       <CardContent className="card">
 
-        {textLeft("Dia")}
+        {textLeft("Day")}
         {textLeft(getDate(info[0]), true)}
         {textLeft()}
-        {textLeft(`N.º projetos análise: ${num_allocation_analisis}`)}
-        {textLeft(`N.º projetos acompanhamento: ${num_allocation_accomp}`)}
+        {textLeft(`N.º projects in analysis: ${num_allocation_analisis}`)}
+        {textLeft(`N.º projects in follow-up: ${num_allocation_accomp}`)}
         
         
       </CardContent>

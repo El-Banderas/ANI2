@@ -13,7 +13,7 @@ import SecondPage from './SecondPage/SecondPage';
 import axios from 'axios';
 import ChooseScenario from "./SecondPage/ChooseScenario";
 
-const steps = ['Alterar esforços de projetos', 'Escolher cenário', 'Comparar alocações', 'Alocação submetida!'];
+const steps = ['Change projects efforts', 'Scenario selection', 'Compare assignements', 'Assignment submitted!'];
 
 export default function MyStepper({ urlBackend, selectDatePage, date, alreadyAllocated, submissionDone }) {
   const [activeStep, setActiveStep] = useState(0);

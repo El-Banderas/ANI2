@@ -122,7 +122,7 @@ export default function BarChart({ urlBackend , tecnName }) {
         const firstYear = fullGraphInfo['years'][0]
         const lastYear = fullGraphInfo['years'][fullGraphInfo['years'].length - 1]
         return <div className="MySlider">
-            <TextComponentPrimary text={"Selecione o ano:"} size={20} fontWeightGiven={"bold"} />
+            <TextComponentPrimary text={"Select the year:"} size={20} fontWeightGiven={"bold"} />
             <Slider
                 aria-label="Conjunto técnicos"
                 defaultValue={currentYearSelected}
@@ -137,8 +137,8 @@ export default function BarChart({ urlBackend , tecnName }) {
     }
     //return <Bar options={options} data={data} />
     const title = tecnName !== undefined ? 
-        `Esforços do/a técnico/a ${tecnName}` :
-        `Esforço dos técnicos ao longo do ano ${currentYearSelected}`
+        `${tecnName} effort` :
+        `Workers effort over ${currentYearSelected}`
     return <>
         {
             Object.keys(currentInfo).length > 0 ?

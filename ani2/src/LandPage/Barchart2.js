@@ -24,7 +24,7 @@ ChartJS.register(
     Legend
 );
 
-const months = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Set", "Out", "Nov", "Dec"]
 export default function BarChart2({ data , title}) {
     
 
