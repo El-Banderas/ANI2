@@ -58,7 +58,7 @@ const backGroundColor = special ? "#FC848C" : ""
         
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={() => onClick(info[0], nextPage )}>Selecionar</Button>
+        <Button size="small" onClick={() => onClick(info[0], nextPage )}>Select</Button>
       </CardActions>
     </Card>
         </div>

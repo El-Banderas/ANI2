@@ -42,14 +42,14 @@ export default function BarChart2({ data , title}) {
                 stacked: true,
                 title: {
                     display : true,
-                    text : "meses"
+                    text : "Months"
                 }
             },
             y: {
                 stacked: true,
                 title: {
                     display : true,
-                    text : "horas de trabalho"
+                    text : "Worker hours"
                 }
             },
         },

@@ -74,7 +74,7 @@ export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
       <img src={IsepPNG} alt="ISEP" className='isep_logo' onClick={() => changeURL("https://www.isep.ipp.pt/")} />
       <div className={moreMargin}>
 
-        <TextWhite text={"Projeto ANI"} size={20} fontWeightGiven={"medium"} />
+        <TextWhite text={"ANI Project"} size={20} fontWeightGiven={"medium"} />
       </div>
 
       {

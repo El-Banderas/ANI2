@@ -44,7 +44,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
     plugins: {
       title: {
         display: true,
-        text: "Esforços totais por técnico",
+        text: "Total Effort per Worker",
       },
     },
     scales: {
@@ -59,14 +59,14 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
         stacked: true,
         title: {
           display: true,
-          text: "Técnicos"
+          text: "Workers"
         }
       },
       y: {
         stacked: true,
         title: {
           display: true,
-          text: "Horas de trabalho"
+          text: "Work hours"
         },
         max: totalWork ? Math.max(Math.floor(totalWorkHours * 1.1), parseInt(maxEffort*1.1)) : undefined,
       },
@@ -149,7 +149,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
       'Min. effort': `${minValueTecn} (${minValue})`,
       'Max. deviation': `${maxValue - average(totalEfforts)}`,
       'Min. deviation': `${Math.min(average(totalEfforts) - minValue, 0)}`,
-      'Totoal work': `${totalWorkHours}`
+      'Total work': `${totalWorkHours}`
     }
   }
   const metricsCalculated = metrics()

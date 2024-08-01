@@ -88,7 +88,7 @@ return backColor
         color: "black",
         fontWeight: "lighter",
 
-      }} ><TextComponentPrimary text={"Selecionar técnico"} size={16} fontWeightGiven={"regular"} /></Button>
+      }} ><TextComponentPrimary text={"Select worker"} size={16} fontWeightGiven={"regular"} /></Button>
 </div>
         <div className='tables'>
 

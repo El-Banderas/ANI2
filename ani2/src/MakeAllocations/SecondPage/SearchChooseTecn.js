@@ -90,11 +90,11 @@ export default function SeachChooseTecn({ possibilities, changeCurrentTecn, save
         id="SecPage-searchTecn"
         options={possibilities}
         sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Técnico" />}
+        renderInput={(params) => <TextField {...params} label="Worker" />}
       />
-      {thisButton("Selecionar técnico", selectTecn)}
-      {thisButton("Salvar cenário", handleOpenSave)}
-      {thisButton("Escolher este cenário", handleOpenChoose)}
+      {thisButton("Select worker", selectTecn)}
+      {thisButton("Save scenario", handleOpenSave)}
+      {thisButton("Select this scenario", handleOpenChoose)}
       {openSave && modalSave("Salvar cenário", "Insira o nome do cenário para ser guardado", openSave, handleCloseSave, thisButton("Salvar", () => saveScenario(valueRefSave.current.value)), valueRefSave)}
       {openChoose && modalSave("Escolher cenário", "", openChoose, handleCloseChoose, thisButton("Escolher", () => chooseScenarioToAllocation()), valueRefChoose)}
     </div>
