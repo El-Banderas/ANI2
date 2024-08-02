@@ -28,7 +28,7 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
             setPreventDoubleClick(false)
         axios({
             method: 'put',
-            url: `${urlBackend}/add_efforts`,
+            url: `${urlBackend}/scenarios/add_efforts`,
             data: {
                 "projects": changedProjs, //projects["projects"]
                 "projects_ids": unchangedInput["projects"].map(x => x.id),

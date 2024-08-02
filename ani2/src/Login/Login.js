@@ -23,7 +23,7 @@ const submit = () => {
         console.log(passowrd)
         axios({
             method: 'put',
-            url: `${urlBackend}/connect_API`,
+            url: `${urlBackend}/login`,
             data: {apiKey: passowrd},
             headers: {
                 'Accept': 'application/json',

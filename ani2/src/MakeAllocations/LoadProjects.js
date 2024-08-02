@@ -15,7 +15,8 @@ export default function LoadProjects({urlBackend, submissionDone, date, alreadyA
   const [projectsAndNames, setProjectsAndNames] = useState({})
 
 const getProjects =  () => {
-        const fullUrl = alreadyAllocated ? `${urlBackend}/projs_already_allocated` : `${urlBackend}/proj_cost`
+        const fullUrl = alreadyAllocated ? `${urlBackend}/projs/projs_already_allocated` : `${urlBackend}/projs/proj_cost`
+        console.log(fullUrl)
         axios.get(fullUrl, {params : {date : date}}).then(
           (response) => {
             const cleanAnswer = response['data']

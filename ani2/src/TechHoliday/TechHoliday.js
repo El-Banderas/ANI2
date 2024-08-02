@@ -26,6 +26,7 @@ const getTaskInfo = () => {
     const regexpSize = /([0-9]+)/;
     const match = name.match(regexpSize);
     console.log(name)
+    console.log(`http://localhost:7999/?${techName}=${name}`)
     axios.get(`http://localhost:7999/?${techName}=${name}`).then(
       (response) => {
         console.log("Receubeu resposta")

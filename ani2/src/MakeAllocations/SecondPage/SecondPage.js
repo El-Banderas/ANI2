@@ -57,7 +57,7 @@ export default function SecondPage({ scenarioInfo, urlBackend, scenarioChoosen, 
     console.log("Save scenario")
     axios({
       method: 'put',
-      url: `${urlBackend}/saveScenarius`,
+      url: `${urlBackend}/scenarios/saveScenarius`,
       data: { allocation: thisAllocation, projsInfo: costsProjs, scenarioName: name },
       headers: {
         'Accept': 'application/json',
@@ -69,7 +69,7 @@ export default function SecondPage({ scenarioInfo, urlBackend, scenarioChoosen, 
   const chooseScenarioToAllocation = () => {
     axios({
       method: 'put',
-      url: `${urlBackend}/chooseScenarioToSave`,
+      url: `${urlBackend}/scenarios/chooseScenarioToSave`,
       data: { allocation: thisAllocation, projsInfo: costsProjs, scenarioName: "" },
       headers: {
         'Accept': 'application/json',

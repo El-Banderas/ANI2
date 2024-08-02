@@ -31,7 +31,8 @@ export default function TasksCards({ name, urlBackend }) {
   const getTaskInfo = () => {
     const regexpSize = /([0-9]+)/;
     const match = name.match(regexpSize);
-    axios.get(`${urlBackend}/tecn_projs/?tecn='${name}'`).then(
+    console.log(`${urlBackend}/tecns/tecn_projs/?tecn='${name}'`)
+    axios.get(`${urlBackend}/tecns/tecn_projs/?tecn='${name}'`).then(
       (response) => {
         console.log(" [CARD] Receubeu resposta")
         const cleanAnswer = response['data']

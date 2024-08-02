@@ -14,7 +14,8 @@ export default function ChooseScenario({ urlBackend, chooseScenario, date, allSc
   const [scenariosNames, setScenariosNames] = useState([])
 
   const getNamesScenarios = () => {
-    axios.get(`${urlBackend}/getScenariosNames`, { params: { date: date } }).then(
+    console.log(`${urlBackend}/scenarios/getScenariosNames`)
+    axios.get(`${urlBackend}/scenarios/getScenariosNames`, { params: { date: date } }).then(
       (response) => {
         const cleanAnswer = response['data']['answer']
 
@@ -25,7 +26,8 @@ export default function ChooseScenario({ urlBackend, chooseScenario, date, allSc
   }
 const deleteScenario = (scenarioName) => {
 
-    axios.get(`${urlBackend}/delete_scenario`, { params: { name: scenarioName } }).then(
+    console.log(`${urlBackend}/scenarios/delete_scenario`)
+    axios.get(`${urlBackend}/scenarios/delete_scenario`, { params: { name: scenarioName } }).then(
       () =>
 {
   const copyDict= {...scenariosNames}

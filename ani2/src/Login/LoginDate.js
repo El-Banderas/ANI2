@@ -41,7 +41,7 @@ export default function LoginDate({ urlBackend, logInDone }) {
   }, []);
 
   const getFilterDates = () => {
-    axios.get(`${urlBackend}/get_login_filter_dates`).then(
+    axios.get(`${urlBackend}/login/get_login_filter_dates`).then(
       (response) => {
         const dateInitFilter = response['data']['startFilterDate']
         const dateEndFilter = response['data']['endFilterDate']
@@ -64,7 +64,7 @@ export default function LoginDate({ urlBackend, logInDone }) {
     const date2Converted = typeof(dateEnd) === "string" ? dateEnd :  dateEnd._d.toLocaleDateString('pt-PT')
     axios({
       method: 'put',
-      url: `${urlBackend}/change_filter_dates`,
+      url: `${urlBackend}/login/change_filter_dates`,
       data: { "startFilterDate": date1Converted, "endFilterDate": date2Converted },
       headers: {
         'Accept': 'application/json',

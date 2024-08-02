@@ -23,7 +23,8 @@ export default function MyStepper({ urlBackend, selectDatePage, date, alreadyAll
     checkIsSpecial();
   }, []);
   const checkIsSpecial = () => {
-    axios.get(`${urlBackend}/scenarioDay`).then(
+    console.log(`${urlBackend}/scenarios/scenarioDay`)
+    axios.get(`${urlBackend}/scenarios/scenarioDay`).then(
       (response) => {
         const scenarioDAY = response['data']['answer']
         const specialFirstPage = scenarioDAY.localeCompare(date.split(' ')[0]) === 0 ? 1 : 0
@@ -31,7 +32,6 @@ export default function MyStepper({ urlBackend, selectDatePage, date, alreadyAll
         //setIsSpecial(scenarioDAY)
       }
     ).catch(error => console.error(`Error: ${error}`))
-    //axios.get('http://localhost:7999/')
   }
 
   const handleNext = () => {
@@ -52,7 +52,8 @@ export default function MyStepper({ urlBackend, selectDatePage, date, alreadyAll
   const chooseScenario = (scenarioName) => {
     console.log("[STEPPER] Choose scenario")
     console.log(scenarioName)
-    axios.get(`${urlBackend}/get_scenario`, { params: { name: scenarioName, date: date } }).then(
+    console.log(`${urlBackend}/scenarios/get_scenario`)
+    axios.get(`${urlBackend}/scenarios/get_scenario`, { params: { name: scenarioName, date: date } }).then(
       (response) => {
         const stuff = response['data']
         setArgLastPage(stuff)

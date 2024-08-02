@@ -15,7 +15,8 @@ export default function LoadTecn({urlBackend, submissionDone}) {
   const [tecns, setTecns] = useState({})
 
 const getTecn =  () => {
-        axios.get(`${urlBackend}/tecns`).then(
+        console.log(`${urlBackend}/tecns/all`)
+        axios.get(`${urlBackend}/tecns/all`).then(
           (response) => {
             console.log("Receubeu resposta")
             const cleanAnswer = response['data']

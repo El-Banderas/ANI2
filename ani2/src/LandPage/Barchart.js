@@ -62,7 +62,7 @@ export default function BarChart({ urlBackend , tecnName }) {
 
     const getData = () => { 
         console.log("Wich tecnName")
-        const fullurlBackend = tecnName !== undefined ? `${urlBackend}/tecn_effort/?tecn_name='${tecnName}'` : `${urlBackend}/tecns_efforts`
+        const fullurlBackend = tecnName !== undefined ? `${urlBackend}/tecns/tecn_effort/?tecn_name='${tecnName}'` : `${urlBackend}/tecns/tecns_efforts`
         axios.get(fullurlBackend).then(
             (response) => {
                 const cleanAnswer = response['data']['efforts']

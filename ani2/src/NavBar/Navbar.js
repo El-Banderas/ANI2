@@ -25,6 +25,7 @@ export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
   };
   const reloadData = () => {
     setOpenBackDropWaiting(true)
+    console.log(`${urlBackend}/reload`)
     axios.get(`${urlBackend}/reload`).then(
       (response) => {
         console.log("Receubeu resposta")
@@ -34,6 +35,7 @@ export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
   }
   const makeAllocation = () => {
     setOpenBackDropWaiting(true)
+    console.log(`${urlBackend}/make_allocation`)
     axios.get(`${urlBackend}/make_allocation`).then(
       (response) => {
         console.log("Receubeu resposta")

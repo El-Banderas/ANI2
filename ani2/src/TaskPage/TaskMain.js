@@ -31,7 +31,6 @@ export default function TaskPage({ request_word, name, urlBackend }) {
         setInfo(cleanAnswer)
       }
     ).catch(error => console.error(`Error: ${error}`))
-    //axios.get('http://localhost:7999/')
   }
 
   const convertBooleanStr = boolValue => {
