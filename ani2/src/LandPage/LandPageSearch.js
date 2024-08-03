@@ -26,7 +26,7 @@ export default function LandPageChart({ defaultInput, updateInput, urlBackend })
 
             case "tecn":
                 return <>
-                    <TaskPage request_word={"tecn"} name={currentArg} urlBackend={urlBackend} />
+                    <TaskPage request_word={"tecns/tecn"} name={currentArg} urlBackend={urlBackend} />
                     <TasksCards name={currentArg} urlBackend={urlBackend} />
                     <BarChart tecnName={currentArg} urlBackend={urlBackend}  />
                 </>
