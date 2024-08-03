@@ -25,8 +25,8 @@ export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
   };
   const reloadData = () => {
     setOpenBackDropWaiting(true)
-    console.log(`${urlBackend}/reload`)
-    axios.get(`${urlBackend}/reload`).then(
+    console.log(`${urlBackend}/login/reload`)
+    axios.get(`${urlBackend}/login/reload`).then(
       (response) => {
         console.log("Receubeu resposta")
         handleOpen()
