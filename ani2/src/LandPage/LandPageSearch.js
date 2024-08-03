@@ -10,7 +10,8 @@ import TextComponentPrimary from "../TextComponents/TextPrimary";
 import  BarChart from './Barchart';
 
 export default function LandPageChart({ defaultInput, updateInput, urlBackend }) {
-
+    console.log("Default input")
+    console.log(defaultInput)
     const [currentArg, setCurrentArg] = useState("");
     const [currentSidePage, setCurrentSidePage] = useState("none");
     const [currentselectedTecns, setCurrentSelectedTecns] = useState(0);

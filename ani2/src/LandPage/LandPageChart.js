@@ -62,9 +62,6 @@ export default function LandPageChart({ defaultInput, updateInput, urlBackend })
     }
 
     const max_graph = 5
-    const num_tecns = Object.keys(defaultInput["input"]["technicians"]).length
-    const maxSlider = num_tecns / (max_graph)
-    const currentTecnsNames = Object.entries(defaultInput["input"]["technicians"]).slice(currentselectedTecns * max_graph, currentselectedTecns * max_graph + max_graph).map((pair) => pair[0])
     //const currentTecnsNames = Object.keys(defaultInput["technicians"])
 
     return (

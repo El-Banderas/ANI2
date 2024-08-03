@@ -47,8 +47,8 @@ export default function MainApp({urlBackend, chartOrSearch}) {
   
 const getAttributions =  () => {
         console.log("[MAIN APP] GET initial attris")
-        console.log(`${urlBackend}/attri/attri`)
-        axios.get(`${urlBackend}/attri/attri`).then(
+        console.log(`${urlBackend}/tecns/tecns_efforts`)
+        axios.get(`${urlBackend}/tecns/tecns_efforts`).then(
           (response) => {
             const cleanAnswer = response['data']
             setInput(cleanAnswer)

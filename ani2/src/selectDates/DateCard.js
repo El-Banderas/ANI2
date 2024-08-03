@@ -13,23 +13,6 @@ import './SelectDate.scss'
 
 export default function DateCard({  info, onClick, nextPage , special}) {
   
-  /*
-  //const changedTecns= {}
-    const submit = () => {
-        axios({
-            method: 'put',
-            url: `${urlBackend}/update_tecns`,
-            data: {
-                "tecns": changedTecns
-                //"name" : "AAA"
-            }
-        });
-        // Change page
-        submissionDone()
-
-    }
-*/
-
 const textLeft = (textField, bold=false) => {
   const font = bold ? "medium" : "small"
   const size = bold ? 15 : 10

@@ -29,9 +29,11 @@ export default function TableTecns({ tecns, urlBackend, submissionDone }) {
   const [changedTecns, setChangedTecns] = useState({})
   //const changedTecns= {}
     const submit = () => {
+      console.log("PUT tecn")
+      console.log(changedTecns)
         axios({
             method: 'put',
-            url: `${urlBackend}/update_tecns`,
+            url: `${urlBackend}/tecns/update_info`,
             data: {
                 "tecns": changedTecns
                 //"name" : "AAA"
