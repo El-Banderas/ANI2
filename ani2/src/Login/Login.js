@@ -7,7 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import axios from 'axios';
 
-export default function Login({urlBackend, logInDone}) {
+export default function Login({urlBackend, logInDone, setURLBackend}) {
   //const urlBackend = "https://backend-valm.onrender.com" 
   const [passowrd, setPassword] = useState("")
   const [passwordValid, setPasswordValid] = useState(true)
@@ -44,7 +44,10 @@ const submit = () => {
         )
         }
       
-        
+       const getURLBackendterminal = () => {
+        console.log("URL backend")
+        console.log(urlBackend)
+       } 
         // Change page
         // submissionDone()
 
@@ -71,6 +74,29 @@ const submit = () => {
                 color: "black",
                 fontWeight: "lighter",
             }} ><TextComponentPrimary text={"Submeter"} size={16} fontWeightGiven={"regular"} /></Button>
+
+{/*URL backend part*/}
+<TextComponentPrimary text={"URL de backend"}  size={30}/>
+<TextField
+                label={"?"}
+                id="outlined-number"
+                defaultValue={urlBackend}
+                size="small"
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                onChange={(e) => setURLBackend(e.target.value)}
+            />
+<Button variant="outlined" onClick={() => getURLBackendterminal()} style={{
+                borderRadius: 10,
+                backgroundColor: "#32DBC4",
+                margin: "0% 0% 1% 0%",
+                fontSize: "14px",
+                color: "black",
+                fontWeight: "lighter",
+            }} ><TextComponentPrimary text={"Mudar url backend"} size={16} fontWeightGiven={"regular"} /></Button>
+     
+
             {loading && <CircularProgress />}
 
 </div>

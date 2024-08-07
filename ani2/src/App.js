@@ -12,8 +12,9 @@ import SelectInput from '@mui/material/Select/SelectInput';
 import SelectDate from './selectDates/SelectDate';
 
 function App() {
-  const urlBackend = "http://127.0.0.1:8000" 
+  //const urlBackend = "http://127.0.0.1:8000" 
   //const urlBackend = "https://backend-valm.onrender.com" 
+  const [urlBackend, setURLBackend] = useState("http://127.0.0.1:8000")
   const [currentPage, setCurPage] = useState("login")
   const [currentDate, setCurDate] = useState("")
   console.log("Backend URL:")
@@ -51,7 +52,7 @@ function App() {
         currentPage === "loginDate" && <LoginDate urlBackend={urlBackend} logInDone={logInDone}/>
       }
       {
-        currentPage === "login" && <Login urlBackend={urlBackend} logInDone={selectFilterDate}/>
+        currentPage === "login" && <Login urlBackend={urlBackend} logInDone={selectFilterDate} setURLBackend={setURLBackend}/>
       }
       {
         currentPage === "loadProjects" && <MyStepper urlBackend={urlBackend} selectDatePage={selectDatePage} date={currentDate} alreadyAllocated={false} submissionDone={submissionDone}/>
