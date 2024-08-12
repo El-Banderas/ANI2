@@ -5,7 +5,7 @@ import LoadProjects from './MakeAllocations/LoadProjects';
 import MyStepper from './MakeAllocations/Stepper';
 import React, {useEffect, useState} from "react";
 import NavBar from "./NavBar/Navbar";
-import LoginDate from './Login/LoginDate';
+import LoginDate from './LoginDate/LoginDate';
 import Login from './Login/Login';
 import LoadTecn from './loadTecns/LoadTecn';
 import SelectInput from '@mui/material/Select/SelectInput';

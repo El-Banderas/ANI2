@@ -18,8 +18,8 @@ export default function SelectDate({urlBackend, submissionDone, keywordGet}) {
   const [scenarioDay, setScenarioDay] = useState("")
 
 const getDates =  () => {
-        console.log(`${urlBackend}/attri/${keywordGet}`)
-        axios.get(`${urlBackend}/attri/${keywordGet}`).then(
+        console.log(`${urlBackend}/dates/${keywordGet}`)
+        axios.get(`${urlBackend}/dates/${keywordGet}`).then(
           (response) => {
             const cleanAnswer = response['data']['input']
             const scenarioDAY = response['data']['dayScenario']
