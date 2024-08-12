@@ -1,5 +1,4 @@
 import TextComponentPrimary from '../TextComponents/TextPrimary';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './Login.scss';
 import React, { useState, useEffect } from "react";
@@ -10,7 +9,6 @@ import moment from "moment";
 import "moment/locale/pt";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import axios from 'axios';
-import { dateCalendarClasses } from '@mui/x-date-pickers';
 
 export default function LoginDate({ urlBackend, logInDone }) {
   // Dates selected by user in picker

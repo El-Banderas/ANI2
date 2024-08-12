@@ -14,6 +14,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
 
 export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
+  // When reload is pressed, there are 2 backdrops, one for waiting, another to confirm a successful operation.
   const [openBackDropSucess, setOpenBackDropSucess] = React.useState(false);
   const [openBackDropWaiting, setOpenBackDropWaiting] = React.useState(false);
   const handleClose = () => {
