@@ -4,20 +4,32 @@ import './Login.scss';
 import React, { useState, useEffect } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 
-import MomentUtils from "@date-io/moment";
-import moment from "moment";
-import "moment/locale/pt";
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import axios from 'axios';
+import useGetFilterDates from './useGetFilterDates';
+import useChangeDate from './useChangeDate';
+import ColumnDatePicker from './ColumnDatePicker';
 
 export default function LoginDate({ urlBackend, logInDone }) {
-  // Dates selected by user in picker
-  const [dateInit, setDateInit] = useState(null)
-  const [dateEnd, setDateEnd] = useState(null)
 
   // Dates from DB
-  const [dateInitFromDB, setDateInitFromDB] = useState(null)
-  const [dateEndFromDB, setDateEndFromDB] = useState(null)
+  const {dateInitFromDB, dateEndFromDB} = useGetFilterDates(urlBackend)
+
+  // Dates selected by user in picker
+  const [dateInit, setDateInit] = useState(dateInitFromDB)
+  const [dateEnd, setDateEnd] = useState(dateEndFromDB)
+
+  const [waitingForLoading, setWaitingForLoading] = useState(false)
+
+  const {changeDate} = useChangeDate(urlBackend, setWaitingForLoading, dateInit, dateEnd, logInDone)
+
+  const keepDate = () => {
+    logInDone()
+  }
+
+  // When the dates are received from DB, the interface is updated with the received values.
+  useEffect(() => {
+    setDateInit(dateInitFromDB)
+    setDateEnd(dateEndFromDB)
+  }, [dateInitFromDB]);
 
   const checkingDatesEqual = (date1, dateInit2) => {
     if (date1 !== null) {
@@ -32,86 +44,9 @@ export default function LoginDate({ urlBackend, logInDone }) {
     }
 
   }
-  const [waitingForLoading, setWaitingForLoading] = useState(false)
 
-  useEffect(() => {
-    getFilterDates();
-  }, []);
+  
 
-  const getFilterDates = () => {
-    axios.get(`${urlBackend}/login/get_login_filter_dates`).then(
-      (response) => {
-        const dateInitFilter = response['data']['startFilterDate']
-        const dateEndFilter = response['data']['endFilterDate']
-        setDateInitFromDB(dateInitFilter)
-        setDateEndFromDB(dateEndFilter)
-
-        setDateInit(dateInitFilter)
-        setDateEnd(dateEndFilter)
-      }
-    ).catch(error => console.error(`Error: ${error}`))
-  }
-
-  const keepDate = () => {
-    logInDone()
-  }
-  const changeDate = () => {
-    console.log("[LOGIN DATES] Change data of filters")
-    setWaitingForLoading(true)
-    const date1Converted = typeof(dateInit) === "string" ? dateInit :  dateInit._d.toLocaleDateString('pt-PT')
-    const date2Converted = typeof(dateEnd) === "string" ? dateEnd :  dateEnd._d.toLocaleDateString('pt-PT')
-    axios({
-      method: 'put',
-      url: `${urlBackend}/login/change_filter_dates`,
-      data: { "startFilterDate": date1Converted, "endFilterDate": date2Converted },
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-    }).then((respose) => {
-      console.log("[LOGIN DATES] Server reloaded all data?")
-      console.log(respose)
-      setWaitingForLoading(false)
-      logInDone()
-    }
-    )
-
-  }
-
-  const MyPickDate = ({ date, changeDateFunction }) => {
-
-    return (
-      <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale={"pt"} >
-        <DatePicker
-          label="Selecionar data"
-          inputformat="dd-MMMM-yyyyy"
-          mask="__/__/____"
-          placeholder="dd/MM/yyyy"
-          okLabel="Escolher"
-          clearLabel="Limpar"
-          cancelLabel="Cancelar"
-          value={date}
-          format="L"
-          views={["year", "month", "date"]}
-          onChange={(dateChanged) => changeDateFunction(dateChanged)}
-        />
-      </MuiPickersUtilsProvider>
-
-    )
-  }
-
-  // Change page
-  // submissionDone()
-  const columnSelectDate = (text, dateState, changeDateFunction) => {
-    return (
-      <div className='flexVertical'>
-        <TextComponentPrimary text={text} size={30} />
-        <MyPickDate date={dateState} changeDateFunction={changeDateFunction} />
-
-      </div>
-
-    )
-  }
   const advance = () => {
     if (checkingDatesEqual(dateInit, dateInitFromDB) && checkingDatesEqual(dateEnd, dateEndFromDB)){
       keepDate()
@@ -120,6 +55,7 @@ export default function LoginDate({ urlBackend, logInDone }) {
       changeDate()
     }
   }
+
   return (
     <>
       {
@@ -127,8 +63,8 @@ export default function LoginDate({ urlBackend, logInDone }) {
 
           <div className="Login">
               <div className='flexHorizontal'>
-                {columnSelectDate("Selecionar data de início de filtro", dateInit, setDateInit)}
-                {columnSelectDate("Selecionar data de fim de filtro", dateEnd, setDateEnd)}
+                <ColumnDatePicker text="Selecionar data de início de filtro" dateState={dateInit} changeDateFunction={setDateInit} />
+                <ColumnDatePicker text="Selecionar data de fim de filtro" dateState={dateEnd} changeDateFunction={setDateEnd} />
               </div>
             <div className='flexHorizontal'>
               <Button variant="outlined" onClick={() => advance()  } style={{
