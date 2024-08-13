@@ -3,13 +3,12 @@ import { Bar } from 'react-chartjs-2';
 import StatsTable from './StatsTable';
 import React, { useState } from "react";
 
-import TextComponentPrimary from "../../TextComponents/TextPrimary";
-import Button from '@mui/material/Button';
+import MyButton from 'CommonComponents/MyButton';
 
 export default function EffortsGraph({ current_efforts, allocations, costsProjs, totalWorkHours }) {
 
   const labels = Object.keys(current_efforts).sort()
-  
+
   const current_efforts_tecns = labels.map((tecnId) => current_efforts[tecnId])
 
   const getEffortsCurrentAllcoation = () => {
@@ -35,11 +34,11 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
   })
   const indexOfLargestValue1 = totalEfforts1.reduce((maxIndex, currentValue, currentIndex, array) => currentValue > array[maxIndex] ? currentIndex : maxIndex, 0);
   const maxEffort = parseInt(totalEfforts1[indexOfLargestValue1])
-  
+
   const showOptionChangeTotalEffort = totalWorkHours > maxEffort * 1.1
-  
+
   const [totalWork, setTotalWork] = useState(true);
-  
+
   const options = {
     plugins: {
       title: {
@@ -68,7 +67,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
           display: true,
           text: "Horas de trabalho"
         },
-        max: totalWork ? Math.max(Math.floor(totalWorkHours * 1.1), parseInt(maxEffort*1.1)) : undefined,
+        max: totalWork ? Math.max(Math.floor(totalWorkHours * 1.1), parseInt(maxEffort * 1.1)) : undefined,
       },
     },
   };
@@ -201,19 +200,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
 
     }
   }
-  const button = (onClicki, text) => {
-    return (
-      <Button variant="outlined" onClick={onClicki} style={{
-        borderRadius: 10,
-        backgroundColor: "#32DBC4",
-        margin: "0% 0% 1% 0%",
-        fontSize: "14px",
-        color: "black",
-        fontWeight: "lighter",
-      }} ><TextComponentPrimary text={text} size={16} fontWeightGiven={"regular"} /></Button>
 
-    )
-  }
   return (
     <div className='horizontalFlex1' >
 
@@ -237,7 +224,7 @@ export default function EffortsGraph({ current_efforts, allocations, costsProjs,
         <div className='statsTable'>
           <StatsTable input={metrics()} />
         </div>
-        {showOptionChangeTotalEffort && button(switchShowTotalWorkHours, "Visualizar capacidade máxima")}
+        {showOptionChangeTotalEffort && <MyButton text={"Visualizar capacidade máxima"} onClick={switchShowTotalWorkHours} />}
       </div>
     </div>
   )

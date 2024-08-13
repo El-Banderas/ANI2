@@ -13,10 +13,6 @@ import TextComponentPrimary from "../TextComponents/TextPrimary";
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { ptBR } from '@mui/x-date-pickers/locales';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import MomentUtils from "@date-io/moment";
 import moment from "moment";
 import "moment/locale/pt";

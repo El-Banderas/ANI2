@@ -5,53 +5,29 @@ import SeachChooseTecn from './SearchChooseTecn';
 import ProjectCard from './ProjectCard';
 import axios from 'axios';
 
-import Button from '@mui/material/Button';
-import TextComponentPrimary from "../../TextComponents/TextPrimary";
 
 import Switch from '@mui/material/Switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import TableProjs from './TableProjs';
+import MyButton from "CommonComponents/MyButton";
+import useAllocation from "./useAllocation";
 
-export default function SecondPage({ scenarioInfo, urlBackend, scenarioChoosen, goBack }) {
+export default function ScenarioGraphPage({ scenarioInfo, urlBackend, scenarioChoosen, goBack }) {
   const [cardsOrTable, setCardsOrTable] = useState(true);
   const [selectedTecn, setSelectedTecn] = useState(null);
-  const [thisAllocation, setThisAllocation] = useState({ ...scenarioInfo["allocations"] });
+  const {thisAllocation, changeTecn} = useAllocation(scenarioInfo)
   const totalWorkHours = scenarioInfo["work_hours"];
 
   const current_efforts = scenarioInfo["current_efforts"]
   const costsProjs = scenarioInfo["costsProjs"]
 
-/*
-  useEffect(() => {
-    if (selectedTecn !== null && thisAllocation[selectedTecn] !== undefined) {
-      chooseCardOrTable()
-      
-    }
-  }, [selectedTecn])
-*/
-  const switchChanged = (event) => {
+
+  const switchCardOrTableChanged = (event) => {
     setCardsOrTable(event.target.checked)
   }
 
-  // New Tecn is the name
-  const changeTecn = (projID, oldTecn, newTecn) => {
-    let copyAllocation = { ...thisAllocation }
-    if (copyAllocation[oldTecn].length === 1) {
-      delete copyAllocation[oldTecn]
-    }
-    else {
-      copyAllocation[oldTecn] = copyAllocation[oldTecn].filter(number => number !== projID);
-    }
-    if (copyAllocation[newTecn] !== undefined) {
-      copyAllocation[newTecn].push(projID)
-    }
-    else {
-      copyAllocation[newTecn] = [projID]
-
-    }
-    setThisAllocation(copyAllocation)
-  }
+  
 
   const saveScenario = (name) => {
     console.log("Save scenario")
@@ -78,20 +54,6 @@ export default function SecondPage({ scenarioInfo, urlBackend, scenarioChoosen, 
     }).then(scenarioChoosen)
   }
 
-  const button = (onClicki, text) => {
-    return (
-      <Button variant="outlined" onClick={onClicki} style={{
-        borderRadius: 10,
-        backgroundColor: "#32DBC4",
-        margin: "0% 0% 1% 0%",
-        fontSize: "14px",
-        color: "black",
-        fontWeight: "lighter",
-      }} ><TextComponentPrimary text={text} size={16} fontWeightGiven={"regular"} /></Button>
-
-    )
-  }
-
   const chooseCardOrTable = () => {
     return cardsOrTable ?   
       <div className='scrollable'>
@@ -112,10 +74,10 @@ export default function SecondPage({ scenarioInfo, urlBackend, scenarioChoosen, 
           chooseCardOrTable()
       }
       <div className='allLeft'>
-        {button(goBack, "Voltar atrás")}
+        <MyButton text={"Voltar atrás"} onClicki={goBack} />
 
         <FormGroup>
-          <FormControlLabel control={<Switch defaultChecked onChange={switchChanged} />} label="Tabela" />
+          <FormControlLabel control={<Switch defaultChecked onChange={switchCardOrTableChanged} />} label="Tabela" />
         </FormGroup>
       </div>
     </div>

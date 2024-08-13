@@ -18,9 +18,8 @@ import TablePagination from '@mui/material/TablePagination';
 import './LoadProjects.scss'
 import useTableControls from './useTableControls';
 import useSubmitChanges from './useSubmitChanges';
-import { InsertPageBreakOutlined } from '@mui/icons-material';
 
-export default function TableProjects({ projects, urlBackend, submissionDone, unchangedInput, date, alreadyAllocated, setArgLastPage }) {
+export default function TableProjects({ projects, urlBackend, submissionDone, unchangedInput, date, alreadyAllocated}) {
 
     const {changedProjs, setChangedProjs, submit} = useSubmitChanges(urlBackend, unchangedInput, date, submissionDone)
 
@@ -28,6 +27,8 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
         if (idProject in changedProjs) {
             let project_to_update = changedProjs[idProject]
             delete project_to_update[[type]]
+            // Check if the entry (project changes) became empty.
+            // If it is empty, we can delete the project entry in the changedProjs dict.
             if (Object.keys(project_to_update).length === 0) {
                 let copyProjects = { ...changedProjs }
                 delete copyProjects[idProject]
@@ -57,19 +58,19 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
         }
     }
     /*
-    Here we do 2 things:
-    - Change the variable projects, so the changes be consistent when user changes table page, and returns.
-    - Change the variable "changeProjs", that is sent to backend, where it only changes the values.
-      This way, if a project changes to a next phase, it will trigger allocation.
-    So, we check if the change puts the value equal to the original. If the new value is equal to the original, 
-    we remove the change, else, we add it.
+     * Here we do 2 things:
+     * - Change the variable projects, so the changes be consistent when user changes table page, and returns.
+     * - Change the variable "changeProjs", that is sent to backend, where it only changes the values.
+     * This way, if a project changes to a next phase, it will trigger allocation.
+     * So, we check if the change puts the value equal to the original. If the new value is equal to the original, 
+     * we remove the change, else, we add it.
+
     */
     const changeCampProject = (value, idProject, type) => {
         const objIndex = projects["projects"].findIndex((obj => obj.id === idProject));
         if (type === "Esf. acompanhamento") {
             if (unchangedInput["projects"][objIndex].effort_accomp === value) {
                 removeChange(idProject, type, value)
-
             }
             else {
                 addChange(idProject, type, value)
@@ -89,17 +90,6 @@ export default function TableProjects({ projects, urlBackend, submissionDone, un
                 }
                 projects["projects"][objIndex].effort_analisis = value
             }
-            else {
-                if (unchangedInput["projects"][objIndex].phase === value) {
-                    removeChange(idProject, type, value)
-                }
-                else {
-
-                    addChange(idProject, type, value)
-                }
-                projects["projects"][objIndex].phase = value
-            }
-
         }
     }
 

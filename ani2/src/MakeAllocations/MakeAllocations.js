@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import LoadProjects from 'CommonComponents/ProjectsTable/LoadProjects';
 import Stepper from 'MakeAllocations/MyStepper';
 import './LoadProjects.scss'
-import SecondPage from './SecondPage/SecondPage';
 import axios from 'axios';
-import ChooseScenario from "./SecondPage/ChooseScenario";
+import ChooseScenario from "./SelectScenario/ChooseScenario";
+import ScenarioGraphPage from "./ScenarioGraphPage/ScenarioGraphPage";
 
 /**
  * After the "SelectDate" panel, the user gets this component, where he can start making an allocation.
@@ -67,7 +67,7 @@ export default function MakeAllocations({ urlBackend, date, submissionDone }) {
     if (activeStep === 0)
       return <LoadProjects urlBackend={urlBackend} submissionDone={handleNext} date={date} alreadyAllocated={false}  />
     if (activeStep === 1) return <ChooseScenario urlBackend={urlBackend} chooseScenario={chooseScenario} date={date} allScenariosDeleted={handleBack}/>
-    if (activeStep === 2) return <SecondPage scenarioInfo={argLastPage} urlBackend={urlBackend}  scenarioChoosen={submissionDone} goBack={handleBack} />
+    if (activeStep === 2) return <ScenarioGraphPage scenarioInfo={argLastPage} urlBackend={urlBackend}  scenarioChoosen={submissionDone} goBack={handleBack} />
   }
 
 

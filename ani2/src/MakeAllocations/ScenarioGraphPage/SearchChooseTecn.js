@@ -1,13 +1,13 @@
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import TextComponentPrimary from "../../TextComponents/TextPrimary";
+import TextComponentPrimary from "TextComponents/TextPrimary";
 import './SecondPage.scss'
 
 import React, { useState, useRef } from 'react';
-import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import MyButton from 'CommonComponents/MyButton';
 
 const style = {
   position: 'absolute',
@@ -24,34 +24,22 @@ const style = {
 
 export default function SeachChooseTecn({ possibilities, changeCurrentTecn, saveScenario, chooseScenarioToAllocation}) {
 
-  const [openSave, setOpenSave] = useState(false);
-  const [openChoose, setOpenChoose] = useState(false);
+  const [openModalSave, setOpenModalSave] = useState(false);
+  const [openModalChoose, setOpenModalChoose] = useState(false);
   const valueRefSave = useRef('') 
   const valueRefChoose = useRef('') 
-  const handleOpenSave = () => setOpenSave(true);
-  const handleCloseSave = () => setOpenSave(false);
-  const handleOpenChoose = () => setOpenChoose(true);
-  const handleCloseChoose = () => setOpenChoose(false);
+
+  const handleOpenSave = () => setOpenModalSave(true);
+  const handleCloseSave = () => setOpenModalSave(false);
+  const handleOpenChoose = () => setOpenModalChoose(true);
+  const handleCloseChoose = () => setOpenModalChoose(false);
+  
   const selectTecn = () => {
     const element = document.getElementById("SecPage-searchTecn").value;
 
     if (possibilities.includes(element)) {
       changeCurrentTecn(element)
     }
-  }
-
-  const thisButton = (texti, onClicki) => {
-    return <div>
-      <Button variant="outlined" onClick={onClicki} style={{
-        borderRadius: 10,
-        backgroundColor: "#32DBC4",
-        margin: "0% 0% 1% 0%",
-        fontSize: "14px",
-        color: "black",
-        fontWeight: "lighter",
-
-      }} ><TextComponentPrimary text={texti} size={16} fontWeightGiven={"regular"} /></Button>
-    </div>
   }
 
   const modalSave = (title, secondaryText, openF, closeF, btn,thisRef) => {
@@ -92,11 +80,11 @@ export default function SeachChooseTecn({ possibilities, changeCurrentTecn, save
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Técnico" />}
       />
-      {thisButton("Selecionar técnico", selectTecn)}
-      {thisButton("Salvar cenário", handleOpenSave)}
-      {thisButton("Escolher este cenário", handleOpenChoose)}
-      {openSave && modalSave("Salvar cenário", "Insira o nome do cenário para ser guardado", openSave, handleCloseSave, thisButton("Salvar", () => saveScenario(valueRefSave.current.value)), valueRefSave)}
-      {openChoose && modalSave("Escolher cenário", "", openChoose, handleCloseChoose, thisButton("Escolher", () => chooseScenarioToAllocation()), valueRefChoose)}
+      <MyButton text={"Selecionar técnico"} onClicki={selectTecn} />
+      <MyButton text={"Salvar cenário"} onClicki={handleOpenSave} />
+      <MyButton text={"Escolher este cenário"} onClicki={handleOpenChoose} />
+      {openModalSave && modalSave("Salvar cenário", "Insira o nome do cenário para ser guardado", openModalSave, handleCloseSave, <MyButton text={"Salvar"}  onClicki={() => saveScenario(valueRefSave.current.value)} />, valueRefSave)}
+      {openModalChoose && modalSave("Escolher cenário", "", openModalChoose, handleCloseChoose, <MyButton text={"Escolher"} onClicki={() => chooseScenarioToAllocation()} />, valueRefChoose)}
     </div>
 
   )
