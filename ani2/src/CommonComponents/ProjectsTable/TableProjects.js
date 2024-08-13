@@ -5,47 +5,24 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-import axios from 'axios';
 import Button from '@mui/material/Button';
-import TextComponentPrimary from "../TextComponents/TextPrimary";
+import TextComponentPrimary from "TextComponents/TextPrimary";
 import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import React, { useState } from "react";
-import { getDate } from '../utils/convertDates'
+import React from "react";
+import { getDate } from 'utils/convertDates'
 
 
 import TablePagination from '@mui/material/TablePagination';
 
 
 import './LoadProjects.scss'
+import useTableControls from './useTableControls';
+import useSubmitChanges from './useSubmitChanges';
+import { InsertPageBreakOutlined } from '@mui/icons-material';
 
-export default function TableProjects({ projects, urlBackend, submissionDone, unchangedInput, date, alreadyAllocated , setArgLastPage}) {
-    const [changedProjs, setChangedProjs] = useState({})
-    const [preventDoubleClick, setPreventDoubleClick] = useState(true)
+export default function TableProjects({ projects, urlBackend, submissionDone, unchangedInput, date, alreadyAllocated, setArgLastPage }) {
 
-    const submit = () => {
-        if (preventDoubleClick) {
-            setPreventDoubleClick(false)
-        axios({
-            method: 'put',
-            url: `${urlBackend}/scenarios/add_efforts`,
-            data: {
-                "projects": changedProjs, //projects["projects"]
-                "projects_ids": unchangedInput["projects"].map(x => x.id),
-                "date": date
-                //"name" : "AAA"
-            }
-        }).then(
-            (response) => {
-        submissionDone()
-  }
-        );
-
-}
-else {
-    console.log("Don't click two times, please, just wait!!!")
-}
-    }
+    const {changedProjs, setChangedProjs, submit} = useSubmitChanges(urlBackend, unchangedInput, date, submissionDone)
 
     const removeChange = (idProject, type, new_value) => {
         if (idProject in changedProjs) {
@@ -153,77 +130,9 @@ else {
         return <h6>Coisa</h6>
     }
 
-    const inputPhase = (defaultValue, id, value) => {
-        const title = "Fase"
-        return (
-            <TextField
-                id="outlined-number"
-                label={title}
-                defaultValue={defaultValue}
-                size="small"
-                select
-                fullWidth
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                onChange={(e) => changeCampProject(e.target.value, id, title)}>
-                {optionsPhases(id)}
-            </TextField>
-        )
-    }
-
-    const optionsPhases = (idProject) => {
-        // Get current phase of project
-        const currentPhaseProj = unchangedInput["projects"].find((obj => obj.id === idProject))["phase"];
-        const allPhases = ["Não alocado", "Análise", "Contratação", "Acompanhamento", "Encerramento"]
-        // Find the index of phase in allPhases, and slice, to get all the phases next to the current, and create options
-        // So, if current option is Análise, it will return "Análise", "Acompanhamento", ...
-        const num_phase = allPhases.findIndex((onePhase) => onePhase === currentPhaseProj)
-        return allPhases.slice(num_phase).map((phaseName) => (
-            <MenuItem key={phaseName} value={phaseName}>
-                {phaseName}
-            </MenuItem>
-        ))
-    }
-
     const alignText = "center"
 
-    // ----------------- Control table ------------------
-
-
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-
-    // Avoid a layout jump when reaching the last page with empty rows.
-    const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - projects["projects"].length) : 0;
-
-    const visibleRows = React.useMemo(
-        () =>
-            projects["projects"].slice().sort((a, b) => {
-                if (b["ID"] < a["ID"]) {
-                    return -1;
-                }
-                if (b["ID"] > a["ID"]) {
-                    return 1;
-                }
-                return 0;
-            }).slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage,
-            ),
-        [page, rowsPerPage, projects],
-    );
+    const {page, visibleRows, emptyRows, rowsPerPage, handleChangePage, handleChangeRowsPerPage} = useTableControls(projects)
 
     return (
         <div className='table'>
@@ -260,17 +169,17 @@ else {
                                     {!alreadyAllocated ?
                                         <>
 
-                                                <TableCell align={alignText} style={{ width: 160 }}>{project.phase}</TableCell>
+                                            <TableCell align={alignText} style={{ width: 160 }}>{project.phase}</TableCell>
                                             <TableCell align={alignText}>{inputEffort(project.effort_analisis, project.id, "effort_analisis")}</TableCell>
                                             <TableCell align={alignText}>{getTecn(project.allocation, "Analisis")}</TableCell>
                                             <TableCell align={alignText}>{inputEffort(project.effort_accomp, project.id, "effort_accomp")}</TableCell>
                                             <TableCell align={alignText}>{getTecn(project.allocation, "Accomp")}</TableCell>
                                             <TableCell align={alignText}>{getDate(project.data_init)}</TableCell>
                                             <TableCell align={alignText}>{getDate(project.data_end)}</TableCell>
-                                            </>
-                                            :
+                                        </>
+                                        :
 
-                                            <>
+                                        <>
 
                                             <TableCell align={alignText} style={{ width: 160 }}>{project.phase}</TableCell>
 
@@ -280,20 +189,20 @@ else {
                                             <TableCell align={alignText}>{getTecn(project.allocation, "Accomp")}</TableCell>
                                             <TableCell align={alignText}>{getDate(project.data_init)}</TableCell>
                                             <TableCell align={alignText}>{getDate(project.data_end)}</TableCell>
-                                                </>
+                                        </>
                                     }
-                                        </TableRow>
+                                </TableRow>
                             ))}
-                                    {emptyRows > 0 && (
-                                        <TableRow
-                                            style={{
-                                                height: 53 * emptyRows,
-                                            }}
-                                        >
-                                            <TableCell colSpan={6} />
-                                        </TableRow>
-                                    )}
-                                </TableBody>
+                            {emptyRows > 0 && (
+                                <TableRow
+                                    style={{
+                                        height: 53 * emptyRows,
+                                    }}
+                                >
+                                    <TableCell colSpan={6} />
+                                </TableRow>
+                            )}
+                        </TableBody>
                     </Table>
                 </TableContainer>
                 <TablePagination
@@ -304,19 +213,19 @@ else {
                     page={page}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
-                labelRowsPerPage= {"Projetos por página"}
+                    labelRowsPerPage={"Projetos por página"}
                 />
             </div>
-            { !alreadyAllocated &&  
-            <Button variant="outlined" onClick={() => submit()} style={{
-                borderRadius: 10,
-                backgroundColor: "#32DBC4",
-                margin: "0% 0% 1% 0%",
-                fontSize: "14px",
-                color: "black",
-                fontWeight: "lighter",
-            }} ><TextComponentPrimary text={"Submeter"} size={16} fontWeightGiven={"regular"} /></Button>
-        }
+            {!alreadyAllocated &&
+                <Button variant="outlined" onClick={() => submit()} style={{
+                    borderRadius: 10,
+                    backgroundColor: "#32DBC4",
+                    margin: "0% 0% 1% 0%",
+                    fontSize: "14px",
+                    color: "black",
+                    fontWeight: "lighter",
+                }} ><TextComponentPrimary text={"Submeter"} size={16} fontWeightGiven={"regular"} /></Button>
+            }
         </div>
     )
 }

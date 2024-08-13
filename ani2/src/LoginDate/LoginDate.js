@@ -19,6 +19,7 @@ export default function LoginDate({ urlBackend, logInDone }) {
 
   const [waitingForLoading, setWaitingForLoading] = useState(false)
 
+  // Function to change the backend date filters
   const {changeDate} = useChangeDate(urlBackend, setWaitingForLoading, dateInit, dateEnd, logInDone)
 
   const keepDate = () => {

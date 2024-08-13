@@ -2,7 +2,7 @@
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import moment from "moment";
-import TextComponentPrimary from '../TextComponents/TextPrimary';
+import TextComponentPrimary from 'TextComponents/TextPrimary';
 import "moment/locale/pt";
 export default function ColumnDatePicker({text, dateState, changeDateFunction}) {
 

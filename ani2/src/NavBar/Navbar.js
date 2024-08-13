@@ -60,9 +60,9 @@ export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
   }
 
   const btnsChangePage = <div className='btns'>
-    <ColorButton onClick={() => changeCurrentPage("chooseDate")} variant="outlined">Selecionar data</ColorButton  >
+    <ColorButton onClick={() => changeCurrentPage("SelectDateToAllocate")} variant="outlined">Selecionar data</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("tecnInfo")} variant="outlined">Ver técnicos</ColorButton  >
-    <ColorButton onClick={() => changeCurrentPage("alocatedProjs")} variant="outlined" >Projetos alocados</ColorButton  >
+    <ColorButton onClick={() => changeCurrentPage("SelectDateAlreadyAllocated")} variant="outlined" >Projetos alocados</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("landPageGraph")} variant="outlined" >Alocação geral</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("landPageSearch")} variant="outlined">Alocação de técnico</ColorButton  >
     <ColorButton onClick={() => reloadData()} variant="outlined">Reload Data</ColorButton  >

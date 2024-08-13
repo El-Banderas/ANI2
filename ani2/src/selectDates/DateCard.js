@@ -1,49 +1,57 @@
-import React, {useState} from "react";
-import axios from 'axios';
+import React, { useState } from "react";
 import Button from '@mui/material/Button';
 import TextComponentPrimary from "../TextComponents/TextPrimary";
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import {getDate} from '../utils/convertDates'
+import { getDate } from '../utils/convertDates'
 
 import './SelectDate.scss'
 
-export default function DateCard({  info, onClick, nextPage , special}) {
+/**
+ * Shows the information relative to one date.
+ * @param {dict} info Date info, like number of projects. 
+ * @param {function} onClick When the user selects a date, this function changes the page to next.
+ * @param {string} nextPage Next page name (could be projects already allocated, or to be allocated)
+ * @param {bool} special If this card should be highlighted or not (used when the projects are not allocated).
+ * @returns 
+ */
+export default function DateCard({ info, onClick, nextPage, special }) {
   
-const textLeft = (textField, bold=false) => {
-  const font = bold ? "medium" : "small"
-  const size = bold ? 15 : 10
+
+  const textLeft = (textField, bold = false) => {
+    const font = bold ? "medium" : "small"
+    const size = bold ? 15 : 10
+    return (
+      <div className="positionRelative" >
+        <div className="left">
+          <TextComponentPrimary size={size} text={textField} fontWeightGiven={font} />
+        </div>
+      </div>
+    )
+  }
+
+  const num_allocation_analisis = "Date_analisis" in info[1] ? info[1]["Date_analisis"] : 0
+  const num_allocation_accomp = ("Date_acomp" in info[1] && info[1]["Date_acomp"] !== null) ? info[1]["Date_acomp"] : 0
+  const backGroundColor = special ? "#FC848C" : ""
+  
   return (
-    <div className="positionRelative" >
-<div className="left">
-  <TextComponentPrimary size={size} text={textField} fontWeightGiven={font} />
-</div>
+    <div >
+      <Card sx={{ minWidth: 275, backgroundColor: backGroundColor }}>
+        <CardContent className="card">
+
+          {textLeft("Dia")}
+          {textLeft(getDate(info[0]), true)}
+          {textLeft()}
+          {textLeft(`N.º projetos análise: ${num_allocation_analisis}`)}
+          {textLeft(`N.º projetos acompanhamento: ${num_allocation_accomp}`)}
+
+
+        </CardContent>
+        <CardActions>
+          <Button size="small" onClick={() => onClick(info[0], nextPage)}>Selecionar</Button>
+        </CardActions>
+      </Card>
     </div>
   )
-}
-const num_allocation_analisis = "Date_analisis" in info[1] ? info[1]["Date_analisis"] : 0  
-const num_allocation_accomp = "Date_acomp" in info[1] ? info[1]["Date_acomp"] : 0  
-const backGroundColor = special ? "#FC848C" : ""
-   return (
-        <div >
-        <Card sx={{ minWidth: 275 , backgroundColor: backGroundColor}}>
-      <CardContent className="card">
-
-        {textLeft("Dia")}
-        {textLeft(getDate(info[0]), true)}
-        {textLeft()}
-        {textLeft(`N.º projetos análise: ${num_allocation_analisis}`)}
-        {textLeft(`N.º projetos acompanhamento: ${num_allocation_accomp}`)}
-        
-        
-      </CardContent>
-      <CardActions>
-        <Button size="small" onClick={() => onClick(info[0], nextPage )}>Selecionar</Button>
-      </CardActions>
-    </Card>
-        </div>
-    )
 }

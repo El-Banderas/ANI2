@@ -1,14 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
 import MainApp from './MainApp'
-import LoadProjects from './MakeAllocations/LoadProjects';
-import MyStepper from './MakeAllocations/Stepper';
-import React, {useEffect, useState} from "react";
+import LoadProjects from './CommonComponents/ProjectsTable/LoadProjects';
+import MakeAllocations from './MakeAllocations/MakeAllocations';
+import React, {useState} from "react";
 import NavBar from "./NavBar/Navbar";
 import LoginDate from './LoginDate/LoginDate';
 import Login from './Login/Login';
 import LoadTecn from './loadTecns/LoadTecn';
-import SelectInput from '@mui/material/Select/SelectInput';
 import SelectDate from './selectDates/SelectDate';
 
 function App() {
@@ -23,23 +21,18 @@ function App() {
   console.log(currentPage)
 
   const logInDone = () => {
-    setCurPage("chooseDate")
+    setCurPage("SelectDateToAllocate")
   }
 
-  const selectDatePage = () => {
-    setCurPage("chooseDate")
-  }
   const submissionDone = () => {
     setCurPage("landPageGraph")
-  }
-  const checkTecns = () => {
-    setCurPage("tecnInfo")
   }
 
   const chooseDate = (date, otherPage) => {
     setCurDate(date)
     setCurPage(otherPage)
   }
+
   const selectFilterDate = () => {
     setCurPage("loginDate")
   }
@@ -55,7 +48,13 @@ function App() {
         currentPage === "login" && <Login urlBackend={urlBackend} logInDone={selectFilterDate} setURLBackend={setURLBackend}/>
       }
       {
-        currentPage === "loadProjects" && <MyStepper urlBackend={urlBackend} selectDatePage={selectDatePage} date={currentDate} alreadyAllocated={false} submissionDone={submissionDone}/>
+        currentPage === "SelectDateToAllocate" && <SelectDate urlBackend={urlBackend} submissionDone={chooseDate} keywordGet={"get_allocation_dates"}>Ver datas </SelectDate >
+      }
+      {
+        currentPage === "SelectDateAlreadyAllocated" && <SelectDate urlBackend={urlBackend} submissionDone={chooseDate} keywordGet={"get_allocatted_dates"}>Ver Projetos alocados </SelectDate >
+      }
+      {
+        currentPage === "MakeAllocations" && <MakeAllocations urlBackend={urlBackend} date={currentDate}  submissionDone={submissionDone}/>
         //currentPage === "loadProjects" && <h1>Load projs</h1>
       }
 
@@ -73,13 +72,7 @@ function App() {
       {
         currentPage === "tecnInfo" && <LoadTecn urlBackend={urlBackend} submissionDone={submissionDone}>Ver técnicos</LoadTecn>
       }
-      {
-        currentPage === "chooseDate" && <SelectDate urlBackend={urlBackend} submissionDone={chooseDate} keywordGet={"get_allocation_dates"}>Ver datas </SelectDate >
-      }
 
-      {
-        currentPage === "alocatedProjs" && <SelectDate urlBackend={urlBackend} submissionDone={chooseDate} keywordGet={"get_allocatted_dates"}>Ver Projetos alocados </SelectDate >
-      }
     </div>
   );
 }
