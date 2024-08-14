@@ -64,8 +64,7 @@ export default function MakeAllocations({ urlBackend, date, submissionDone }) {
   }
 
   const chooseContent = () => {
-    if (activeStep === 0)
-      return <LoadProjects urlBackend={urlBackend} submissionDone={handleNext} date={date} alreadyAllocated={false}  />
+    if (activeStep === 0) return <LoadProjects urlBackend={urlBackend} submissionDone={handleNext} date={date} alreadyAllocated={false}  />
     if (activeStep === 1) return <ChooseScenario urlBackend={urlBackend} chooseScenario={chooseScenario} date={date} allScenariosDeleted={handleBack}/>
     if (activeStep === 2) return <ScenarioGraphPage scenarioInfo={argLastPage} urlBackend={urlBackend}  scenarioChoosen={submissionDone} goBack={handleBack} />
   }

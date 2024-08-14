@@ -1,18 +1,4 @@
-.searchTecn{
-    display: flex;
-    gap: 3%;
-}
-.scrollable {
-    margin-top: 3%;
-    margin-left: 3%;
-      display: flex;
-  flex-direction: row;
-  overflow-x: auto;
-  width: 90vw;
-  justify-content: flex-start;
 
-  gap: 3%;
-}
 .horizontalFlex1{
    display: flex;
    flex-direction: row;
@@ -23,7 +9,17 @@
    margin-left: 6%;
 }
 
-
+.growBarChart{
+  flex-grow: 3;
+  max-width: 93%;
+}
+.statsTable{
+  flex-shrink: 3;
+   transform: translateY(15%);
+   margin-left: 1%;
+   border: 3px solid grey; 
+   height: fit-content;
+}
 .horizontalFlex{
    display: flex;
    flex-direction: row;

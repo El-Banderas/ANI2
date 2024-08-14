@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import EffortsGraph from './EffortsGraph'
+import EffortsGraph from './GraphAndStatsTable/EffortsGraph'
 import SeachChooseTecn from './SearchChooseTecn';
 import ProjectCard from './ProjectCard';
 import axios from 'axios';
@@ -61,13 +61,13 @@ export default function ScenarioGraphPage({ scenarioInfo, urlBackend, scenarioCh
       </div>
         : 
         <div>
-        <TableProjs projsId={thisAllocation[selectedTecn]} info={costsProjs} tecnId={selectedTecn} changeTecn={changeTecn} possibleTecns={Object.keys(current_efforts).map(String)}/>
+        <TableProjs projsId={thisAllocation[selectedTecn]} costsProjs={costsProjs} tecnId={selectedTecn} changeTecn={changeTecn} possibleTecns={Object.keys(current_efforts).map(String)}/>
         </div>
   }
 
   return (
     <div >
-      <EffortsGraph current_efforts={current_efforts} allocations={thisAllocation} costsProjs={costsProjs} totalWorkHours={totalWorkHours} />
+      <EffortsGraph old_efforts={current_efforts} allocations={thisAllocation} costsProjs={costsProjs} totalWorkHours={totalWorkHours} />
       <SeachChooseTecn possibilities={Object.keys(thisAllocation)} changeCurrentTecn={setSelectedTecn} saveScenario={saveScenario} chooseScenarioToAllocation={chooseScenarioToAllocation} />
       {
         selectedTecn !== null && thisAllocation[selectedTecn] !== undefined &&

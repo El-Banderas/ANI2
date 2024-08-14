@@ -23,6 +23,9 @@ const style = {
 };
 
 export default function SeachChooseTecn({ possibilities, changeCurrentTecn, saveScenario, chooseScenarioToAllocation}) {
+  /**
+   * There are two different modals, so it is important to have different states, one for each of them.
+   */
 
   const [openModalSave, setOpenModalSave] = useState(false);
   const [openModalChoose, setOpenModalChoose] = useState(false);
@@ -42,7 +45,7 @@ export default function SeachChooseTecn({ possibilities, changeCurrentTecn, save
     }
   }
 
-  const modalSave = (title, secondaryText, openF, closeF, btn,thisRef) => {
+  const modal = (title, secondaryText, openF, closeF, btn,thisRef) => {
     return (
       <Modal
         open={openF}
@@ -83,8 +86,8 @@ export default function SeachChooseTecn({ possibilities, changeCurrentTecn, save
       <MyButton text={"Selecionar técnico"} onClicki={selectTecn} />
       <MyButton text={"Salvar cenário"} onClicki={handleOpenSave} />
       <MyButton text={"Escolher este cenário"} onClicki={handleOpenChoose} />
-      {openModalSave && modalSave("Salvar cenário", "Insira o nome do cenário para ser guardado", openModalSave, handleCloseSave, <MyButton text={"Salvar"}  onClicki={() => saveScenario(valueRefSave.current.value)} />, valueRefSave)}
-      {openModalChoose && modalSave("Escolher cenário", "", openModalChoose, handleCloseChoose, <MyButton text={"Escolher"} onClicki={() => chooseScenarioToAllocation()} />, valueRefChoose)}
+      {openModalSave && modal("Salvar cenário", "Insira o nome do cenário para ser guardado", openModalSave, handleCloseSave, <MyButton text={"Salvar"}  onClicki={() => saveScenario(valueRefSave.current.value)} />, valueRefSave)}
+      {openModalChoose && modal("Escolher cenário", "", openModalChoose, handleCloseChoose, <MyButton text={"Escolher"} onClicki={() => chooseScenarioToAllocation()} />, valueRefChoose)}
     </div>
 
   )

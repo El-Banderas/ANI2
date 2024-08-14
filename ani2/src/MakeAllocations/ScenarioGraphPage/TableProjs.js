@@ -13,16 +13,20 @@ import TextField from '@mui/material/TextField';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import { IconButton } from '@mui/material';
 import './SecondPage.scss'
+import useTableControls from "./useTableControls";
 
-export default function TableProjs({ projsId, info, tecnId, changeTecn, possibleTecns}) {
+export default function TableProjs({ projsId, costsProjs, tecnId, changeTecn, possibleTecns}) {
 
+  /**
+   * Key = project id
+   * Value = Tecn name
+   */
   const [tecnsSelected, setSelectedTecns] = useState({});
 
-  if (!possibleTecns.includes("")) {
-  possibleTecns.push("")
-  }
 
-  const userChooseTecn = (projId1, tecnName) => {
+   /** Relative to user selecting a tecn in the input box */
+const userChooseTecn = (projId1, tecnName) => {
+    //When the user have selected a tecn, but now he deletes him.
     if(tecnName === null){
       let copyState = tecnsSelected
       delete copyState[projId1]
@@ -32,24 +36,6 @@ export default function TableProjs({ projsId, info, tecnId, changeTecn, possible
 
     setSelectedTecns({...tecnsSelected, [projId1] : tecnName})
     }
-  }
-
-  const allProjsFiltered = Object.values(Object.fromEntries(Object.entries(info).filter(([k,v]) => projsId.includes(Number(k)))))
-  
-  const [projsFiltered, setProjsFilterd] = useState(allProjsFiltered);
-  useEffect(() => {
-    setProjsFilterd(allProjsFiltered)
-    setSelectedTecns({})
-  }, projsId)
-  const sendChangeTecn = (projId) => {
-    if (tecnsSelected[projId] !== undefined) {
-      if (tecnsSelected[projId] !== tecnId) {
-      changeTecn(Number(projId), tecnId, tecnsSelected[projId])
-      const filteredProjs = projsFiltered.filter((projDict) => projDict.id !== projId)
-      setProjsFilterd(filteredProjs)
-      }
-    }
-
   }
 
   const inputActive = (projId) => {
@@ -73,49 +59,45 @@ export default function TableProjs({ projsId, info, tecnId, changeTecn, possible
     )
   }
 
+ 
+   /** Relative to projects information */
+
+  /**
+   * Convert projects ids to their information, in a list format. 
+   * Projects information is in costsProjs variable
+   */
+  const allProjsFiltered = Object.values(Object.fromEntries(Object.entries(costsProjs).filter(([k,v]) => projsId.includes(Number(k)))))
+  
+  const [projsFiltered, setProjsFilterd] = useState(allProjsFiltered);
+
+  useEffect(() => {
+    setProjsFilterd(allProjsFiltered)
+    setSelectedTecns({})
+  }, projsId)
+  
+  const sendChangeTecn = (projId) => {
+    if (tecnsSelected[projId] !== undefined) {
+      // If the destiny tecn is different from the current, update the project allocation 
+      if (tecnsSelected[projId] !== tecnId) {
+      changeTecn(Number(projId), tecnId, tecnsSelected[projId])
+      // Delete the project from this state.
+      const filteredProjs = projsFiltered.filter((projDict) => projDict.id !== projId)
+      setProjsFilterd(filteredProjs)
+      }
+    }
+
+  }
+
+
+
 
   const alignText = "center"
-
-  // ----------------- Handle table -----------------------
-
-  const orderBy = "ID"
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const visibleRows = useMemo(
-    () =>
-      projsFiltered.slice().sort((a, b) => {
-        if (b[orderBy] < a[orderBy]) {
-          return -1;
-        }
-        if (b[orderBy] > a[orderBy]) {
-          return 1;
-        }
-        return 0;
-      }).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
-      ),
-    [orderBy, page, rowsPerPage, projsFiltered, tecnId],
-  );
-
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - projsFiltered.length) : 0;
-
-  
+    
 const cleanDate = (date) => {
   return date.split(" ")[0]
 }
+ 
+  const {visibleRows, emptyRows, rowsPerPage, page, handleChangePage, handleChangeRowsPerPage} = useTableControls(projsFiltered, tecnId);
 
   return (
     <div>
