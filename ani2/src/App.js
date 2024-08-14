@@ -48,10 +48,13 @@ function App() {
         currentPage === "login" && <Login urlBackend={urlBackend} logInDone={selectFilterDate} setURLBackend={setURLBackend}/>
       }
       {
-        currentPage === "SelectDateToAllocate" && <SelectDate urlBackend={urlBackend} submissionDone={chooseDate} keywordGet={"get_allocation_dates"}>Ver datas </SelectDate >
+        currentPage === "SelectDateToAllocate" && <SelectDate urlBackend={urlBackend} submissionDone={chooseDate} keywordGet={"get_allocation_dates"}/>
       }
       {
-        currentPage === "SelectDateAlreadyAllocated" && <SelectDate urlBackend={urlBackend} submissionDone={chooseDate} keywordGet={"get_allocatted_dates"}>Ver Projetos alocados </SelectDate >
+        currentPage === "tecnsInfo" && <LoadTecn urlBackend={urlBackend} submissionDone={submissionDone} />
+      }
+      {
+        currentPage === "SelectDateAlreadyAllocated" && <SelectDate urlBackend={urlBackend} submissionDone={chooseDate} keywordGet={"get_allocatted_dates"}/>
       }
       {
         currentPage === "MakeAllocations" && <MakeAllocations urlBackend={urlBackend} date={currentDate}  submissionDone={submissionDone}/>
@@ -68,9 +71,6 @@ function App() {
 
       {
         currentPage === "landPageGraph" && <MainApp urlBackend={urlBackend} chartOrSearch={true} />
-      }
-      {
-        currentPage === "tecnInfo" && <LoadTecn urlBackend={urlBackend} submissionDone={submissionDone}>Ver técnicos</LoadTecn>
       }
 
     </div>

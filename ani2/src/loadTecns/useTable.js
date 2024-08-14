@@ -1,7 +1,7 @@
 
 import React, { useState, useMemo } from "react";
 
-export default function useTableControls( projsFiltered, tecnId ) {
+export default function useTable( tecns ) {
 const orderBy = "ID"
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -15,9 +15,9 @@ const orderBy = "ID"
     setPage(0);
   };
 
-  const visibleRows = useMemo(
+  const visibleRows = React.useMemo(
     () =>
-      projsFiltered.slice().sort((a, b) => {
+      tecns.slice().sort((a, b) => {
         if (b[orderBy] < a[orderBy]) {
           return -1;
         }
@@ -29,13 +29,13 @@ const orderBy = "ID"
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage,
       ),
-    [orderBy, page, rowsPerPage, projsFiltered, tecnId],
+    [orderBy, page, rowsPerPage, tecns],
   );
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - projsFiltered.length) : 0;
-
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tecns.length) : 0;
 
     return {page, visibleRows, emptyRows, rowsPerPage, handleChangePage, handleChangeRowsPerPage};
+
 }
