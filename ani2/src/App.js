@@ -1,5 +1,4 @@
 import './App.css';
-import MainApp from './MainApp'
 import LoadProjects from './CommonComponents/ProjectsTable/LoadProjects';
 import MakeAllocations from './MakeAllocations/MakeAllocations';
 import React, {useState} from "react";
@@ -9,6 +8,7 @@ import Login from './Login/Login';
 import LoadTecn from './loadTecns/LoadTecn';
 import SelectDate from './selectDates/SelectDate';
 import GraphAllAllocation from 'GraphAllAllocation/GraphAllAllocation';
+import LandPageSearch from 'LandPage/LandPageSearch';
 
 function App() {
   //const urlBackend = "http://127.0.0.1:8000" 
@@ -67,7 +67,7 @@ function App() {
         currentPage === "GraphAllAllocation" && <GraphAllAllocation urlBackend={urlBackend} />
       }
       {
-        currentPage === "SearchOneTecn" && <MainApp urlBackend={urlBackend} chartOrSearch={false} />
+        currentPage === "SearchOneTecn" && <LandPageSearch  urlBackend={urlBackend}/> 
       }
 
     </div>

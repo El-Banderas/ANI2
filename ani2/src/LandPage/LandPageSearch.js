@@ -8,11 +8,17 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TasksCards from '../TaskPage/TasksCards'
 import TextComponentPrimary from "../CommonComponents/TextComponents/TextPrimary";
 import  BarChart from './Barchart';
+import useGetAllocations from './useGetAllocations';
 
-export default function LandPageChart({ defaultInput, updateInput, urlBackend }) {
-    console.log("Default input")
-    console.log(defaultInput)
+import CircularProgress from '@mui/material/CircularProgress';
+export default function LandPageSearch({ urlBackend }) {
+    
     const [currentArg, setCurrentArg] = useState("");
+    const defaultInput = useGetAllocations(urlBackend)
+    
+    console.log("??? Default O input")
+    console.log(defaultInput)
+    
     const [currentSidePage, setCurrentSidePage] = useState("none");
     const [currentselectedTecns, setCurrentSelectedTecns] = useState(0);
 
@@ -55,15 +61,16 @@ export default function LandPageChart({ defaultInput, updateInput, urlBackend })
         return Object.keys(defaultInput["input"]["technicians"]).sort()
     }
 
-    const max_graph = 5
-    const num_tecns = Object.keys(defaultInput["input"]["technicians"]).length
-    const maxSlider = num_tecns / (max_graph)
-    const currentTecnsNames = Object.entries(defaultInput["input"]["technicians"]).slice(currentselectedTecns * max_graph, currentselectedTecns * max_graph + max_graph).map((pair) => pair[0])
-    //const currentTecnsNames = Object.keys(defaultInput["technicians"])
 
     return (
         <div >
-            {/**Caso dê problemas, remover o everything */}
+{
+            defaultInput === undefined ?
+                                <div>
+                    <h1>Loading</h1>
+                    <CircularProgress />
+                </div>
+                :
             <div className="everything">
                 <Stack
                     direction="column"
@@ -96,6 +103,8 @@ export default function LandPageChart({ defaultInput, updateInput, urlBackend })
                     decideSidePannel(currentSidePage)
                 }
             </div>
+
+        }
         </div>
     )
 

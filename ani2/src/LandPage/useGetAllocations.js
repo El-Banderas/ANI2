@@ -1,18 +1,7 @@
-import './App.css';
-import LandPageChart from './LandPage/LandPageChart'
-import LandPageSearch from './LandPage/LandPageSearch'
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
-import CircularProgress from '@mui/material/CircularProgress';
-import React, {useEffect, useState} from "react";
-
-export default function MainApp({urlBackend, chartOrSearch}) {
-
-  useEffect( () => {
-    getAttributions();
-  }, [] );
-
-  const tasks = {
+const tasks = {
     "Task1": 5,
     "Task2": 7,
     "Task3": 3,
@@ -41,7 +30,12 @@ export default function MainApp({urlBackend, chartOrSearch}) {
               "std" : 0,
               "amp" : 0,
             } }
-  const [input, setInput] = useState(defaultInput)
+ 
+export default function useGetAllocations( urlBackend ) {
+  /**
+   * Default input, in case the server is down, to don't show error to user.
+   */
+ const [input, setInput] = useState(defaultInput)
 
   
 const getAttributions =  () => {
@@ -54,27 +48,14 @@ const getAttributions =  () => {
             setInput(cleanAnswer)
           }
         ).catch(error => console.error(`Error: ${error}`))
-        //axios.get('http://localhost:7999/')
     }
 
- 
-  const currentTech = "Tec1"
-    const chooseBarOrSearch = () => chartOrSearch ? 
-            <LandPageChart defaultInput={input} updateInput={setInput} urlBackend={urlBackend}/> :
-            <LandPageSearch defaultInput={input} updateInput={setInput} urlBackend={urlBackend}/> 
 
-  // Other routes not working
-  return (
-    <div className="App">
-          { Object.keys(input).length > 0 ?
-           chooseBarOrSearch() 
-             :
-            <div>
-            <h1>Loading</h1> 
-            <CircularProgress />
-            </div>
-          }
-    </div>
-  );
+    useEffect(() => {
+      getAttributions();
+    },[]);
+
+
+    
+  return input;
 }
-
