@@ -14,7 +14,7 @@ import useGetDates from "./useGetDates";
    */
 export default function SelectDate({ urlBackend, submissionDone, keywordGet }) {
 
-  const nextPage = keywordGet === "get_allocatted_dates" ? "loadProjectsAllocated" : "MakeAllocations"
+  const nextPage = keywordGet === "get_allocatted_dates" ? "LoadProjectsAllocated" : "MakeAllocations"
 
   const { dates, scenarioDay } = useGetDates(urlBackend, keywordGet, nextPage)
 

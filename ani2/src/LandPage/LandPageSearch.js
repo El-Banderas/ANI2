@@ -6,7 +6,7 @@ import TaskPage from "../TaskPage/TaskMain";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import TasksCards from '../TaskPage/TasksCards'
-import TextComponentPrimary from "../TextComponents/TextPrimary";
+import TextComponentPrimary from "../CommonComponents/TextComponents/TextPrimary";
 import  BarChart from './Barchart';
 
 export default function LandPageChart({ defaultInput, updateInput, urlBackend }) {

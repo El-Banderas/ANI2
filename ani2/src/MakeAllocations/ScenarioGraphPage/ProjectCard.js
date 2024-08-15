@@ -7,7 +7,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import './SecondPage.scss';
 import TextField from '@mui/material/TextField';
-import TextComponentPrimary from "../../TextComponents/TextPrimary";
+import TextComponentPrimary from "../../CommonComponents/TextComponents/TextPrimary";
 import MyButton from 'CommonComponents/MyButton';
 
 

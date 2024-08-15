@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './TaskMain.scss';
 import TextField from '@mui/material/TextField';
-import TextComponentPrimary from "../TextComponents/TextPrimary";
+import TextComponentPrimary from "../CommonComponents/TextComponents/TextPrimary";
 
 /**
  * This class shows the projects the tech is involved, in cards

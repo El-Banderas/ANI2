@@ -1,6 +1,6 @@
 
 import Button from '@mui/material/Button';
-import TextComponentPrimary from "TextComponents/TextPrimary";
+import TextComponentPrimary from "CommonComponents/TextComponents/TextPrimary";
 
 export default function MyButton({text, onClicki}){
     return <Button variant="outlined" onClick={onClicki} style={{

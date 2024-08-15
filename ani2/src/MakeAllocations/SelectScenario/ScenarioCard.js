@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-import TextComponentPrimary from 'TextComponents/TextPrimary';
+import TextComponentPrimary from 'CommonComponents/TextComponents/TextPrimary';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 export default function ScenarioCard({ info, setScenario, metrics, deleteScenario }) {

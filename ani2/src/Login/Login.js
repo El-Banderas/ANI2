@@ -1,4 +1,4 @@
-import TextComponentPrimary from 'TextComponents/TextPrimary'
+import TextComponentPrimary from 'CommonComponents/TextComponents/TextPrimary'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './Login.scss';

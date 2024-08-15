@@ -1,7 +1,7 @@
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import TextComponentPrimary from "TextComponents/TextPrimary";
+import TextComponentPrimary from "CommonComponents/TextComponents/TextPrimary";
 import './SecondPage.scss'
 
 import React, { useState, useRef } from 'react';

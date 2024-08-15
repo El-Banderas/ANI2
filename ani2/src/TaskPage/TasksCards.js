@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import './TaskMain.scss';
 import axios from 'axios';
 import ProjectCard from './ProjectCard'
-import TextComponentPrimary from "../TextComponents/TextPrimary";
+import TextComponentPrimary from "../CommonComponents/TextComponents/TextPrimary";
 import Switch from '@mui/material/Switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';

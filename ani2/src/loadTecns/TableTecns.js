@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 
 import axios from 'axios';
 import Button from '@mui/material/Button';
-import TextComponentPrimary from "../TextComponents/TextPrimary";
+import TextComponentPrimary from "../CommonComponents/TextComponents/TextPrimary";
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -18,12 +18,13 @@ import moment from "moment";
 import "moment/locale/pt";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import useTable from "./useTable"
+import useTecnsActive from "./useTecnsActive"
 
 
 import './LoadTecns.scss'
 
 export default function TableTecns({ tecns, urlBackend, submissionDone }) {
-  const [changedTecns, setChangedTecns] = useState({})
+  const {changedTecns, changeActivePhase, checkTecnActive, setTecnDateOut} = useTecnsActive(tecns)
   //const changedTecns= {}
   const submit = () => {
     console.log("PUT tecn")
@@ -42,25 +43,7 @@ export default function TableTecns({ tecns, urlBackend, submissionDone }) {
     console.log(changedTecns)
   }
 
-  const changeActivePhase = (new_value, id, title) => {
-
-    const objIndex = tecns.findIndex((obj => obj.id === id));
-    if (title === "Active") {
-      // Convert string to value that DB could store
-      const to_store = new_value === "Sim" ? 1 : 0
-      tecns[objIndex].active = to_store
-    }
-    if (id in changedTecns) {
-      let copyChangedTecns = { ...changedTecns }
-      delete copyChangedTecns[id]
-      setChangedTecns(old => ({
-        ...copyChangedTecns
-      }))
-    }
-    else {
-      setChangedTecns({ ...changedTecns, [id]: { "answer": new_value, date: new Date() } })
-    }
-  }
+  
 
   const inputActive = (defaultValue, id, value) => {
     const title = "Ativo"
@@ -82,8 +65,6 @@ export default function TableTecns({ tecns, urlBackend, submissionDone }) {
             {state}
           </MenuItem>
         )
-
-
         )
         }
       </TextField>
@@ -94,18 +75,7 @@ export default function TableTecns({ tecns, urlBackend, submissionDone }) {
 
   const alignText = "center"
 
-    const checkTecnActive = (active, tecnId) => {
-    const tecnSetInactive = tecnId in changedTecns && changedTecns[tecnId]["answer"] === "Não"
-    // True => Disabled
-    // If the tecn is not active, is out, the datepicker is disabled
-    // If the tecn was changed to a state of "Não", it will allow do datepick
-    return active === 0 || !tecnSetInactive
-  }
-
-  const setTecnDateOut = (tecnId, date) => {
-    const oldValue = changedTecns[tecnId]["answer"]
-    setChangedTecns({ ...changedTecns, [tecnId]: { "answer": oldValue, date: date._d } })
-  }
+    
 
   const MyPickDate = ({ maybeDisabled, tecnId }) => {
 

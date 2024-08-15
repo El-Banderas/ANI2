@@ -6,7 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 import Button from '@mui/material/Button';
-import TextComponentPrimary from "TextComponents/TextPrimary";
+import TextComponentPrimary from "CommonComponents/TextComponents/TextPrimary";
 import TextField from '@mui/material/TextField';
 import React from "react";
 import { getDate } from 'utils/convertDates'

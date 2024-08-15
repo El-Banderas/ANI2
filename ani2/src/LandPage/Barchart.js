@@ -12,10 +12,9 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
 import BarChart2 from './Barchart2';
 import './BarGraph.scss';
-import TextComponentPrimary from "../TextComponents/TextPrimary";
+import TextComponentPrimary from "../CommonComponents/TextComponents/TextPrimary";
 import { useDateTimeField } from "@mui/x-date-pickers/DateTimeField/useDateTimeField";
 
 ChartJS.register(
@@ -26,11 +25,6 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max) + 1;
-}
-
-
 
 const randomColor = () => {
   const randomColor = Math.floor(Math.random()*16777215).toString(16);

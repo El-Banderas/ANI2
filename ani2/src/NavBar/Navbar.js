@@ -4,7 +4,7 @@ import Ani from "./ani_corner.png";
 import UminhoPNG from "./uminho_corner.png";
 import Logos from "./NavBar2.png";
 import IsepPNG from "./isep_corner.png";
-import TextWhite from '../TextComponents/TextWhite';
+import TextWhite from '../CommonComponents/TextComponents/TextWhite';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Backdrop from '@mui/material/Backdrop';
@@ -63,8 +63,8 @@ export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
     <ColorButton onClick={() => changeCurrentPage("SelectDateToAllocate")} variant="outlined">Selecionar data</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("tecnsInfo")} variant="outlined">Ver técnicos</ColorButton  >
     <ColorButton onClick={() => changeCurrentPage("SelectDateAlreadyAllocated")} variant="outlined" >Projetos alocados</ColorButton  >
-    <ColorButton onClick={() => changeCurrentPage("landPageGraph")} variant="outlined" >Alocação geral</ColorButton  >
-    <ColorButton onClick={() => changeCurrentPage("landPageSearch")} variant="outlined">Alocação de técnico</ColorButton  >
+    <ColorButton onClick={() => changeCurrentPage("GraphAllAllocation")} variant="outlined" >Alocação geral</ColorButton  >
+    <ColorButton onClick={() => changeCurrentPage("SearchOneTecn")} variant="outlined">Alocação de técnico</ColorButton  >
     <ColorButton onClick={() => reloadData()} variant="outlined">Reload Data</ColorButton  >
   </div>
   const moreMargin = loggedIn ? "titleNavBar" : "titleNavBarWithMargin";

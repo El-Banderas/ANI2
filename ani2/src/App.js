@@ -8,6 +8,7 @@ import LoginDate from './LoginDate/LoginDate';
 import Login from './Login/Login';
 import LoadTecn from './loadTecns/LoadTecn';
 import SelectDate from './selectDates/SelectDate';
+import GraphAllAllocation from 'GraphAllAllocation/GraphAllAllocation';
 
 function App() {
   //const urlBackend = "http://127.0.0.1:8000" 
@@ -25,7 +26,7 @@ function App() {
   }
 
   const submissionDone = () => {
-    setCurPage("landPageGraph")
+    setCurPage("GraphAllAllocation")
   }
 
   const chooseDate = (date, otherPage) => {
@@ -58,19 +59,15 @@ function App() {
       }
       {
         currentPage === "MakeAllocations" && <MakeAllocations urlBackend={urlBackend} date={currentDate}  submissionDone={submissionDone}/>
-        //currentPage === "loadProjects" && <h1>Load projs</h1>
-      }
-
-      {
-        currentPage === "loadProjectsAllocated" && <LoadProjects urlBackend={urlBackend} submissionDone={submissionDone} date={currentDate} alreadyAllocated={true}/>
-        //currentPage === "loadProjects" && <h1>Load projs</h1>
       }
       {
-        currentPage === "landPageSearch" && <MainApp urlBackend={urlBackend} chartOrSearch={false} />
+        currentPage === "LoadProjectsAllocated" && <LoadProjects urlBackend={urlBackend} submissionDone={submissionDone} date={currentDate} alreadyAllocated={true}/>
       }
-
       {
-        currentPage === "landPageGraph" && <MainApp urlBackend={urlBackend} chartOrSearch={true} />
+        currentPage === "GraphAllAllocation" && <GraphAllAllocation urlBackend={urlBackend} />
+      }
+      {
+        currentPage === "SearchOneTecn" && <MainApp urlBackend={urlBackend} chartOrSearch={false} />
       }
 
     </div>
