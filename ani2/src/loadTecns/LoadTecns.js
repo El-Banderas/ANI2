@@ -3,7 +3,7 @@ import TableTecns from "./TableTecns";
 
 import useGetTecns from './useGetTecns'
 
-export default function LoadTecn({urlBackend, submissionDone}) {
+export default function LoadTecns({urlBackend, submissionDone}) {
 
     const {tecns} = useGetTecns(urlBackend);
 

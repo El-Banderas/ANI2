@@ -46,40 +46,7 @@ export default function TasksCards({ name, urlBackend }) {
     ).catch(error => console.error(`Error: ${error}`))
   }
 
-  // Render part
-
-
-  const convertPhaseToString = (phaseInt) => {
-    switch (phaseInt) {
-      case "0":
-        return "Por avaliar";
-      case "1":
-        return "Aprovado";
-      case "2":
-        return "Rejeitado";
-      case "3":
-        return "Concluido";
-      default:
-        return phaseInt.toString()
-    }
-  }
-  const getColourByPhase = (phaseInt) => {
-    switch (phaseInt) {
-      case 0:
-        return "#FFFFF0";
-      case 1:
-        return "#ADFF2F";
-      case 2:
-        return "#FF6347";
-      case 3:
-        return "#40E0D0";
-    }
-  }
-  const commonStyles = {
-    borderColor: 'text.primary',
-  };
-
-  const renderProjectInfo = (info) => {
+   const renderProjectInfo = (info) => {
     return <ProjectCard key={info.id} info={info} tecnId={tecnId} />
   }
 

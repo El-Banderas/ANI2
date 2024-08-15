@@ -5,7 +5,7 @@ import React, {useState} from "react";
 import NavBar from "./NavBar/Navbar";
 import LoginDate from './LoginDate/LoginDate';
 import Login from './Login/Login';
-import LoadTecn from './loadTecns/LoadTecn';
+import LoadTecns from './loadTecns/LoadTecns';
 import SelectDate from './selectDates/SelectDate';
 import GraphAllAllocation from 'GraphAllAllocation/GraphAllAllocation';
 import LandPageSearch from 'LandPage/LandPageSearch';
@@ -52,7 +52,7 @@ function App() {
         currentPage === "SelectDateToAllocate" && <SelectDate urlBackend={urlBackend} submissionDone={chooseDate} keywordGet={"get_allocation_dates"}/>
       }
       {
-        currentPage === "tecnsInfo" && <LoadTecn urlBackend={urlBackend} submissionDone={submissionDone} />
+        currentPage === "tecnsInfo" && <LoadTecns urlBackend={urlBackend} submissionDone={submissionDone} />
       }
       {
         currentPage === "SelectDateAlreadyAllocated" && <SelectDate urlBackend={urlBackend} submissionDone={chooseDate} keywordGet={"get_allocatted_dates"}/>
