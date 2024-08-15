@@ -11,28 +11,24 @@ import  BarChart from './Barchart';
 import useGetAllocations from './useGetAllocations';
 
 import CircularProgress from '@mui/material/CircularProgress';
+import MyButton from 'CommonComponents/MyButton';
 export default function LandPageSearch({ urlBackend }) {
     
-    const [currentArg, setCurrentArg] = useState("");
-    const defaultInput = useGetAllocations(urlBackend)
+    const tecnsNames = useGetAllocations(urlBackend)
     
-    console.log("??? Default O input")
-    console.log(defaultInput)
+    const [currentArg, setCurrentArg] = useState("");
     
     const [currentSidePage, setCurrentSidePage] = useState("none");
-    const [currentselectedTecns, setCurrentSelectedTecns] = useState(0);
 
     const decideSidePannel = (currentState) => {
         switch (currentState) {
             case "none":
                 return <TextComponentPrimary text={"Nada selecionado"} size={32} fontWeightGiven={"medium"} />
 
-            case "task":
-                return <TaskPage request_word={"proj"} name={currentArg} urlBackend={urlBackend} />
 
             case "tecn":
                 return <>
-                    <TaskPage request_word={"tecns/tecn"} name={currentArg} urlBackend={urlBackend} />
+                    <TaskPage name={currentArg} urlBackend={urlBackend} />
                     <TasksCards name={currentArg} urlBackend={urlBackend} />
                     <BarChart tecnName={currentArg} urlBackend={urlBackend}  />
                 </>
@@ -58,14 +54,14 @@ export default function LandPageSearch({ urlBackend }) {
     }
 
     const tecNames = () => {
-        return Object.keys(defaultInput["input"]["technicians"]).sort()
+        return tecnsNames.sort()
     }
 
 
     return (
         <div >
 {
-            defaultInput === undefined ?
+            tecnsNames === undefined ?
                                 <div>
                     <h1>Loading</h1>
                     <CircularProgress />
@@ -88,14 +84,7 @@ export default function LandPageSearch({ urlBackend }) {
                             sx={{ width: 600 }}
                             renderInput={(params) => <TextField {...params} />}
                         />
-                        <Button variant="outlined" onClick={() => getTecn()} style={{
-                            borderRadius: 10,
-                            backgroundColor: "#32DBC4",
-                            margin: "0% 0% 1% 0%",
-                            fontSize: "14px",
-                            color: "black",
-                            fontWeight: "lighter",
-                        }} ><TextComponentPrimary text={"Buscar"} size={16} fontWeightGiven={"regular"} /></Button>
+                        <MyButton  onClicki={() => getTecn()} text={"Buscar"} />
 
                     </div>
                 </Stack>

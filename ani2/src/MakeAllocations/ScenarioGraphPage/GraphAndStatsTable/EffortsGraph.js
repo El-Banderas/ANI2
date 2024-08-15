@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import MyButton from 'CommonComponents/MyButton';
 import useMetrics from './useMetrics';
 import useCalculateEfforts from './useCalculateEfforts';
-
+import 'chart.js/auto'
 import './GraphAndStats.scss';
 
 /**

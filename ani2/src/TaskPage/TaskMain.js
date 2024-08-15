@@ -13,7 +13,7 @@ import TextComponentPrimary from "../CommonComponents/TextComponents/TextPrimary
 
 import CircularProgress from '@mui/material/CircularProgress';
 
-export default function TaskPage({ request_word, name, urlBackend }) {
+export default function TaskPage({ name, urlBackend }) {
 
   const [info, setInfo] = useState({})
 
@@ -24,8 +24,8 @@ export default function TaskPage({ request_word, name, urlBackend }) {
   const getTaskInfo = () => {
     const regexpSize = /([0-9]+)/;
     const match = name.match(regexpSize);
-    console.log(`${urlBackend}/${request_word}/?name='${name}'`)
-    axios.get(`${urlBackend}/${request_word}/?name='${name}'`).then(
+    console.log(`${urlBackend}/tecns/tecn/?name='${name}'`)
+    axios.get(`${urlBackend}/tecns/tecn/?name='${name}'`).then(
       (response) => {
         const cleanAnswer = response['data']
         setInfo(cleanAnswer)
@@ -49,7 +49,7 @@ export default function TaskPage({ request_word, name, urlBackend }) {
       content.push(<TableCell key={key} align="center"> <TextComponentPrimary text={convertBooleanStr(value)} size={16} fontWeightGiven={"regular"}/></TableCell>) : 
       content.push(<TableCell key={key}  align="center"><TextComponentPrimary text={value} size={16} fontWeightGiven={"regular"}/></TableCell>)
     }
-    const title = request_word === "proj" ? `Informação projeto` : `Informação técnico`
+    const title = `Informação técnico`
 
     return (
       <div className="center">
