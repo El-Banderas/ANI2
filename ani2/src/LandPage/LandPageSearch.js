@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import TasksCards from 'TaskPage/TasksCards'
 import TextComponentPrimary from "CommonComponents/TextComponents/TextPrimary";
-import BarChart from './Barchart';
+import BarChart from '../CommonComponents/BarGraph/Barchart';
 import useGetAllocations from './useGetAllocations';
 
 import CircularProgress from '@mui/material/CircularProgress';

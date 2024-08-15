@@ -1,5 +1,5 @@
 
-import  BarChart from 'LandPage/Barchart';
+import  BarChart from 'CommonComponents/BarGraph/Barchart';
 import './GraphAllAllocation.scss';
 
 export default function GraphAllAllocation({ urlBackend }) {

@@ -14,8 +14,7 @@ import {
 } from 'chart.js';
 import BarChart2 from './Barchart2';
 import './BarGraph.scss';
-import TextComponentPrimary from "../CommonComponents/TextComponents/TextPrimary";
-import { useDateTimeField } from "@mui/x-date-pickers/DateTimeField/useDateTimeField";
+import TextComponentPrimary from "../TextComponents/TextPrimary";
 
 ChartJS.register(
     CategoryScale,
@@ -32,11 +31,17 @@ const randomColor = () => {
 }
 
 const months = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
+/**
+ * 
+ * @param {string|undefined} tecnName If undefined, is to present all workers efforts. If defined, the graph should present info about one tecn. 
+ * @returns 
+ */
 export default function BarChart({ urlBackend , tecnName }) {
 
     const [fullGraphInfo, setFullGraphInfo] = useState({})
     const [currentInfo, setCurrentInfo] = useState({})
     const [currentYearSelected, setCurrentYear] = useState(0)
+    
     useEffect(() => {
         getData();
     }, []);
@@ -44,6 +49,7 @@ export default function BarChart({ urlBackend , tecnName }) {
     useEffect(() => {
         getData();
     }, [tecnName]);
+
     useEffect(() => {
         if (Object.keys(currentInfo).length > 0) {
             const tempInfo = {

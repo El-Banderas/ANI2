@@ -1,6 +1,6 @@
 import './LandPage.scss';
 import React, { useState, useRef } from "react";
-import  BarChart  from "./Barchart";
+import  BarChart  from "../CommonComponents/BarGraph/Barchart";
 
 export default function LandPageChart({ defaultInput, updateInput, urlBackend }) {
 
