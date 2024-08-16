@@ -17,15 +17,20 @@ export default function useLogin(urlBackend, logInDone, setURLBackend) {
     setLoading(true)
     console.log("SUBMIT")
     console.log(password)
-    console.log(urlBackend)
+    console.log(`https://cors-anywhere.herokuapp.com/${urlBackend}/login`)
+    console.log(`No heroku`)
     axios({
       method: 'put',
       url: `${urlBackend}/login`,
       data: { apiKey: password },
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Headers': '*',
+        },
     }).then(
       function (response) {
         console.log("Response?")
