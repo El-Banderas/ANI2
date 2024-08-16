@@ -1,12 +1,13 @@
-import TextComponentPrimary from '../CommonComponents/TextComponents/TextPrimary';
 import Button from '@mui/material/Button';
-import './Login.scss';
 import React, { useState, useEffect } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 
+import './Login.scss';
+import TextComponentPrimary from 'CommonComponents/TextComponents/TextPrimary';
 import useGetFilterDates from './useGetFilterDates';
 import useChangeDate from './useChangeDate';
 import ColumnDatePicker from './ColumnDatePicker';
+import MyButton from 'CommonComponents/MyButton';
 
 export default function LoginDate({ urlBackend, logInDone }) {
 
@@ -67,16 +68,8 @@ export default function LoginDate({ urlBackend, logInDone }) {
                 <ColumnDatePicker text="Selecionar data de início de filtro" dateState={dateInit} changeDateFunction={setDateInit} />
                 <ColumnDatePicker text="Selecionar data de fim de filtro" dateState={dateEnd} changeDateFunction={setDateEnd} />
               </div>
-            <div className='flexHorizontal'>
-              <Button variant="outlined" onClick={() => advance()  } style={{
-                borderRadius: 10,
-                backgroundColor: "#32DBC4",
-                margin: "5% 0% 1% 0%",
-                fontSize: "14px",
-                color: "black",
-                fontWeight: "lighter",
-                width: "30%",
-              }} ><TextComponentPrimary text={"Avançar"} size={16} fontWeightGiven={"regular"} /></Button>
+            <div className='button'>
+              <MyButton onClicki={() => advance()  } text={"Avançar"} />
               
             </div>
 

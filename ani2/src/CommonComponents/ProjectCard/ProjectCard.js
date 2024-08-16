@@ -1,13 +1,13 @@
 
 import Autocomplete from '@mui/material/Autocomplete';
-import React, { useEffect, useState } from "react";
-import Box from '@mui/material/Box';
+import React, { useState } from "react";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import './SecondPage.scss';
 import TextField from '@mui/material/TextField';
+
 import TextComponentPrimary from "CommonComponents/TextComponents/TextPrimary";
+import './SecondPage.scss';
 import MyButton from 'CommonComponents/MyButton';
 
 

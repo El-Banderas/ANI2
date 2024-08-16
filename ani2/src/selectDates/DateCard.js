@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from '@mui/material/Button';
-import TextComponentPrimary from "../CommonComponents/TextComponents/TextPrimary";
+
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import { getDate } from '../utils/convertDates'
 
+import { getDate } from 'utils/convertDates'
+import TextComponentPrimary from "CommonComponents/TextComponents/TextPrimary";
 import './SelectDate.scss'
 
 /**

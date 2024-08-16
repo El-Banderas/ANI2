@@ -1,5 +1,5 @@
 
-import React, { useState, useMemo } from "react";
+import { useState } from "react";
 
 export default function useTecnsActive(tecns) {
   const [changedTecns, setChangedTecns] = useState({})
@@ -29,13 +29,13 @@ export default function useTecnsActive(tecns) {
       setChangedTecns({ ...changedTecns, [id]: { "answer": new_value, date: new Date() } })
     }
   }
-/**
- * If true is returned, the option to set the table is disabled.
- * @param {int} active 
- * @param {int} tecnId 
- * @returns 
- */
-const checkTecnActive = (active, tecnId) => {
+  /**
+   * If true is returned, the option to set the table is disabled.
+   * @param {int} active 
+   * @param {int} tecnId 
+   * @returns 
+   */
+  const checkTecnActive = (active, tecnId) => {
     const tecnSetInactive = tecnId in changedTecns && changedTecns[tecnId]["answer"] === "Não"
     // True => Disabled
     // If the tecn is not active, is out, the datepicker is disabled

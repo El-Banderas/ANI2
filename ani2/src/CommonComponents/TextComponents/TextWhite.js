@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Typography from '@mui/material/Typography';
 import './Text.scss'
 

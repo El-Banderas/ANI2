@@ -14,7 +14,7 @@ import {
 } from 'chart.js';
 import BarChart2 from './Barchart2';
 import './BarGraph.scss';
-import TextComponentPrimary from "../TextComponents/TextPrimary";
+import TextComponentPrimary from "CommonComponents/TextComponents/TextPrimary";
 
 ChartJS.register(
     CategoryScale,
@@ -111,9 +111,6 @@ export default function BarChart({ urlBackend , tecnName }) {
         },
     };
 
-
-
-
     const changeSelectedYear = (event, new_value) => {
         setCurrentYear(new_value)
     }
@@ -135,10 +132,11 @@ export default function BarChart({ urlBackend , tecnName }) {
             />
         </div>
     }
-    //return <Bar options={options} data={data} />
+
     const title = tecnName !== undefined ? 
         `Esforços do/a técnico/a ${tecnName}` :
         `Esforço dos técnicos ao longo do ano ${currentYearSelected}`
+
     return <>
         {
             Object.keys(currentInfo).length > 0 ?
@@ -149,7 +147,6 @@ export default function BarChart({ urlBackend , tecnName }) {
                     <MySliderYears />
                 </div>
                 :
-
                 <div>
                     <h1>Loading</h1>
                     <CircularProgress />

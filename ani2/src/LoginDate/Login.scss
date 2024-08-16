@@ -1,24 +1,30 @@
 .Login {
   text-align: center;
-//   background-color: lightgray;
-margin: auto;
+  margin: auto;
   width: 50%;
   padding: 10px;
 
 }
-.flexVertical{
+
+.flexVertical {
   margin-top: 2%;
   display: flex;
   flex-direction: column;
-   align-items: center;
-    justify-content: center;
-    gap: 30px;
-  }
-.flexHorizontal{
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.flexHorizontal {
   margin-top: 2%;
   display: flex;
   flex-direction: row;
-   align-items: center;
-    justify-content: center;
-    gap: 30px;
-  }
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.button{
+  @extend .flexHorizontal;
+  margin-top: 5%;
+}

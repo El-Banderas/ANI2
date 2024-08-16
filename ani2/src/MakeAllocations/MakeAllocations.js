@@ -1,9 +1,10 @@
 
 import React, { useEffect, useState } from "react";
+import axios from 'axios';
+
 import LoadProjects from 'CommonComponents/ProjectsTable/LoadProjects';
 import Stepper from 'MakeAllocations/MyStepper';
 import './LoadProjects.scss'
-import axios from 'axios';
 import ChooseScenario from "./SelectScenario/ChooseScenario";
 import ScenarioGraphPage from "./ScenarioGraphPage/ScenarioGraphPage";
 

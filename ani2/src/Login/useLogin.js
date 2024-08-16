@@ -1,9 +1,9 @@
 
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from 'axios';
 
-export default function useLogin( urlBackend, logInDone, setURLBackend ) {
-const [password, setPassword] = useState("")
+export default function useLogin(urlBackend, logInDone, setURLBackend) {
+  const [password, setPassword] = useState("")
   const [passwordValid, setPasswordValid] = useState(true)
   const [urlValid, setURLValid] = useState(true)
   const [loading, setLoading] = useState(false)
@@ -36,20 +36,21 @@ const [password, setPassword] = useState("")
         logInDone()
       }
     ).catch(error => {
-        console.log("error?")
+      console.log("error?")
       setLoading(false)
       if (error["response"] === undefined) {
         console.log("invalid url")
         setURLValid(false)
         setPasswordValid(true)
       }
-      else { console.log("Invalid password") 
-      setPasswordValid(false)
-      setURLValid(true)
-}
+      else {
+        console.log("Invalid password")
+        setPasswordValid(false)
+        setURLValid(true)
+      }
     })
   }
 
 
-    return {password, passwordValid, urlValid, loading, changePassword, submit};
+  return { password, passwordValid, urlValid, loading, changePassword, submit };
 }

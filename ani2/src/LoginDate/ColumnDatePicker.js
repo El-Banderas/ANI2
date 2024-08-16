@@ -2,11 +2,14 @@
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import moment from "moment";
-import TextComponentPrimary from 'CommonComponents/TextComponents/TextPrimary';
 import "moment/locale/pt";
+
+import TextComponentPrimary from 'CommonComponents/TextComponents/TextPrimary';
+
 export default function ColumnDatePicker({text, dateState, changeDateFunction}) {
 
 const MyPickDate = ({ date, changeDateFunction }) => {
+    
     return (
       <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale={"pt"} >
         <DatePicker
@@ -23,10 +26,8 @@ const MyPickDate = ({ date, changeDateFunction }) => {
           onChange={(dateChanged) => changeDateFunction(dateChanged)}
         />
       </MuiPickersUtilsProvider>
-
     )
   }
-
 
   return (
 

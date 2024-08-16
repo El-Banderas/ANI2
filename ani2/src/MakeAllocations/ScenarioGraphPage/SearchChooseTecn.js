@@ -1,12 +1,12 @@
-
+import React, { useState, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+
 import TextComponentPrimary from "CommonComponents/TextComponents/TextPrimary";
 import './SecondPage.scss'
 
-import React, { useState, useRef } from 'react';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
 import MyButton from 'CommonComponents/MyButton';
 
 const style = {

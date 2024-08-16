@@ -1,29 +1,35 @@
-import * as React from 'react';
-import './Navbar.scss'
-import Ani from "./ani_corner.png";
-import UminhoPNG from "./uminho_corner.png";
-import Logos from "./NavBar2.png";
-import IsepPNG from "./isep_corner.png";
-import TextWhite from '../CommonComponents/TextComponents/TextWhite';
+import React, {useState} from 'react';
+import axios from 'axios';
+
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Backdrop from '@mui/material/Backdrop';
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import CircularProgress from '@mui/material/CircularProgress';
-import axios from 'axios';
+
+import './Navbar.scss'
+import TextWhite from 'CommonComponents/TextComponents/TextWhite';
+
+import Ani from "./ani_corner.png";
+import UminhoPNG from "./uminho_corner.png";
+import Logos from "./NavBar2.png";
+import IsepPNG from "./isep_corner.png";
 
 export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
   // When reload is pressed, there are 2 backdrops, one for waiting, another to confirm a successful operation.
-  const [openBackDropSucess, setOpenBackDropSucess] = React.useState(false);
-  const [openBackDropWaiting, setOpenBackDropWaiting] = React.useState(false);
+  const [openBackDropSucess, setOpenBackDropSucess] = useState(false);
+  const [openBackDropWaiting, setOpenBackDropWaiting] = useState(false);
+
   const handleClose = () => {
     setOpenBackDropSucess(false);
     setOpenBackDropWaiting(false)
   };
+
   const handleOpen = () => {
     setOpenBackDropSucess(true);
   };
+
   const reloadData = () => {
     setOpenBackDropWaiting(true)
     console.log(`${urlBackend}/login/reload`)
@@ -34,16 +40,7 @@ export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
       }
     ).catch(error => console.error(`Error: ${error}`))
   }
-  const makeAllocation = () => {
-    setOpenBackDropWaiting(true)
-    console.log(`${urlBackend}/make_allocation`)
-    axios.get(`${urlBackend}/make_allocation`).then(
-      (response) => {
-        console.log("Receubeu resposta")
-        handleOpen()
-      }
-    ).catch(error => console.error(`Error: ${error}`))
-  }
+
 
   const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: "#FC848C",
@@ -67,11 +64,12 @@ export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
     <ColorButton onClick={() => changeCurrentPage("SearchOneTecn")} variant="outlined">Alocação de técnico</ColorButton  >
     <ColorButton onClick={() => reloadData()} variant="outlined">Reload Data</ColorButton  >
   </div>
+
   const moreMargin = loggedIn ? "titleNavBar" : "titleNavBarWithMargin";
   return (
     <div className='flexNavBar'>
 
-      <img src={Ani} className='ani_logo' alt="ANI logo" onClick={() => changeURL("https://www.ani.pt/")}/>
+      <img src={Ani} className='ani_logo' alt="ANI logo" onClick={() => changeURL("https://www.ani.pt/")} />
 
       <img src={UminhoPNG} alt="UMINHO" className='uminho_logo' onClick={() => changeURL("https://www.uminho.pt/PT")} />
       <img src={IsepPNG} alt="ISEP" className='isep_logo' onClick={() => changeURL("https://www.isep.ipp.pt/")} />
@@ -85,7 +83,7 @@ export default function NavBar({ loggedIn, changeCurrentPage, urlBackend }) {
         btnsChangePage
       }
 
-      <img src={Logos} alt="UMINHO" className='logos'  />
+      <img src={Logos} alt="UMINHO" className='logos' />
       {openBackDropWaiting &&
         <Backdrop
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

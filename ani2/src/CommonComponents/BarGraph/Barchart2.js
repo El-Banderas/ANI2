@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios from 'axios';
-import CircularProgress from '@mui/material/CircularProgress';
+import React from "react";
 
-import Slider from '@mui/material/Slider';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -24,7 +21,6 @@ ChartJS.register(
     Legend
 );
 
-const months = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
 export default function BarChart2({ data , title}) {
     
 

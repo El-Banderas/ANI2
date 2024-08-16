@@ -1,5 +1,5 @@
-
 import CircularProgress from '@mui/material/CircularProgress';
+
 import ScenarioCard from "./ScenarioCard";
 import useGetScenario from "./useGetScenario";
 import useDeleteScenario from './useDeleteScenario';

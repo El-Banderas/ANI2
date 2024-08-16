@@ -1,8 +1,8 @@
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 
-export default function useTable( tecns ) {
-const orderBy = "ID"
+export default function useTable(tecns) {
+  const orderBy = "ID"
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -36,6 +36,6 @@ const orderBy = "ID"
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - tecns.length) : 0;
 
-    return {page, visibleRows, emptyRows, rowsPerPage, handleChangePage, handleChangeRowsPerPage};
+  return { page, visibleRows, emptyRows, rowsPerPage, handleChangePage, handleChangeRowsPerPage };
 
 }

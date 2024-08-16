@@ -8,7 +8,7 @@ import Login from './Login/Login';
 import LoadTecns from './loadTecns/LoadTecns';
 import SelectDate from './selectDates/SelectDate';
 import GraphAllAllocation from 'GraphAllAllocation/GraphAllAllocation';
-import LandPageSearch from 'LandPage/LandPageSearch';
+import SearchTecn from 'SearchTecn/LandPageSearch';
 
 function App() {
   //const urlBackend = "http://127.0.0.1:8000" 
@@ -67,7 +67,7 @@ function App() {
         currentPage === "GraphAllAllocation" && <GraphAllAllocation urlBackend={urlBackend} />
       }
       {
-        currentPage === "SearchOneTecn" && <LandPageSearch  urlBackend={urlBackend}/> 
+        currentPage === "SearchOneTecn" && <SearchTecn  urlBackend={urlBackend}/> 
       }
 
     </div>

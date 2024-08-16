@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import './TaskMain.scss';
 import axios from 'axios';
 import ProjectCard from 'CommonComponents/ProjectCard/ProjectCard'
-import TextComponentPrimary from "../CommonComponents/TextComponents/TextPrimary";
+import TextComponentPrimary from "CommonComponents/TextComponents/TextPrimary";
 import Switch from '@mui/material/Switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -19,7 +19,6 @@ import TableProjs from "./TableProjs";
 export default function TasksCards({ name, urlBackend }) {
 
   // Get info, equal to TaskMain...
-  const [tasksInfo, setTaskInfo] = useState({})
   const [infoProjects, setInfoProjects] = useState({})
   const [tecnId, setTecnId] = useState("")
   const [tableOrCard, setTableOrCard] = useState(true)
@@ -29,15 +28,12 @@ export default function TasksCards({ name, urlBackend }) {
   }, [name]);
 
   const getTaskInfo = () => {
-    const regexpSize = /([0-9]+)/;
-    const match = name.match(regexpSize);
     console.log(`${urlBackend}/tecns/tecn_projs/?name='${name}'`)
     axios.get(`${urlBackend}/tecns/tecn_projs/?name='${name}'`).then(
       (response) => {
         console.log(" [CARD] Receubeu resposta")
         const cleanAnswer = response['data']
         console.log(cleanAnswer)
-        setTaskInfo(cleanAnswer)
         if ("projects" in cleanAnswer) {
           setInfoProjects(cleanAnswer["projects"])
           setTecnId(cleanAnswer["projects_tecn_id"])
@@ -46,7 +42,7 @@ export default function TasksCards({ name, urlBackend }) {
     ).catch(error => console.error(`Error: ${error}`))
   }
 
-   const renderProjectInfo = (info) => {
+  const renderProjectInfo = (info) => {
     return <ProjectCard key={info.id} info={info} tecnId={tecnId} chooseTecn={false} />
   }
 
@@ -61,20 +57,19 @@ export default function TasksCards({ name, urlBackend }) {
           <TextComponentPrimary text={`Projetos ${name}`} size={32} fontWeightGiven={"bold"} />
         </div>
         <div className="verticalFlex1">
-        <FormGroup>
-      <FormControlLabel control={<Switch defaultChecked  onChange={switchChanged}/>} label="Tabela" />
+          <FormGroup>
+            <FormControlLabel control={<Switch defaultChecked onChange={switchChanged} />} label="Tabela" />
           </FormGroup>
           {
-            tableOrCard && <TableProjs info={infoProjects} /> 
-            }
-
-          {
-            !tableOrCard && 
-          <div className="scrollable">
-            {infoProjects.map(project => renderProjectInfo(project))}
-          </div>
-
+            tableOrCard && <TableProjs info={infoProjects} />
           }
+          {
+            !tableOrCard &&
+            <div className="scrollable">
+              {infoProjects.map(project => renderProjectInfo(project))}
+            </div>
+          }
+
         </div>
       </div>
     )

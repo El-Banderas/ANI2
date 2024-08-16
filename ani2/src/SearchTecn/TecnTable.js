@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,10 +9,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
+
 import './TaskMain.scss';
 import TextComponentPrimary from "CommonComponents/TextComponents/TextPrimary";
 
-import CircularProgress from '@mui/material/CircularProgress';
 
 export default function TecnTable({ name, urlBackend }) {
 

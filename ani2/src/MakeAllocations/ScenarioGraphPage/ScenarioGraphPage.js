@@ -1,15 +1,15 @@
 
-import React, { useState, useEffect } from "react";
-import EffortsGraph from './GraphAndStatsTable/EffortsGraph'
-import SeachChooseTecn from './SearchChooseTecn';
-import ProjectCard from 'CommonComponents/ProjectCard/ProjectCard';
+import React, { useState} from "react";
 import axios from 'axios';
-
 
 import Switch from '@mui/material/Switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+
 import TableProjs from './TableProjs';
+import EffortsGraph from './GraphAndStatsTable/EffortsGraph'
+import SeachChooseTecn from './SearchChooseTecn';
+import ProjectCard from 'CommonComponents/ProjectCard/ProjectCard';
 import MyButton from "CommonComponents/MyButton";
 import useAllocation from "./useAllocation";
 
@@ -26,8 +26,6 @@ export default function ScenarioGraphPage({ scenarioInfo, urlBackend, scenarioCh
   const switchCardOrTableChanged = (event) => {
     setCardsOrTable(event.target.checked)
   }
-
-  
 
   const saveScenario = (name) => {
     console.log("Save scenario")

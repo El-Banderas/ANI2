@@ -1,18 +1,20 @@
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import './LandPage.scss';
 import React, { useState } from "react";
-import TecnTable from "./TecnTable";
+
+import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import TasksCards from 'TaskPage/TasksCards'
-import TextComponentPrimary from "CommonComponents/TextComponents/TextPrimary";
-import BarChart from '../CommonComponents/BarGraph/Barchart';
-import useGetAllocations from './useGetAllocations';
-
 import CircularProgress from '@mui/material/CircularProgress';
+
+import TecnTable from "./TecnTable";
+import TasksCards from 'SearchTecn/TaskPage/TasksCards'
+import TextComponentPrimary from "CommonComponents/TextComponents/TextPrimary";
 import MyButton from 'CommonComponents/MyButton';
-export default function LandPageSearch({ urlBackend }) {
+import BarChart from 'CommonComponents/BarGraph/Barchart';
+import useGetAllocations from './useGetAllocations';
+import './LandPage.scss';
+
+
+export default function SearchTecn({ urlBackend }) {
 
     const tecnsNames = useGetAllocations(urlBackend)
 

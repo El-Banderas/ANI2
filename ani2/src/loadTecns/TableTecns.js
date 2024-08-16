@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,8 +8,6 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
 import axios from 'axios';
-import Button from '@mui/material/Button';
-import TextComponentPrimary from "../CommonComponents/TextComponents/TextPrimary";
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -17,11 +15,11 @@ import MomentUtils from "@date-io/moment";
 import moment from "moment";
 import "moment/locale/pt";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+
 import useTable from "./useTable"
 import useTecnsActive from "./useTecnsActive"
-
-
 import './LoadTecns.scss'
+import MyButton from "CommonComponents/MyButton";
 
 export default function TableTecns({ tecns, urlBackend, submissionDone }) {
   const {changedTecns, changeActivePhase, checkTecnActive, setTecnDateOut} = useTecnsActive(tecns)
@@ -34,7 +32,6 @@ export default function TableTecns({ tecns, urlBackend, submissionDone }) {
       url: `${urlBackend}/tecns/update_info`,
       data: {
         "tecns": changedTecns
-        //"name" : "AAA"
       }
     });
     // Change page
@@ -155,14 +152,7 @@ export default function TableTecns({ tecns, urlBackend, submissionDone }) {
           labelRowsPerPage={"Técnicos por página"}
         />
       </div>
-      <Button variant="outlined" onClick={() => submit()} style={{
-        borderRadius: 10,
-        backgroundColor: "#32DBC4",
-        margin: "0% 0% 1% 0%",
-        fontSize: "14px",
-        color: "black",
-        fontWeight: "lighter",
-      }} ><TextComponentPrimary text={"Submeter"} size={16} fontWeightGiven={"regular"} /></Button>
+      <MyButton onClicki={() => submit()} text={"Submeter"} />
     </div>
   )
 }
