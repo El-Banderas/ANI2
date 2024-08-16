@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import EffortsGraph from './GraphAndStatsTable/EffortsGraph'
 import SeachChooseTecn from './SearchChooseTecn';
-import ProjectCard from './ProjectCard';
+import ProjectCard from 'CommonComponents/ProjectCard/ProjectCard';
 import axios from 'axios';
 
 
@@ -57,7 +57,7 @@ export default function ScenarioGraphPage({ scenarioInfo, urlBackend, scenarioCh
   const chooseCardOrTable = () => {
     return cardsOrTable ?   
       <div className='scrollable'>
-        {thisAllocation[selectedTecn].map((projId) => <ProjectCard key={`${selectedTecn}-${projId}`} info={costsProjs[projId]} tecnId={selectedTecn} changeTecn={changeTecn} possibleTecns={Object.keys(current_efforts).map(String)} />)}
+        {thisAllocation[selectedTecn].map((projId) => <ProjectCard key={`${selectedTecn}-${projId}`} info={costsProjs[projId]} tecnId={selectedTecn} changeTecn={changeTecn} possibleTecns={Object.keys(current_efforts).map(String)} chooseTecn={true}/>)}
       </div>
         : 
         <div>

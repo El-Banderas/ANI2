@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import './TaskMain.scss';
 import axios from 'axios';
-import ProjectCard from './ProjectCard'
+import ProjectCard from 'CommonComponents/ProjectCard/ProjectCard'
 import TextComponentPrimary from "../CommonComponents/TextComponents/TextPrimary";
 import Switch from '@mui/material/Switch';
 import FormGroup from '@mui/material/FormGroup';
@@ -47,7 +47,7 @@ export default function TasksCards({ name, urlBackend }) {
   }
 
    const renderProjectInfo = (info) => {
-    return <ProjectCard key={info.id} info={info} tecnId={tecnId} />
+    return <ProjectCard key={info.id} info={info} tecnId={tecnId} chooseTecn={false} />
   }
 
   const switchChanged = (event) => {

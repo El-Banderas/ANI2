@@ -11,7 +11,7 @@ import TextComponentPrimary from "CommonComponents/TextComponents/TextPrimary";
 import MyButton from 'CommonComponents/MyButton';
 
 
-export default function ProjectCard({ info, tecnId, changeTecn, possibleTecns }) {
+export default function ProjectCard({ info, tecnId, changeTecn, possibleTecns, chooseTecn }) {
 
   const [selected, setSelected] = useState([]);
   const getColourByPhase = (phaseInt) => {
@@ -33,6 +33,32 @@ export default function ProjectCard({ info, tecnId, changeTecn, possibleTecns })
             <TextComponentPrimary text={title} size={14} fontWeightGiven={'Bold'} />
             <TextComponentPrimary text={content} size={14} fontWeightGiven={'regular'} />
           </div>)
+  }
+
+  const chooseTecnOrObservations = () => {
+    if (chooseTecn) return   <div className='horizontalFlexStart'>
+          <Autocomplete
+            disablePortal
+            fullWidth
+            id="ProjectCard-searchTecn"
+            onChange={(event, value) => setSelected(value)}
+            value={selected}
+            options={possibleTecns}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Técnicos possíveis" />}
+            getOptionLabel={option => String(option)}
+          />
+          <MyButton onClicki={selectTecn} text={"Selecionar técnico"} />
+        </div>
+        else return <TextField
+          margin="dense"
+          fullWidth
+          size="small"
+          defaultValue="Observações..."
+          InputProps={{
+            readOnly: true,
+          }}
+        />
   }
 
   return (
@@ -60,21 +86,7 @@ export default function ProjectCard({ info, tecnId, changeTecn, possibleTecns })
           <TextComponentPrimary text={info["id"]} size={14} fontWeightGiven={'regular'} />
         </div>
 
-        {/* Select Destiny Tecn */}
-        <div className='horizontalFlexStart'>
-          <Autocomplete
-            disablePortal
-            fullWidth
-            id="ProjectCard-searchTecn"
-            onChange={(event, value) => setSelected(value)}
-            value={selected}
-            options={possibleTecns}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Técnicos possíveis" />}
-            getOptionLabel={option => String(option)}
-          />
-          <MyButton onClicki={selectTecn} text={"Selecionar técnico"} />
-        </div>
+        {chooseTecnOrObservations()}
         {/* Info tables (about allocation) */}
         <div className='tables'>
 
