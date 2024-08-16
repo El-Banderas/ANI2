@@ -61,6 +61,13 @@ export default function ProjectCard({ info, tecnId, changeTecn, possibleTecns, c
         />
   }
 
+  console.log(info)
+  const getEffort = () => {
+    if (info["Esforço"] !== undefined) return info["Esforço"]
+    else {
+      return info["Fase Realizada"] === "Acompanhamento" ? info["Esforço acompanhamento"] : info["Esforço análise"]
+    }
+  } 
   return (
     <Card sx={{ ...commonStyles, minWidth: 375, border: 1 }} style={{ backgroundColor: getColourByPhase(info["Fase atual"]) }} key={Math.random()}>
       <CardContent >
@@ -97,7 +104,7 @@ export default function ProjectCard({ info, tecnId, changeTecn, possibleTecns, c
         <div className='tables'>
 
           <Table title={"Tipo: "}  content={info["Tipo"]} />
-          <Table title={"Esforço: "}  content={info["Esforço"]} />
+          <Table title={"Esforço: "}  content={getEffort()} />
         </div>
       </CardContent>
 
