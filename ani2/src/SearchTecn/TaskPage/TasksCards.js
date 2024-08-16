@@ -24,10 +24,6 @@ export default function TasksCards({ name, urlBackend }) {
   const [tableOrCard, setTableOrCard] = useState(true)
 
   useEffect(() => {
-    getTaskInfo();
-  }, [name]);
-
-  const getTaskInfo = () => {
     console.log(`${urlBackend}/tecns/tecn_projs/?name='${name}'`)
     axios.get(`${urlBackend}/tecns/tecn_projs/?name='${name}'`).then(
       (response) => {
@@ -40,7 +36,8 @@ export default function TasksCards({ name, urlBackend }) {
         }
       }
     ).catch(error => console.error(`Error: ${error}`))
-  }
+  }, [name, urlBackend]);
+
 
   const renderProjectInfo = (info) => {
     return <ProjectCard key={info.id} info={info} tecnId={tecnId} chooseTecn={false} />

@@ -1,12 +1,12 @@
 import axios from 'axios';
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function useGetFilterDates(urlBackend) {
 
   const [dateInitFromDB, setDateInitFromDB] = useState(null)
   const [dateEndFromDB, setDateEndFromDB] = useState(null)
 
-  const getFilterDates = () => {
+  useEffect(() => {
     console.log("Get filter dates!!!")
     axios.get(`${urlBackend}/login/get_login_filter_dates`).then(
       (response) => {
@@ -19,12 +19,7 @@ export default function useGetFilterDates(urlBackend) {
         //setDateEnd(dateEndFilter)
       }
     ).catch(error => console.error(`Error: ${error}`))
-  }
-
-
-  useEffect(() => {
-    getFilterDates();
-  }, []);
+  }, [urlBackend]);
 
   return { dateInitFromDB, dateEndFromDB }
 }

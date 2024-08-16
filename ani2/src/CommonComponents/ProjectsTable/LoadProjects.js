@@ -17,7 +17,7 @@ export default function LoadProjects({ urlBackend, submissionDone, date, already
 
   const [projectsAndNames, setProjectsAndNames] = useState({})
 
-  const getProjects = () => {
+  useEffect(() => {
     const fullUrl = alreadyAllocated ? `${urlBackend}/projs/projs_already_allocated` : `${urlBackend}/projs/proj_cost`
     console.log(fullUrl)
     axios.get(fullUrl, { params: { date: date } }).then(
@@ -27,12 +27,7 @@ export default function LoadProjects({ urlBackend, submissionDone, date, already
         setProjectsAndNames(cleanAnswer)
       }
     ).catch(error => console.error(`Error: ${error}`))
-    //axios.get('http://localhost:7999/')
-  }
-
-  useEffect(() => {
-    getProjects();
-  }, []);
+  }, [alreadyAllocated, date, urlBackend]);
 
   return <div>
     {Object.keys(projectsAndNames).length > 0 ?

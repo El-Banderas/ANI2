@@ -5,7 +5,10 @@ export default function useGetTecns(urlBackend) {
 
   const [tecns, setTecns] = useState({})
 
-  const getTecn = () => {
+  /**
+   * Used when loading the component.
+   */
+  useEffect(() => {
     console.log(`${urlBackend}/tecns/all`)
     axios.get(`${urlBackend}/tecns/all`).then(
       (response) => {
@@ -16,13 +19,7 @@ export default function useGetTecns(urlBackend) {
         setTecns(cleanAnswer["tecns"])
       }
     ).catch(error => console.error(`Error: ${error}`))
-    //axios.get('http://localhost:7999/')
-  }
-
-
-  useEffect(() => {
-    getTecn();
-  }, []);
+  }, [urlBackend]);
 
   return { tecns }
 }

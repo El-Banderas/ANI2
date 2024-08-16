@@ -73,7 +73,7 @@ const userChooseTecn = (projId1, tecnName) => {
   useEffect(() => {
     setProjsFilterd(allProjsFiltered)
     setSelectedTecns({})
-  }, projsId)
+  }, [projsId])
   
   const sendChangeTecn = (projId) => {
     if (tecnsSelected[projId] !== undefined) {

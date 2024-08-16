@@ -23,10 +23,6 @@ export default function TecnTable({ name, urlBackend }) {
   const [info, setInfo] = useState({})
 
   useEffect(() => {
-    getTaskInfo();
-  }, [name]);
-
-  const getTaskInfo = () => {
     console.log(`${urlBackend}/tecns/tecn/?name='${name}'`)
     axios.get(`${urlBackend}/tecns/tecn/?name='${name}'`).then(
       (response) => {
@@ -34,7 +30,8 @@ export default function TecnTable({ name, urlBackend }) {
         setInfo(cleanAnswer)
       }
     ).catch(error => console.error(`Error: ${error}`))
-  }
+  }, [name, urlBackend]);
+
 
   const convertBooleanStr = boolValue => {
     return boolValue ? "Sim" : "Não"

@@ -1,9 +1,7 @@
-import Button from '@mui/material/Button';
 import React, { useState, useEffect } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 
 import './Login.scss';
-import TextComponentPrimary from 'CommonComponents/TextComponents/TextPrimary';
 import useGetFilterDates from './useGetFilterDates';
 import useChangeDate from './useChangeDate';
 import ColumnDatePicker from './ColumnDatePicker';
@@ -31,7 +29,7 @@ export default function LoginDate({ urlBackend, logInDone }) {
   useEffect(() => {
     setDateInit(dateInitFromDB)
     setDateEnd(dateEndFromDB)
-  }, [dateInitFromDB]);
+  }, [dateInitFromDB, dateEndFromDB]);
 
   const checkingDatesEqual = (date1, dateInit2) => {
     if (date1 !== null) {

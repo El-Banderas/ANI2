@@ -18,15 +18,11 @@ export default function MakeAllocations({ urlBackend, date, submissionDone }) {
   const [argLastPage, setArgLastPage] = useState(null);
 
   useEffect(() => {
-    projectsPageOrScenariosPage();
-  }, []);
-
-  /**
-   * This function checks if the current day is the one selected in the DB.
-   * If the analysed day is equal to the DB day, then the website goes directly to the scenarios page.
-   * Otherwise, it will present the projects efforts, to be changed.
-   */
-  const projectsPageOrScenariosPage = () => {
+    /**
+     * This function checks if the current day is the one selected in the DB.
+     * If the analysed day is equal to the DB day, then the website goes directly to the scenarios page.
+     * Otherwise, it will present the projects efforts, to be changed.
+     */
     console.log(`${urlBackend}/scenarios/scenarioDay`)
     axios.get(`${urlBackend}/scenarios/scenarioDay`).then(
       (response) => {
@@ -36,7 +32,7 @@ export default function MakeAllocations({ urlBackend, date, submissionDone }) {
         //setIsSpecial(scenarioDAY)
       }
     ).catch(error => console.error(`Error: ${error}`))
-  }
+  }, [date, urlBackend]);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -65,14 +61,14 @@ export default function MakeAllocations({ urlBackend, date, submissionDone }) {
   }
 
   const chooseContent = () => {
-    if (activeStep === 0) return <LoadProjects urlBackend={urlBackend} submissionDone={handleNext} date={date} alreadyAllocated={false}  />
-    if (activeStep === 1) return <ChooseScenario urlBackend={urlBackend} chooseScenario={chooseScenario} date={date} allScenariosDeleted={handleBack}/>
-    if (activeStep === 2) return <ScenarioGraphPage scenarioInfo={argLastPage} urlBackend={urlBackend}  scenarioChoosen={submissionDone} goBack={handleBack} />
+    if (activeStep === 0) return <LoadProjects urlBackend={urlBackend} submissionDone={handleNext} date={date} alreadyAllocated={false} />
+    if (activeStep === 1) return <ChooseScenario urlBackend={urlBackend} chooseScenario={chooseScenario} date={date} allScenariosDeleted={handleBack} />
+    if (activeStep === 2) return <ScenarioGraphPage scenarioInfo={argLastPage} urlBackend={urlBackend} scenarioChoosen={submissionDone} goBack={handleBack} />
   }
 
 
   return <div className='stepperContainer'>
-  <Stepper activeStep={activeStep} />
+    <Stepper activeStep={activeStep} />
     {chooseContent()}
   </div>
 }

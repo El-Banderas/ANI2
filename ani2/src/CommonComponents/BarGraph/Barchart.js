@@ -26,8 +26,8 @@ ChartJS.register(
 );
 
 const randomColor = () => {
-  const randomColor = Math.floor(Math.random()*16777215).toString(16);
-  return "#" + randomColor;
+    const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+    return "#" + randomColor;
 }
 
 const months = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
@@ -36,31 +36,13 @@ const months = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", 
  * @param {string|undefined} tecnName If undefined, is to present all workers efforts. If defined, the graph should present info about one tecn. 
  * @returns 
  */
-export default function BarChart({ urlBackend , tecnName }) {
+export default function BarChart({ urlBackend, tecnName }) {
 
     const [fullGraphInfo, setFullGraphInfo] = useState({})
     const [currentInfo, setCurrentInfo] = useState({})
     const [currentYearSelected, setCurrentYear] = useState(0)
-    
-    useEffect(() => {
-        getData();
-    }, []);
 
     useEffect(() => {
-        getData();
-    }, [tecnName]);
-
-    useEffect(() => {
-        if (Object.keys(currentInfo).length > 0) {
-            const tempInfo = {
-                "labels": months,
-                "datasets": filterInfoByYear(currentYearSelected, fullGraphInfo['info'])
-            }
-            setCurrentInfo(tempInfo)
-        }
-    }, [currentYearSelected, fullGraphInfo]);
-
-    const getData = () => { 
         console.log("Wich tecnName")
         const fullurlBackend = tecnName !== undefined ? `${urlBackend}/tecns/tecn_effort/?tecn_name='${tecnName}'` : `${urlBackend}/tecns/tecns_efforts`
         axios.get(fullurlBackend).then(
@@ -79,16 +61,26 @@ export default function BarChart({ urlBackend , tecnName }) {
                 setCurrentInfo(tempInfo)
             }
         ).catch(error => console.error(`Error: ${error}`))
-        //axios.get('http://localhost:7999/')
-    }
+
+    }, [tecnName, urlBackend]);
+
+    useEffect(() => {
+        if (Object.keys(currentInfo).length > 0) {
+            const tempInfo = {
+                "labels": months,
+                "datasets": filterInfoByYear(currentYearSelected, fullGraphInfo['info'])
+            }
+            setCurrentInfo(tempInfo)
+        }
+    }, [currentYearSelected, fullGraphInfo]);
 
     const filterInfoByYear = (year, fullData) => {
         const datasets1 = []
         for (const [key, value] of Object.entries(fullData)) {
-           const sumEfforts = value['data'][year].reduce((partialSum, a) => partialSum + a, 0) 
-           if ( sumEfforts > 0) {
-            datasets1.push({ 'label': key, 'data': value['data'][year], backgroundColor: randomColor() })
-           }
+            const sumEfforts = value['data'][year].reduce((partialSum, a) => partialSum + a, 0)
+            if (sumEfforts > 0) {
+                datasets1.push({ 'label': key, 'data': value['data'][year], backgroundColor: randomColor() })
+            }
         }
         return datasets1
     }
@@ -133,7 +125,7 @@ export default function BarChart({ urlBackend , tecnName }) {
         </div>
     }
 
-    const title = tecnName !== undefined ? 
+    const title = tecnName !== undefined ?
         `Esforços do/a técnico/a ${tecnName}` :
         `Esforço dos técnicos ao longo do ano ${currentYearSelected}`
 
@@ -142,7 +134,7 @@ export default function BarChart({ urlBackend , tecnName }) {
             Object.keys(currentInfo).length > 0 ?
                 <div className="column ">
                     <div className="barChart">
-                        <BarChart2 options={options} data={currentInfo} title={title}/>
+                        <BarChart2 options={options} data={currentInfo} title={title} />
                     </div>
                     <MySliderYears />
                 </div>
