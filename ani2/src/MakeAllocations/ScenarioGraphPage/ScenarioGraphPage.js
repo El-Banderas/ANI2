@@ -12,11 +12,13 @@ import SeachChooseTecn from './SearchChooseTecn';
 import ProjectCard from 'CommonComponents/ProjectCard/ProjectCard';
 import MyButton from "CommonComponents/MyButton";
 import useAllocation from "./useAllocation";
+import useDownloadAllocation from "./useDownloadAllocation";
 
 export default function ScenarioGraphPage({ scenarioInfo, urlBackend, scenarioChoosen, goBack }) {
   const [cardsOrTable, setCardsOrTable] = useState(true);
   const [selectedTecn, setSelectedTecn] = useState(null);
   const {thisAllocation, changeTecn} = useAllocation(scenarioInfo)
+  const {downloadExcel} = useDownloadAllocation(scenarioInfo)
   const totalWorkHours = scenarioInfo["work_hours"];
 
   const current_efforts = scenarioInfo["current_efforts"]
@@ -66,7 +68,8 @@ export default function ScenarioGraphPage({ scenarioInfo, urlBackend, scenarioCh
   return (
     <div >
       <EffortsGraph old_efforts={current_efforts} allocations={thisAllocation} costsProjs={costsProjs} totalWorkHours={totalWorkHours} />
-      <SeachChooseTecn possibilities={Object.keys(thisAllocation)} changeCurrentTecn={setSelectedTecn} saveScenario={saveScenario} chooseScenarioToAllocation={chooseScenarioToAllocation} />
+      {/*<SeachChooseTecn possibilities={Object.keys(thisAllocation)} changeCurrentTecn={setSelectedTecn} saveScenario={saveScenario} chooseScenarioToAllocation={chooseScenarioToAllocation} />*/}
+      <SeachChooseTecn possibilities={Object.keys(thisAllocation)} changeCurrentTecn={setSelectedTecn} saveScenario={saveScenario} chooseScenarioToAllocation={() => downloadExcel(thisAllocation)} />
       {
         selectedTecn !== null && thisAllocation[selectedTecn] !== undefined &&
           chooseCardOrTable()

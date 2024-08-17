@@ -86,8 +86,9 @@ export default function SeachChooseTecn({ possibilities, changeCurrentTecn, save
       <MyButton text={"Selecionar técnico"} onClicki={selectTecn} />
       <MyButton text={"Salvar cenário"} onClicki={handleOpenSave} />
       <MyButton text={"Escolher este cenário"} onClicki={handleOpenChoose} />
-      {openModalSave && modal("Salvar cenário", "Insira o nome do cenário para ser guardado", openModalSave, handleCloseSave, <MyButton text={"Salvar"}  onClicki={() => saveScenario(valueRefSave.current.value)} />, valueRefSave)}
+      {openModalSave  && modal("Salvar cenário", "Insira o nome do cenário para ser guardado", openModalSave, handleCloseSave, <MyButton text={"Salvar"}  onClicki={() => saveScenario(valueRefSave.current.value)} />, valueRefSave)}
       {openModalChoose && modal("Escolher cenário", "", openModalChoose, handleCloseChoose, <MyButton text={"Escolher"} onClicki={() => chooseScenarioToAllocation()} />, valueRefChoose)}
+      {false && modal("Escolher cenário", "", openModalChoose, handleCloseChoose, <MyButton text={"Escolher"} onClicki={() => chooseScenarioToAllocation()} />, valueRefChoose)}
     </div>
 
   )
